@@ -1103,4 +1103,1010 @@
       "mother": "wife_of_jesse",
       "spouses": ["michal", "abigail", "bathsheba", "multiple_others"],
       "children": ["amnon", "daniel", "absalom", "adonijah", "shephatiah", "ithream", "solomon", "others"],
-      "biblicalReferences": ["1 Samuel 16-1 Kings 2", "Matthew 1:6 
+      "biblicalReferences": ["1 Samuel 16-1 Kings 2", "Matthew 1:6", "Luke 3:31"],
+      "description": "Shepherd who became the second king of Israel, renowned as a warrior, poet, and 'man after God's own heart'; ancestor of Jesus Christ.",
+      "generation": 33,
+      "significance": "Israel's greatest king and recipient of the Davidic Covenant",
+      "lineage": "Tribe of Judah",
+      "era": "united_monarchy",
+      "estimatedYears": {
+        "birth": -1040,
+        "death": -970
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "kingOfIsrael": true,
+        "psalmWriter": true,
+        "prophet": true
+      }
+    },
+    {
+      "id": "solomon",
+      "fullName": "Solomon",
+      "birth": "Around 990 BC",
+      "death": "Around 931 BC",
+      "age": 59,
+      "father": "david",
+      "mother": "bathsheba",
+      "spouses": ["naamah", "pharaohs_daughter", "multiple_others"],
+      "children": ["rehoboam", "others"],
+      "biblicalReferences": ["2 Samuel 12:24", "1 Kings 1-11", "Matthew 1:6-7", "Luke 3:31"],
+      "description": "David's son who succeeded him as king of Israel, known for his wisdom, wealth, and building the First Temple in Jerusalem.",
+      "generation": 34,
+      "significance": "Built the First Temple and known for unparalleled wisdom",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "united_monarchy",
+      "estimatedYears": {
+        "birth": -990,
+        "death": -931
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "kingOfIsrael": true,
+        "wisdomWriter": true
+      }
+    },
+    {
+      "id": "rehoboam",
+      "fullName": "Rehoboam",
+      "birth": "Around 972 BC",
+      "death": "Around 915 BC",
+      "age": 57,
+      "father": "solomon",
+      "mother": "naamah",
+      "spouses": ["mahalath", "maacah", "abihail", "others"],
+      "children": ["abijah", "attai", "ziza", "shelomith", "others"],
+      "biblicalReferences": ["1 Kings 11:43-14:31", "2 Chronicles 9:31-12:16", "Matthew 1:7"],
+      "description": "Solomon's son whose harsh policies led to the division of Israel into northern and southern kingdoms.",
+      "generation": 35,
+      "significance": "King during the division of Israel into two kingdoms",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "divided_monarchy",
+      "estimatedYears": {
+        "birth": -972,
+        "death": -915
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "kingOfJudah": true
+      }
+    },
+    {
+      "id": "abijah",
+      "fullName": "Abijah (Abijam)",
+      "birth": "Unknown",
+      "death": "Around 913 BC",
+      "age": null,
+      "father": "rehoboam",
+      "mother": "maacah",
+      "spouses": ["multiple_wives"],
+      "children": ["asa", "others"],
+      "biblicalReferences": ["1 Kings 15:1-8", "2 Chronicles 13:1-22", "Matthew 1:7"],
+      "description": "Son of Rehoboam who ruled as the second king of Judah for three years.",
+      "generation": 36,
+      "significance": "King of Judah who defeated Jeroboam in battle",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "divided_monarchy",
+      "estimatedYears": {
+        "birth": -950,
+        "death": -913
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "kingOfJudah": true
+      }
+    },
+    {
+      "id": "asa",
+      "fullName": "Asa",
+      "birth": "Unknown",
+      "death": "Around 873 BC",
+      "age": null,
+      "father": "abijah",
+      "mother": "unknown",
+      "spouses": ["azubah"],
+      "children": ["jehoshaphat"],
+      "biblicalReferences": ["1 Kings 15:8-24", "2 Chronicles 14-16", "Matthew 1:7-8"],
+      "description": "Third king of Judah who implemented religious reforms to restore proper worship.",
+      "generation": 37,
+      "significance": "Righteous king who reformed Judah's worship",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "divided_monarchy",
+      "estimatedYears": {
+        "birth": -933,
+        "death": -873
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "kingOfJudah": true,
+        "righteous": true
+      }
+    },
+    {
+      "id": "jehoshaphat",
+      "fullName": "Jehoshaphat",
+      "birth": "Around 908 BC",
+      "death": "Around 848 BC",
+      "age": 60,
+      "father": "asa",
+      "mother": "azubah",
+      "spouses": ["unknown"],
+      "children": ["jehoram", "others"],
+      "biblicalReferences": ["1 Kings 15:24, 22:1-50", "2 Chronicles 17-20", "Matthew 1:8"],
+      "description": "Fourth king of Judah who instituted judicial reforms and promoted the teaching of God's law.",
+      "generation": 38,
+      "significance": "Righteous king who reformed Judah's legal system",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "divided_monarchy",
+      "estimatedYears": {
+        "birth": -908,
+        "death": -848
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "kingOfJudah": true,
+        "righteous": true
+      }
+    },
+    {
+      "id": "jehoram",
+      "fullName": "Jehoram (Joram)",
+      "birth": "Around 880 BC",
+      "death": "Around 841 BC",
+      "age": 39,
+      "father": "jehoshaphat",
+      "mother": "unknown",
+      "spouses": ["athaliah"],
+      "children": ["ahaziah", "others"],
+      "biblicalReferences": ["2 Kings 8:16-24", "2 Chronicles 21:1-20", "Matthew 1:8"],
+      "description": "Fifth king of Judah who married Athaliah, daughter of Ahab and Jezebel, and adopted pagan practices.",
+      "generation": 39,
+      "significance": "Married Athaliah and introduced Baal worship to Judah",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "divided_monarchy",
+      "estimatedYears": {
+        "birth": -880,
+        "death": -841
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "kingOfJudah": true,
+        "wicked": true
+      }
+    },
+    {
+      "id": "ahaziah",
+      "fullName": "Ahaziah of Judah",
+      "birth": "Around 864 BC",
+      "death": "Around 841 BC",
+      "age": 23,
+      "father": "jehoram",
+      "mother": "athaliah",
+      "spouses": ["unknown"],
+      "children": ["joash"],
+      "biblicalReferences": ["2 Kings 8:25-29, 9:27-29", "2 Chronicles 22:1-9"],
+      "description": "Sixth king of Judah who reigned for only one year before being killed by Jehu during his purge of Ahab's household.",
+      "generation": 40,
+      "significance": "Killed by Jehu in God's judgment against Ahab's house",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "divided_monarchy",
+      "estimatedYears": {
+        "birth": -864,
+        "death": -841
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "kingOfJudah": true,
+        "wicked": true
+      }
+    },
+    {
+      "id": "joash",
+      "fullName": "Joash (Jehoash)",
+      "birth": "Around 843 BC",
+      "death": "Around 803 BC",
+      "age": 40,
+      "father": "ahaziah",
+      "mother": "zibiah",
+      "spouses": ["unknown"],
+      "children": ["amaziah"],
+      "biblicalReferences": ["2 Kings 11-12", "2 Chronicles 22:10-24:27"],
+      "description": "Seventh king of Judah who was hidden as an infant during Athaliah's massacre and later restored to the throne.",
+      "generation": 41,
+      "significance": "Survived Athaliah's purge and repaired the Temple",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "divided_monarchy",
+      "estimatedYears": {
+        "birth": -843,
+        "death": -803
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "kingOfJudah": true
+      }
+    },
+    {
+      "id": "amaziah",
+      "fullName": "Amaziah",
+      "birth": "Around 830 BC",
+      "death": "Around 798 BC",
+      "age": 32,
+      "father": "joash",
+      "mother": "jehoaddan",
+      "spouses": ["jecoliah"],
+      "children": ["uzziah"],
+      "biblicalReferences": ["2 Kings 14:1-20", "2 Chronicles 25:1-28", "Matthew 1:8-9"],
+      "description": "Eighth king of Judah who defeated Edom but was later defeated by Israel after challenging King Jehoash.",
+      "generation": 42,
+      "significance": "Mixed record king who partly followed God's ways",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "divided_monarchy",
+      "estimatedYears": {
+        "birth": -830,
+        "death": -798
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "kingOfJudah": true
+      }
+    },
+    {
+      "id": "uzziah",
+      "fullName": "Uzziah (Azariah)",
+      "birth": "Around 818 BC",
+      "death": "Around 742 BC",
+      "age": 76,
+      "father": "amaziah",
+      "mother": "jecoliah",
+      "spouses": ["jerusha"],
+      "children": ["jotham"],
+      "biblicalReferences": ["2 Kings 15:1-7", "2 Chronicles 26:1-23", "Isaiah 6:1", "Matthew 1:8-9"],
+      "description": "Ninth king of Judah who reigned for 52 years and brought prosperity until pride led him to offer unauthorized incense in the Temple.",
+      "generation": 43,
+      "significance": "Long-reigning king who strengthened Judah's military and economy",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "divided_monarchy",
+      "estimatedYears": {
+        "birth": -818,
+        "death": -742
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "kingOfJudah": true
+      }
+    },
+    {
+      "id": "jotham",
+      "fullName": "Jotham",
+      "birth": "Around 783 BC",
+      "death": "Around 732 BC",
+      "age": 51,
+      "father": "uzziah",
+      "mother": "jerusha",
+      "spouses": ["unknown"],
+      "children": ["ahaz"],
+      "biblicalReferences": ["2 Kings 15:32-38", "2 Chronicles 27:1-9", "Matthew 1:9"],
+      "description": "Tenth king of Judah who reigned righteously for 16 years and strengthened the kingdom.",
+      "generation": 44,
+      "significance": "Righteous king who strengthened Jerusalem's defenses",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "divided_monarchy",
+      "estimatedYears": {
+        "birth": -783,
+        "death": -732
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "kingOfJudah": true,
+        "righteous": true
+      }
+    },
+    {
+      "id": "ahaz",
+      "fullName": "Ahaz",
+      "birth": "Around 765 BC",
+      "death": "Around 715 BC",
+      "age": 50,
+      "father": "jotham",
+      "mother": "unknown",
+      "spouses": ["abijah"],
+      "children": ["hezekiah"],
+      "biblicalReferences": ["2 Kings 16:1-20", "2 Chronicles 28:1-27", "Isaiah 7:1-17", "Matthew 1:9"],
+      "description": "Eleventh king of Judah who introduced pagan worship practices and made an alliance with Assyria.",
+      "generation": 45,
+      "significance": "Wicked king associated with the Immanuel prophecy in Isaiah",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "divided_monarchy",
+      "estimatedYears": {
+        "birth": -765,
+        "death": -715
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "kingOfJudah": true,
+        "wicked": true
+      }
+    },
+    {
+      "id": "hezekiah",
+      "fullName": "Hezekiah",
+      "birth": "Around 741 BC",
+      "death": "Around 687 BC",
+      "age": 54,
+      "father": "ahaz",
+      "mother": "abijah",
+      "spouses": ["hephzibah"],
+      "children": ["manasseh"],
+      "biblicalReferences": ["2 Kings 18-20", "2 Chronicles 29-32", "Isaiah 36-39", "Matthew 1:9-10"],
+      "description": "Twelfth king of Judah who instituted religious reforms, destroyed pagan worship sites, and trusted God during the Assyrian siege.",
+      "generation": 46,
+      "significance": "Righteous reformer king whose life was extended by God",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "divided_monarchy",
+      "estimatedYears": {
+        "birth": -741,
+        "death": -687
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "kingOfJudah": true,
+        "righteous": true
+      }
+    },
+    {
+      "id": "manasseh",
+      "fullName": "Manasseh",
+      "birth": "Around 709 BC",
+      "death": "Around 643 BC",
+      "age": 66,
+      "father": "hezekiah",
+      "mother": "hephzibah",
+      "spouses": ["meshullemeth"],
+      "children": ["amon"],
+      "biblicalReferences": ["2 Kings 21:1-18", "2 Chronicles 33:1-20", "Matthew 1:10"],
+      "description": "Thirteenth king of Judah who initially led the nation into extreme idolatry but later repented after being exiled to Babylon.",
+      "generation": 47,
+      "significance": "Longest-reigning and most wicked king of Judah who later repented",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "divided_monarchy",
+      "estimatedYears": {
+        "birth": -709,
+        "death": -643
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "kingOfJudah": true,
+        "repentant": true
+      }
+    },
+    {
+      "id": "amon",
+      "fullName": "Amon",
+      "birth": "Around 662 BC",
+      "death": "Around 641 BC",
+      "age": 21,
+      "father": "manasseh",
+      "mother": "meshullemeth",
+      "spouses": ["jedidah"],
+      "children": ["josiah"],
+      "biblicalReferences": ["2 Kings 21:19-26", "2 Chronicles 33:21-25", "Matthew 1:10"],
+      "description": "Fourteenth king of Judah who reverted to his father's early idolatrous practices and was assassinated after a short reign.",
+      "generation": 48,
+      "significance": "Brief, wicked reign ended by assassination",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "divided_monarchy",
+      "estimatedYears": {
+        "birth": -662,
+        "death": -641
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "kingOfJudah": true,
+        "wicked": true
+      }
+    },
+    {
+      "id": "josiah",
+      "fullName": "Josiah",
+      "birth": "Around 648 BC",
+      "death": "609 BC",
+      "age": 39,
+      "father": "amon",
+      "mother": "jedidah",
+      "spouses": ["hamutal", "zebidah"],
+      "children": ["jehoahaz", "eliakim", "mattaniah", "others"],
+      "biblicalReferences": ["2 Kings 22:1-23:30", "2 Chronicles 34-35", "Matthew 1:10-11"],
+      "description": "Fifteenth king of Judah who initiated religious reforms after finding the Book of the Law and eliminated idolatry.",
+      "generation": 49,
+      "significance": "Righteous king who led the most comprehensive religious reforms",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "divided_monarchy",
+      "estimatedYears": {
+        "birth": -648,
+        "death": -609
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "kingOfJudah": true,
+        "righteous": true
+      }
+    },
+    {
+      "id": "jeconiah",
+      "fullName": "Jeconiah (Jehoiachin, Coniah)",
+      "birth": "Around 616 BC",
+      "death": "After 561 BC",
+      "age": null,
+      "father": "jehoiakim",
+      "mother": "nehushta",
+      "spouses": ["unknown"],
+      "children": ["shealtiel", "others"],
+      "biblicalReferences": ["2 Kings 24:8-17", "2 Chronicles 36:9-10", "Jeremiah 22:24-30", "Matthew 1:11-12"],
+      "description": "Eighteenth king of Judah who reigned for only three months before being taken captive to Babylon, later released from prison by Evil-Merodach.",
+      "generation": 51,
+      "significance": "The king who was taken into Babylonian exile",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "exilic",
+      "estimatedYears": {
+        "birth": -616,
+        "death": -560
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "kingOfJudah": true,
+        "exiledKing": true
+      }
+    },
+    {
+      "id": "shealtiel",
+      "fullName": "Shealtiel (Salathiel)",
+      "birth": "During Babylonian exile",
+      "death": "Unknown",
+      "age": null,
+      "father": "jeconiah",
+      "mother": "unknown",
+      "spouses": ["unknown"],
+      "children": ["zerubbabel"],
+      "biblicalReferences": ["Ezra 3:2, 5:2", "Nehemiah 12:1", "Haggai 1:1, 2:2", "Matthew 1:12", "Luke 3:27"],
+      "description": "Son of Jeconiah born in Babylonian exile who was the father of Zerubbabel.",
+      "generation": 52,
+      "significance": "Father of Zerubbabel, leader of the first return from exile",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "exilic",
+      "estimatedYears": {
+        "birth": -590,
+        "death": -530
+      },
+      "metadata": {
+        "isAncestorOfJesus": true
+      }
+    },
+    {
+      "id": "zerubbabel",
+      "fullName": "Zerubbabel",
+      "birth": "During Babylonian exile",
+      "death": "Unknown",
+      "age": null,
+      "father": "shealtiel",
+      "mother": "unknown",
+      "spouses": ["unknown"],
+      "children": ["abihud", "rhesa"],
+      "biblicalReferences": ["Ezra 2:2, 3:2-8", "Haggai 1:1, 2:2-23", "Zechariah 4:6-10", "Matthew 1:12-13", "Luke 3:27"],
+      "description": "Persian-appointed governor of Judah who led the first group of exiles returning from Babylon and oversaw the rebuilding of the Temple.",
+      "generation": 53,
+      "significance": "Led the first return from exile and rebuilt the Temple",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "post-exilic",
+      "estimatedYears": {
+        "birth": -560,
+        "death": -500
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "governor": true
+      }
+    },
+    {
+      "id": "abihud",
+      "fullName": "Abihud (Abiud)",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "zerubbabel",
+      "mother": "unknown",
+      "spouses": ["unknown"],
+      "children": ["eliakim"],
+      "biblicalReferences": ["Matthew 1:13"],
+      "description": "Son of Zerubbabel in the genealogy of Jesus according to Matthew.",
+      "generation": 54,
+      "significance": "Ancestor in the Messianic lineage",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "post-exilic",
+      "estimatedYears": {
+        "birth": -530,
+        "death": null
+      },
+      "metadata": {
+        "isAncestorOfJesus": true
+      }
+    },
+    {
+      "id": "eliakim",
+      "fullName": "Eliakim",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "abihud",
+      "mother": "unknown",
+      "spouses": ["unknown"],
+      "children": ["azor"],
+      "biblicalReferences": ["Matthew 1:13"],
+      "description": "Son of Abihud in the genealogy of Jesus according to Matthew.",
+      "generation": 55,
+      "significance": "Ancestor in the Messianic lineage",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "post-exilic",
+      "estimatedYears": {
+        "birth": -500,
+        "death": null
+      },
+      "metadata": {
+        "isAncestorOfJesus": true
+      }
+    },
+    {
+      "id": "azor",
+      "fullName": "Azor",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "eliakim",
+      "mother": "unknown",
+      "spouses": ["unknown"],
+      "children": ["zadok"],
+      "biblicalReferences": ["Matthew 1:13-14"],
+      "description": "Son of Eliakim in the genealogy of Jesus according to Matthew.",
+      "generation": 56,
+      "significance": "Ancestor in the Messianic lineage",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "post-exilic",
+      "estimatedYears": {
+        "birth": -470,
+        "death": null
+      },
+      "metadata": {
+        "isAncestorOfJesus": true
+      }
+    },
+    {
+      "id": "zadok",
+      "fullName": "Zadok",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "azor",
+      "mother": "unknown",
+      "spouses": ["unknown"],
+      "children": ["achim"],
+      "biblicalReferences": ["Matthew 1:14"],
+      "description": "Son of Azor in the genealogy of Jesus according to Matthew.",
+      "generation": 57,
+      "significance": "Ancestor in the Messianic lineage",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "post-exilic",
+      "estimatedYears": {
+        "birth": -440,
+        "death": null
+      },
+      "metadata": {
+        "isAncestorOfJesus": true
+      }
+    },
+    {
+      "id": "achim",
+      "fullName": "Achim",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "zadok",
+      "mother": "unknown",
+      "spouses": ["unknown"],
+      "children": ["eliud"],
+      "biblicalReferences": ["Matthew 1:14"],
+      "description": "Son of Zadok in the genealogy of Jesus according to Matthew.",
+      "generation": 58,
+      "significance": "Ancestor in the Messianic lineage",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "post-exilic",
+      "estimatedYears": {
+        "birth": -410,
+        "death": null
+      },
+      "metadata": {
+        "isAncestorOfJesus": true
+      }
+    },
+    {
+      "id": "eliud",
+      "fullName": "Eliud",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "achim",
+      "mother": "unknown",
+      "spouses": ["unknown"],
+      "children": ["eleazar"],
+      "biblicalReferences": ["Matthew 1:14-15"],
+      "description": "Son of Achim in the genealogy of Jesus according to Matthew.",
+      "generation": 59,
+      "significance": "Ancestor in the Messianic lineage",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "post-exilic",
+      "estimatedYears": {
+        "birth": -380,
+        "death": null
+      },
+      "metadata": {
+        "isAncestorOfJesus": true
+      }
+    },
+    {
+      "id": "eleazar",
+      "fullName": "Eleazar",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "eliud",
+      "mother": "unknown",
+      "spouses": ["unknown"],
+      "children": ["matthan"],
+      "biblicalReferences": ["Matthew 1:15"],
+      "description": "Son of Eliud in the genealogy of Jesus according to Matthew.",
+      "generation": 60,
+      "significance": "Ancestor in the Messianic lineage",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "intertestamental",
+      "estimatedYears": {
+        "birth": -350,
+        "death": null
+      },
+      "metadata": {
+        "isAncestorOfJesus": true
+      }
+    },
+    {
+      "id": "matthan",
+      "fullName": "Matthan",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "eleazar",
+      "mother": "unknown",
+      "spouses": ["unknown"],
+      "children": ["jacob_father_of_joseph"],
+      "biblicalReferences": ["Matthew 1:15"],
+      "description": "Son of Eleazar and grandfather of Joseph (husband of Mary) in the genealogy of Jesus according to Matthew.",
+      "generation": 61,
+      "significance": "Grandfather of Joseph (husband of Mary)",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "intertestamental",
+      "estimatedYears": {
+        "birth": -320,
+        "death": null
+      },
+      "metadata": {
+        "isAncestorOfJesus": true
+      }
+    },
+    {
+      "id": "jacob_father_of_joseph",
+      "fullName": "Jacob (father of Joseph)",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "matthan",
+      "mother": "unknown",
+      "spouses": ["unknown"],
+      "children": ["joseph_husband_of_mary"],
+      "biblicalReferences": ["Matthew 1:15-16"],
+      "description": "Son of Matthan and father of Joseph (husband of Mary) in the genealogy of Jesus according to Matthew.",
+      "generation": 62,
+      "significance": "Father of Joseph (husband of Mary)",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "intertestamental",
+      "estimatedYears": {
+        "birth": -290,
+        "death": null
+      },
+      "metadata": {
+        "isAncestorOfJesus": true
+      }
+    },
+    {
+      "id": "joseph_husband_of_mary",
+      "fullName": "Joseph (husband of Mary)",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "jacob_father_of_joseph",
+      "mother": "unknown",
+      "spouses": ["mary_mother_of_jesus"],
+      "children": ["jesus", "james", "joses", "simon", "judas", "sisters"],
+      "biblicalReferences": ["Matthew 1:16-25, 2:13-23", "Luke 1:27, 2:4-5, 3:23", "John 6:42"],
+      "description": "Carpenter from Nazareth, legal father of Jesus, husband of Mary, and descendant of King David who was chosen by God to raise the Messiah.",
+      "generation": 63,
+      "significance": "Legal father of Jesus Christ",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "new_testament",
+      "estimatedYears": {
+        "birth": -50,
+        "death": 20
+      },
+      "metadata": {
+        "righteous": true
+      }
+    },
+    {
+      "id": "mary_mother_of_jesus",
+      "fullName": "Mary (Mother of Jesus)",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "heli",
+      "mother": "unknown",
+      "spouses": ["joseph_husband_of_mary"],
+      "children": ["jesus", "james", "joses", "simon", "judas", "sisters"],
+      "biblicalReferences": ["Matthew 1:16-25, 2:11-21", "Luke 1:26-56, 2:1-52", "John 2:1-12, 19:25-27", "Acts 1:14"],
+      "description": "Virgin chosen by God to give birth to Jesus the Messiah; a woman of faith who pondered God's ways in her heart.",
+      "generation": 63,
+      "significance": "Mother of Jesus Christ",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "new_testament",
+      "estimatedYears": {
+        "birth": -20,
+        "death": 50
+      },
+      "metadata": {
+        "righteous": true,
+        "favored": true
+      }
+    },
+    {
+      "id": "jesus",
+      "fullName": "Jesus Christ",
+      "birth": "Approximately 4-6 BC",
+      "death": "Approximately 30-33 AD",
+      "age": null,
+      "father": "God",
+      "mother": "mary_mother_of_jesus",
+      "spouses": [],
+      "children": [],
+      "biblicalReferences": ["Matthew", "Mark", "Luke", "John", "Acts", "Romans", "1 Corinthians", "Revelation"],
+      "description": "The promised Messiah, Son of God, and Savior of the world who was born of the virgin Mary, lived a sinless life, died on the cross for humanity's sins, and rose from the dead.",
+      "generation": 64,
+      "significance": "The Messiah, Son of God, and Savior of the world",
+      "lineage": "Tribe of Judah (Davidic)",
+      "era": "new_testament",
+      "estimatedYears": {
+        "birth": -4,
+        "death": 30
+      },
+      "metadata": {
+        "isMessiah": true,
+        "isSonOfGod": true,
+        "isLordAndSavior": true,
+        "isKingOfKings": true,
+        "isProphet": true,
+        "isPriest": true,
+        "isKing": true,
+        "isAlpha": true,
+        "isOmega": true
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "type": "covenantal",
+      "people": ["god", "noah"],
+      "description": "God established a covenant with Noah never to destroy the earth by flood again (Genesis 9:8-17)"
+    },
+    {
+      "type": "covenantal",
+      "people": ["god", "abraham"],
+      "description": "God established the Abrahamic Covenant promising land, descendants, and blessing (Genesis 12:1-3, 15:18-21)"
+    },
+    {
+      "type": "covenantal",
+      "people": ["god", "david"],
+      "description": "God established the Davidic Covenant promising an eternal dynasty (2 Samuel 7:8-16)"
+    },
+    {
+      "type": "sibling-rivalry",
+      "people": ["cain", "abel"],
+      "description": "The first siblings whose rivalry led to the first murder (Genesis 4:1-16)"
+    },
+    {
+      "type": "sibling-rivalry",
+      "people": ["jacob", "esau"],
+      "description": "Twin brothers who struggled from birth over birthright and blessing (Genesis 25:19-34, 27:1-45)"
+    },
+    {
+      "type": "sibling-rivalry",
+      "people": ["joseph", "brothers"],
+      "description": "Joseph's brothers sold him into slavery out of jealousy (Genesis 37:1-36)"
+    },
+    {
+      "type": "father-son-conflict",
+      "people": ["david", "absalom"],
+      "description": "Absalom rebelled against his father King David (2 Samuel 15-18)"
+    },
+    {
+      "type": "marriage",
+      "people": ["adam", "eve"],
+      "description": "The first marriage in human history (Genesis 2:21-25)"
+    },
+    {
+      "type": "marriage",
+      "people": ["abraham", "sarah"],
+      "description": "Marriage through which God's covenant promises began to be fulfilled (Genesis 17:15-22, 21:1-7)"
+    },
+    {
+      "type": "marriage",
+      "people": ["boaz", "ruth"],
+      "description": "A redemptive marriage that brought a foreigner into the Messianic line (Ruth 4:9-12)"
+    }
+  ],
+  "eras": [
+    {
+      "id": "antediluvian",
+      "name": "Antediluvian Period",
+      "startYear": -4000,
+      "endYear": -2348,
+      "description": "The period from creation until the Great Flood"
+    },
+    {
+      "id": "patriarchal",
+      "name": "Patriarchal Period",
+      "startYear": -2348,
+      "endYear": -1800,
+      "description": "The period of the early patriarchs from Noah through Joseph"
+    },
+    {
+      "id": "exodus-conquest",
+      "name": "Exodus and Conquest Period",
+      "startYear": -1800,
+      "endYear": -1375,
+      "description": "The period of Israelite slavery in Egypt, the Exodus, and the conquest of Canaan"
+    },
+    {
+      "id": "judges-kings",
+      "name": "Judges to Kings Period",
+      "startYear": -1375,
+      "endYear": -1050,
+      "description": "The period of the judges until the establishment of the monarchy"
+    },
+    {
+      "id": "united_monarchy",
+      "name": "United Monarchy",
+      "startYear": -1050,
+      "endYear": -930,
+      "description": "The period when Israel was united under Saul, David, and Solomon"
+    },
+    {
+      "id": "divided_monarchy",
+      "name": "Divided Monarchy",
+      "startYear": -930,
+      "endYear": -586,
+      "description": "The period when Israel was divided into northern and southern kingdoms"
+    },
+    {
+      "id": "exilic",
+      "name": "Babylonian Exile",
+      "startYear": -586,
+      "endYear": -538,
+      "description": "The period when Judah was in captivity in Babylon"
+    },
+    {
+      "id": "post-exilic",
+      "name": "Post-Exilic Period",
+      "startYear": -538,
+      "endYear": -400,
+      "description": "The period of return from exile and rebuilding"
+    },
+    {
+      "id": "intertestamental",
+      "name": "Intertestamental Period",
+      "startYear": -400,
+      "endYear": -4,
+      "description": "The period between the Old and New Testaments"
+    },
+    {
+      "id": "new_testament",
+      "name": "New Testament Era",
+      "startYear": -4,
+      "endYear": 100,
+      "description": "The period covering the life of Jesus and the early church"
+    }
+  ],
+  "locations": [
+    {
+      "id": "eden",
+      "name": "Garden of Eden",
+      "region": "Mesopotamia",
+      "description": "The paradise where Adam and Eve were originally placed",
+      "coordinates": {
+        "latitude": null,
+        "longitude": null
+      },
+      "associatedEvents": ["creation", "fall"]
+    },
+    {
+      "id": "ur",
+      "name": "Ur of the Chaldeans",
+      "region": "Mesopotamia",
+      "description": "Abraham's birthplace and an ancient Sumerian city-state",
+      "coordinates": {
+        "latitude": 30.9598,
+        "longitude": 46.1035
+      },
+      "associatedEvents": ["call_of_abraham"]
+    },
+    {
+      "id": "canaan",
+      "name": "Canaan (Promised Land)",
+      "region": "Levant",
+      "description": "The land promised to Abraham and his descendants",
+      "coordinates": {
+        "latitude": 31.7683,
+        "longitude": 35.2137
+      },
+      "associatedEvents": ["abrahamic_covenant", "conquest"]
+    },
+    {
+      "id": "bethlehem",
+      "name": "Bethlehem",
+      "region": "Judea",
+      "description": "Birthplace of David and Jesus",
+      "coordinates": {
+        "latitude": 31.7054,
+        "longitude": 35.2025
+      },
+      "associatedEvents": ["birth_of_david", "birth_of_jesus"]
+    },
+    {
+      "id": "jerusalem",
+      "name": "Jerusalem",
+      "region": "Judea",
+      "description": "Capital city of ancient Israel and location of the Temple",
+      "coordinates": {
+        "latitude": 31.7683,
+        "longitude": 35.2137
+      },
+      "associatedEvents": ["construction_of_temple", "crucifixion", "resurrection"]
+    }
+  ],
+  "groups": [
+    {
+      "id": "tribe_of_judah",
+      "name": "Tribe of Judah",
+      "description": "The tribe from which the Davidic line and Jesus descended",
+      "members": ["judah", "perez", "hezron", "ram", "amminadab", "nahshon", "salmon", "boaz", "obed", "jesse", "david"],
+      "significance": "Royal tribe from which the Messiah would come"
+    },
+    {
+      "id": "patriarchs",
+      "name": "Patriarchs",
+      "description": "The foundational fathers of the Israelite nation",
+      "members": ["abraham", "isaac", "jacob"],
+      "significance": "Recipients of God's covenant promises"
+    },
+    {
+      "id": "kings_of_judah",
+      "name": "Kings of Judah",
+      "description": "Monarchs of the southern kingdom after the division",
+      "members": ["rehoboam", "abijah", "asa", "jehoshaphat", "jehoram", "ahaziah", "joash", "amaziah", "uzziah", "jotham", "ahaz", "hezekiah", "manasseh", "amon", "josiah", "jehoahaz", "jehoiakim", "jeconiah", "zedekiah"],
+      "significance": "Royal line through which the Messianic promise continued"
+    }
+  ]
+}
+
