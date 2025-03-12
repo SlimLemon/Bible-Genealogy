@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblical Genealogy Visualization</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #4682b4;
+            --secondary-color: #5f9dd6;
+            --text-color: #333;
+            --bg-color: #f9f9f9;
+            --panel-bg: #ffffff;
+            --border-color: #ddd;
+            --hover-color: #3a6d96;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --error-color: #d9534f;
+            --success-color: #5cb85c;
+            --warning-color: #f0ad4e;
+        }
+
+        /* Dark Theme Variables */
+        body.dark-theme {
+            --primary-color: #5f9dd6;
+            --secondary-color: #4682b4;
+            --text-color: #f0f0f0;
+            --bg-color: #222;
+            --panel-bg: #333;
+            --border-color: #444;
+            --hover-color: #6fa8d6;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: background-color 0.3s, color 0.3s;
+            line-height: 1.6;
+        }
+
+        /* Loader Styles */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            flex-direction: column;
+            transition: background-color 0.3s;
+        }
+
+        body.dark-theme .loader {
+            background-color: rgba(34, 34, 34, 0.9);
+        }
+
+        .progress-container {
+            width: 80%;
+            max-width: 500px;
+            height: 10px;
+            background-color: #ddd;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .loader-status {
+            font-size: 16px;
+            color: var(--text-color);
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .error-container {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: rgba(217, 83, 79, 0.1);
+            border: 1px solid var(--error-color);
+        }
+
+        .error-message {
+            color: var(--error-color);
+            margin-bottom: 15px;
+        }
+
+        .recovery-options {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(70, 130, 180, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Header and Navigation */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            box-shadow: var(--shadow);
+            transition: background-color 0.3s;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a, .nav-links button {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover, .nav-links button:hover {
+            opacity: 0.8;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Main Content */
+        main {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            min-height: calc(100vh - 60px);
+        }
+
+        .controls-panel {
+            background-color: var(--panel-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .view-modes {
+            display: flex;
+            gap: 10px;
+        }
+
+        .view-mode-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .view-mode-btn:hover {
+            background-color: var(--hover-color);
+        }
+
+        .view-mode-btn.active {
+            background-color: var(--hover-color);
+            font-weight: bold;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-group label {
+            font-weight: bold;
+        }
+
+        select, button {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            background-color: var(--panel-bg);
+            color: var(--text-color);
+            transition: all 0.2s;
+        }
+
+        select:focus, button:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(70, 130, 180, 0.2);
+        }
+
+        button {
+            cursor: pointer;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+        }
+
+        button:hover {
+            background-color: var(--hover-color);
+        }
+
+        /* Visualization Container */
+        .visualization-container {
+            flex: 1;
+            background-color: var(--panel-bg);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        #visualization {
+            width: 100%;
+            height: 100%;
+            min-height: 500px;
+        }
+
+        /* Timeline Component */
+        .timeline-container {
+            margin-top: 1rem;
+            background-color: var(--panel-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        #timeline {
+            width: 100%;
+            height: 100px;
+            overflow-x: auto;
+        }
+
+        /* Node Details */
+        .node-details {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            background-color: var(--panel-bg);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            display: none;
+            z-index: 100;
+            max-height: 80%;
+            overflow-y: auto;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .node-details h2 {
+            margin-top: 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .close-details {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        /* Export Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--panel-bg);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .export-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .controls-panel {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .view-modes, .filter-group {
+                width: 100%;
+            }
+
+            .node-details {
+                width: 80%;
+                left: 10%;
+                right: 10%;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+
+        /* Button styles */
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--error-color);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Theme Toggle */
+        #theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        #theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script src="genealogy-data-utils.js"></script>
+    <script src="d3-renderer.js"></script>
+    <script src="visualization.js"></script>
+    <script src="app.js"></script>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <div class="progress-container">
+            <div class="progress-bar" id="loading-progress"></div>
+        </div>
+        <p class="loader-status" id="loading-status">Initializing application...</p>
+        <div class="error-container" id="error-container">
+            <p class="error-message" id="error-message"></p>
+            <div class="recovery-options">
+                <button class="btn btn-primary" id="retry-button">Retry Loading</button>
+                <button class="btn btn-warning" id="load-backup">Use Backup Data</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <div class="logo">Biblical Genealogy Visualization</div>
+            <div class="nav-links">
+                <a href="#" id="about-link">About</a>
+                <a href="#" id="export-link">Export</a>
+                <a href="#" id="help-link">Help</a>
+                <button id="theme-toggle">🌙</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Controls Panel -->
+        <div class="controls-panel">
+            <div class="view-modes">
+                <button class="view-mode-btn active" data-mode="tree">Tree View</button>
+                <button class="view-mode-btn" data-mode="network">Network View</button>
+                <button class="view-mode-btn" data-mode="timeline">Timeline View</button>
+            </div>
+            
+            <div class="filter-group">
+                <label for="lineage-filter">Lineage:</label>
+                <select id="lineage-filter">
+                    <option value="all">All Lineages</option>
+                    <option value="seth">Seth's Line</option>
+                    <option value="abraham">Abraham's Line</option>
+                    <option value="david">David's Line</option>
+                    <option value="messianic">Messianic Line</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="generation-filter">Generation:</label>
+                <select id="generation-filter">
+                    <option value="all">All Generations</option>
+                    <option value="1-5">1-5</option>
+                    <option value="6-10">6-10</option>
+                    <option value="11-20">11-20</option>
+                    <option value="21+">21+</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="time-filter">Time Period:</label>
+                <select id="time-filter">
+                    <option value="all">All Time</option>
+                    <option value="pre-flood">Pre-Flood</option>
+                    <option value="post-flood">Post-Flood</option>
+                    <option value="patriarchs">Patriarchal Era</option>
+                    <option value="exodus">Exodus to Kingdom</option>
+                    <option value="kingdom">Kingdom Period</option>
+                    <option value="exile">Exile to Jesus</option>
+                </select>
+            </div>
+            
+            <button id="reset-filters">Reset Filters</button>
+        </div>
+
+        <!-- Visualization Area -->
+        <div class="visualization-container">
+            <div id="visualization"></div>
+            
+            <!-- Node Details Panel -->
+            <div class="node-details" id="node-details">
+                <button class="close-details" id="close-details">×</button>
+                <h2 id="node-name">Person Name</h2>
+                <div id="node-info"></div>
+            </div>
+        </div>
+
+        <!-- Timeline Component -->
+        <div class="timeline-container">
+            <div id="timeline"></div>
+        </div>
+    </main>
+
+    <!-- Export Modal -->
+    <div class="modal" id="export-modal">
+        <div class="modal-content">
+            <button class="close-modal" id="close-export-modal">×</button>
+            <h2>Export Visualization</h2>
+            <div class="export-options">
+                <button class="btn btn-primary" id="export-png">Export as PNG</button>
+                <button class="btn btn-primary" id="export-svg">Export as SVG</button>
+                <button class="btn btn-primary" id="export-data">Export Data (JSON)</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize loading progress
+        let loadingProgress = 0;
+        
+        // Update loading progress bar
+        function updateLoadingProgress(progress) {
+            loadingProgress = progress;
+            const progressBar = document.getElementById('loading-progress');
+            progressBar.style.width = `${progress}%`;
+            
+            // Update status message based on progress
+            const statusElement = document.getElementById('loading-status');
+            if (progress < 25) {
+                statusElement.textContent = 'Loading core modules...';
+            } else if (progress < 50) {
+                statusElement.textContent = 'Loading data utilities...';
+            } else if (progress < 75) {
+                statusElement.textContent = 'Loading visualization engine...';
+            } else if (progress < 100) {
+                statusElement.textContent = 'Finalizing setup...';
+            } else {
+                statusElement.textContent = 'Ready!';
+                // Hide loader after a short delay to show "Ready!" message
+                setTimeout(() => {
+                    document.getElementById('loader').style.display = 'none';
+                }, 500);
+            }
+        }
+        
+        // Show loading error
+        function showLoadingError(message) {
+            document.getElementById('error-container').style.display = 'block';
+            document.getElementById('error-message').textContent = message;
+            document.getElementById('loading-status').textContent = 'Error loading application';
+        }
+        
+        // Utility function to load scripts with error handling
+        function loadScript(url, callback) {
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = url;
+            
+            script.onload = function() {
+                callback(null);
+            };
+            
+            script.onerror = function() {
+                callback(new Error(`Failed to load script: ${url}`));
+            };
+            
+            document.head.appendChild(script);
+        }
+        
+        // Load scripts in sequence to ensure dependencies are met
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start by updating progress to show initial loading
+            updateLoadingProgress(10);
+            
+            // First load genealogy data utilities
+            loadScript('genealogy-data-utils.js', function(err) {
+                if (err) {
+                    showLoadingError('Failed to load data utilities. This might be due to a file missing or a server issue.');
+                    return;
+                }
+                
+                updateLoadingProgress(40);
+                
+                // Then load renderer
+                loadScript('d3-renderer.js', function(err) {
+                    if (err) {
+                        showLoadingError('Failed to load visualization renderer.');
+                        return;
+                    }
+                    
+                    updateLoadingProgress(70);
+                    
+                    // Then load visualization
+                    loadScript('visualization.js', function(err) {
+                        if (err) {
+                            showLoadingError('Failed to load visualization module.');
+                            return;
+                        }
+                        
+                        updateLoadingProgress(90);
+                        
+                        // Finally load the application
+                        loadScript('app.js', function(err) {
+                            if (err) {
+                                showLoadingError('Failed to initialize application.');
+                                return;
+                            }
+                            
+                            updateLoadingProgress(100);
+                            
+                            // Initialize visualization features after loading
+                            initializeVisualizationFeatures();
+                        });
+                    });
+                });
+            });
+        });
+        
+        // Add event listeners for error recovery
+        document.getElementById('retry-button').addEventListener('click', function() {
+            location.reload();
+        });
+        
+        document.getElementById('load-backup').addEventListener('click', function() {
+            // Set a flag to use backup data on next load
+            localStorage.setItem('useBackupData', 'true');
+            location.reload();
+        });
+        
+        // Theme toggle functionality
+        document.getElementById('theme-toggle').addEventListener('click', function() {
+            const body = document.body;
+            const themeButton = document.getElementById('theme-toggle');
+            
+            if (body.classList.contains('dark-theme')) {
+                body.classList.remove('dark-theme');
+                themeButton.textContent = '🌙'; // moon emoji for switching to dark mode
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark-theme');
+                themeButton.textContent = '☀️'; // sun emoji for switching to light mode
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        
+        // Apply saved theme on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                document.getElementById('theme-toggle').textContent = '☀️';
+            }
+        });
+        
+        // Initialize visualization features
+        function initializeVisualizationFeatures() {
+            // Setup view mode switching
+            const viewModeButtons = document.querySelectorAll('.view-mode-btn');
+            viewModeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    viewModeButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get the selected mode
+                    const mode = this.getAttribute('data-mode');
+                    
+                    // Store the selected mode in localStorage
+                    localStorage.setItem('viewMode', mode);
+                    
+                    // Trigger mode change in visualization
+                    if (window.BiblicalVisualization && typeof window.BiblicalVisualization.setViewMode === 'function') {
+                        window.BiblicalVisualization.setViewMode(mode);
+                    } else {
+                        console.warn('Visualization module not fully loaded or setViewMode function not available');
+                    }
+                });
+            });
+            
+            // Initialize with previously selected view mode if available
+            const savedViewMode = localStorage.getItem('viewMode');
+            if (savedViewMode) {
+                const modeButton = document.querySelector(`.view-mode-btn[data-mode="${savedViewMode}"]`);
+                if (modeButton) {
+                    modeButton.click();
+                }
+            }
+            
+            // Setup filter handling
+            document.getElementById('reset-filters').addEventListener('click', function() {
+                document.getElementById('lineage-filter').value = 'all';
+                document.getElementById('generation-filter').value = 'all';
+                document.getElementById('time-filter').value = 'all';
+                
+                // Trigger filter reset in visualization
+                if (window.BiblicalVisualization && typeof window.BiblicalVisualization.resetFilters === 'function') {
+                    window.BiblicalVisualization.resetFilters();
+                }
+            });
+            
+            // Handle filter changes
+            const filters = document.querySelectorAll('select[id$="-filter"]');
+            filters.forEach(filter => {
+                filter.addEventListener('change', function() {
+                    // Collect all filter values
+                    const filterValues = {
+                        lineage: document.getElementById('lineage-filter').value,
+                        generation: document.getElementById('generation-filter').value,
+                        timePeriod: document.getElementById('time-filter').value
+                    };
+                    
+                    // Apply filters to visualization
+                    if (window.BiblicalVisualization && typeof window.BiblicalVisualization.applyFilters === 'function') {
+                        window.BiblicalVisualization.applyFilters(filterValues);
+                    }
+                });
+            });
+            
+            // Setup export functionality
+            document.getElementById('export-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('export-modal').style.display = 'flex';
+            });
+            
+            document.getElementById('close-export-modal').addEventListener('click', function() {
+                document.getElementById('export-modal').style.display = 'none';
+            });
+            
+            // Close modal when clicking outside content
+            document.getElementById('export-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                }
+            });
+            
+            // Export buttons functionality
+            document.getElementById('export-png').addEventListener('click', function() {
+                if (window.BiblicalVisualization && typeof window.BiblicalVisualization.exportToPNG === 'function') {
+                    window.BiblicalVisualization.exportToPNG();
+                } else {
+                    alert('Export functionality not available yet.');
+                }
+            });
+            
+            document.getElementById('export-svg').addEventListener('click', function() {
+                if (window.BiblicalVisualization && typeof window.BiblicalVisualization.exportToSVG === 'function') {
+                    window.BiblicalVisualization.exportToSVG();
+                } else {
+                    alert('Export functionality not available yet.');
+                }
+            });
+            
+            document.getElementById('export-data').addEventListener('click', function() {
+                if (window.BiblicalVisualization && typeof window.BiblicalVisualization.exportData === 'function') {
+                    window.BiblicalVisualization.exportData();
+                } else {
+                    alert('Export functionality not available yet.');
+                }
+            });
+            
+            // Node details handling
+            document.getElementById('close-details').addEventListener('click', function() {
+                document.getElementById('node-details').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>
