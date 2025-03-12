@@ -1,2127 +1,1106 @@
 {
   "metadata": {
-    "title": "Biblical Genealogy Through Jesus",
-    "description": "A comprehensive genealogical dataset tracing lineage from Adam through Jesus Christ",
-    "version": "3.0",
-    "lastUpdated": "2025-03-10",
-    "authors": ["Jared Lemons"],
-    "source": "Biblical texts and historical records",
+    "title": "Biblical Genealogy Dataset",
+    "description": "Comprehensive genealogical dataset tracing lineage from Adam through Jesus Christ",
+    "version": "2.0",
+    "lastUpdated": "2024-03-10",
+    "author": "Jared Lemons",
     "license": "Open for educational and research purposes",
-    "timeSpan": "Approximately 4,000 years of human history"
-  },
-  "individuals": {
-    "adamToNoah": [
-      {
-        "id": "adam",
-        "name": "Adam",
-        "meaning": "Man/Mankind",
-        "birthYear": -4000,
-        "deathYear": -3070,
-        "lifespan": 930,
-        "significance": "First man created by God, father of humanity",
-        "occupation": "Gardener/Farmer",
-        "references": ["Genesis 1-5", "1 Chronicles 1:1", "Luke 3:38"]
-      },
-      {
-        "id": "eve",
-        "name": "Eve",
-        "meaning": "Life/Living",
-        "birthYear": -4000,
-        "significance": "First woman, mother of humanity",
-        "references": ["Genesis 2-4"]
-      },
-      {
-        "id": "cain",
-        "name": "Cain",
-        "meaning": "Acquired",
-        "birthYear": -3970,
-        "significance": "First murderer, killed his brother Abel",
-        "occupation": "Farmer",
-        "references": ["Genesis 4:1-17"]
-      },
-      {
-        "id": "abel",
-        "name": "Abel",
-        "meaning": "Breath/Vanity",
-        "birthYear": -3968,
-        "deathYear": -3948,
-        "significance": "First murder victim, killed by his brother Cain",
-        "occupation": "Shepherd",
-        "references": ["Genesis 4:2-10", "Matthew 23:35", "Hebrews 11:4"]
-      },
-      {
-        "id": "seth",
-        "name": "Seth",
-        "meaning": "Appointed",
-        "birthYear": -3870,
-        "deathYear": -2958,
-        "lifespan": 912,
-        "significance": "Third son of Adam and Eve, ancestor of Noah",
-        "references": ["Genesis 4:25-26", "Genesis 5:3-8", "1 Chronicles 1:1", "Luke 3:38"]
-      },
-      {
-        "id": "enosh",
-        "name": "Enosh",
-        "meaning": "Man/Mortal",
-        "birthYear": -3765,
-        "deathYear": -2860,
-        "lifespan": 905,
-        "significance": "Son of Seth, when men began to call on the name of the LORD",
-        "references": ["Genesis 4:26", "Genesis 5:6-11", "1 Chronicles 1:1", "Luke 3:38"]
-      },
-      {
-        "id": "kenan",
-        "name": "Kenan",
-        "meaning": "Possession",
-        "birthYear": -3675,
-        "deathYear": -2765,
-        "lifespan": 910,
-        "significance": "Son of Enosh, father of Mahalalel",
-        "references": ["Genesis 5:9-14", "1 Chronicles 1:2", "Luke 3:37"]
-      },
-      {
-        "id": "mahalalel",
-        "name": "Mahalalel",
-        "meaning": "Praise of God",
-        "birthYear": -3605,
-        "deathYear": -2710,
-        "lifespan": 895,
-        "significance": "Son of Kenan, father of Jared",
-        "references": ["Genesis 5:12-17", "1 Chronicles 1:2", "Luke 3:37"]
-      },
-      {
-        "id": "jared",
-        "name": "Jared",
-        "meaning": "Descent",
-        "birthYear": -3540,
-        "deathYear": -2578,
-        "lifespan": 962,
-        "significance": "Son of Mahalalel, father of Enoch",
-        "references": ["Genesis 5:15-20", "1 Chronicles 1:2", "Luke 3:37"]
-      },
-      {
-        "id": "enoch",
-        "name": "Enoch",
-        "meaning": "Dedicated",
-        "birthYear": -3378,
-        "deathYear": -3013,
-        "lifespan": 365,
-        "significance": "Walked with God and was taken without death",
-        "references": ["Genesis 5:18-24", "1 Chronicles 1:3", "Luke 3:37", "Hebrews 11:5", "Jude 1:14"]
-      },
-      {
-        "id": "methuselah",
-        "name": "Methuselah",
-        "meaning": "Man of the dart/When he dies, judgment",
-        "birthYear": -3313,
-        "deathYear": -2344,
-        "lifespan": 969,
-        "significance": "Longest lived human recorded in the Bible",
-        "references": ["Genesis 5:21-27", "1 Chronicles 1:3", "Luke 3:37"]
-      },
-      {
-        "id": "lamech",
-        "name": "Lamech",
-        "meaning": "Powerful",
-        "birthYear": -3126,
-        "deathYear": -2349,
-        "lifespan": 777,
-        "significance": "Father of Noah, prophesied comfort through his son",
-        "references": ["Genesis 5:25-31", "1 Chronicles 1:3", "Luke 3:36"]
-      },
-      {
-        "id": "noah",
-        "name": "Noah",
-        "meaning": "Rest/Comfort",
-        "birthYear": -2944,
-        "deathYear": -1994,
-        "lifespan": 950,
-        "significance": "Built ark, survived flood, received covenant",
-        "occupation": "Farmer/Ark builder",
-        "references": ["Genesis 5:28-32", "Genesis 6-9", "1 Chronicles 1:4", "Isaiah 54:9", "Ezekiel 14:14", "Matthew 24:37-38", "Luke 3:36", "Hebrews 11:7", "1 Peter 3:20", "2 Peter 2:5"]
-      }
-    ],
-    "noahToAbraham": [
-      {
-        "id": "shem",
-        "name": "Shem",
-        "meaning": "Name/Renown",
-        "birthYear": -2444,
-        "deathYear": -1844,
-        "lifespan": 600,
-        "significance": "Son of Noah, ancestor of Semitic peoples including Hebrews",
-        "references": ["Genesis 5:32", "Genesis 6:10", "Genesis 9:18-27", "Genesis 10:21-31", "Genesis 11:10-11", "1 Chronicles 1:4", "Luke 3:36"]
-      },
-      {
-        "id": "arphaxad",
-        "name": "Arphaxad",
-        "meaning": "Boundary of the Chaldeans",
-        "birthYear": -2342,
-        "deathYear": -1904,
-        "lifespan": 438,
-        "significance": "Son of Shem, born two years after the flood",
-        "references": ["Genesis 10:22", "Genesis 11:10-13", "1 Chronicles 1:17", "Luke 3:36"]
-      },
-      {
-        "id": "shelah",
-        "name": "Shelah",
-        "meaning": "Petition/Request",
-        "birthYear": -2307,
-        "deathYear": -1874,
-        "lifespan": 433,
-        "significance": "Son of Arphaxad, father of Eber",
-        "references": ["Genesis 10:24", "Genesis 11:12-15", "1 Chronicles 1:18", "Luke 3:35"]
-      },
-      {
-        "id": "eber",
-        "name": "Eber",
-        "meaning": "Region beyond/Cross over",
-        "birthYear": -2277,
-        "deathYear": -1813,
-        "lifespan": 464,
-        "significance": "Son of Shelah, possible namesake of Hebrew people",
-        "references": ["Genesis 10:21, 24-25", "Genesis 11:14-17", "1 Chronicles 1:18", "Luke 3:35"]
-      },
-      {
-        "id": "peleg",
-        "name": "Peleg",
-        "meaning": "Division",
-        "birthYear": -2243,
-        "deathYear": -2004,
-        "lifespan": 239,
-        "significance": "In his days the earth was divided, possibly referring to Babel",
-        "references": ["Genesis 10:25", "Genesis 11:16-19", "1 Chronicles 1:19", "Luke 3:35"]
-      },
-      {
-        "id": "reu",
-        "name": "Reu",
-        "meaning": "Friend",
-        "birthYear": -2213,
-        "deathYear": -1974,
-        "lifespan": 239,
-        "significance": "Son of Peleg, father of Serug",
-        "references": ["Genesis 11:18-21", "1 Chronicles 1:25", "Luke 3:35"]
-      },
-      {
-        "id": "serug",
-        "name": "Serug",
-        "meaning": "Branch",
-        "birthYear": -2181,
-        "deathYear": -1951,
-        "lifespan": 230,
-        "significance": "Son of Reu, father of Nahor",
-        "references": ["Genesis 11:20-23", "1 Chronicles 1:26", "Luke 3:35"]
-      },
-      {
-        "id": "nahor",
-        "name": "Nahor",
-        "meaning": "Snorting",
-        "birthYear": -2151,
-        "deathYear": -2003,
-        "lifespan": 148,
-        "significance": "Son of Serug, grandfather of Abraham",
-        "references": ["Genesis 11:22-25", "1 Chronicles 1:26", "Luke 3:34"]
-      },
-      {
-        "id": "terah",
-        "name": "Terah",
-        "meaning": "Station/Delay",
-        "birthYear": -2122,
-        "deathYear": -1917,
-        "lifespan": 205,
-        "significance": "Father of Abraham, Nahor, and Haran; led family from Ur to Canaan",
-        "references": ["Genesis 11:24-32", "Genesis 12:1", "Joshua 24:2", "1 Chronicles 1:26", "Luke 3:34"]
-      }
-    ],
-    "abrahamToJudah": [
-      {
-        "id": "abraham",
-        "name": "Abraham",
-        "originalName": "Abram",
-        "meaning": "Father of many nations",
-        "birthYear": -1992,
-        "deathYear": -1817,
-        "lifespan": 175,
-        "significance": "Patriarch, received covenant with God, father of Israelite nation",
-        "occupation": "Nomadic herdsman",
-        "references": ["Genesis 11:26-25:10", "1 Chronicles 1:27-34", "Isaiah 51:2", "Matthew 1:1-2", "Luke 3:34", "Romans 4", "Galatians 3", "Hebrews 11:8-19"]
-      },
-      {
-        "id": "sarah",
-        "name": "Sarah",
-        "originalName": "Sarai",
-        "meaning": "Princess",
-        "birthYear": -1982,
-        "deathYear": -1844,
-        "lifespan": 127,
-        "significance": "Wife of Abraham, mother of Isaac",
-        "references": ["Genesis 11:29-31", "Genesis 12:5-23:20", "Isaiah 51:2", "Romans 4:19", "Hebrews 11:11", "1 Peter 3:6"]
-      },
-      {
-        "id": "hagar",
-        "name": "Hagar",
-        "origin": "Egyptian",
-        "significance": "Sarah's handmaid, mother of Ishmael",
-        "references": ["Genesis 16:1-16", "Genesis 21:9-21", "Galatians 4:24-25"]
-      },
-      {
-        "id": "ishmael",
-        "name": "Ishmael",
-        "meaning": "God hears",
-        "birthYear": -1906,
-        "deathYear": -1769,
-        "lifespan": 137,
-        "significance": "Son of Abraham and Hagar, father of 12 princes",
-        "references": ["Genesis 16:11-16", "Genesis 17:18-26", "Genesis 21:9-21", "Genesis 25:9-17", "Genesis 28:9", "1 Chronicles 1:28-31"]
-      },
-      {
-        "id": "isaac",
-        "name": "Isaac",
-        "meaning": "Laughter",
-        "birthYear": -1892,
-        "deathYear": -1712,
-        "lifespan": 180,
-        "significance": "Son of promise to Abraham and Sarah, father of Jacob and Esau",
-        "occupation": "Herdsman/Farmer",
-        "references": ["Genesis 17:19-21", "Genesis 21:1-12", "Genesis 22-28", "Genesis 35:27-29", "1 Chronicles 1:28, 34", "Matthew 1:2", "Luke 3:34", "Romans 9:7", "Galatians 4:28", "Hebrews 11:17-20"]
-      },
-      {
-        "id": "rebekah",
-        "name": "Rebekah",
-        "birthYear": -1932,
-        "significance": "Wife of Isaac, mother of Jacob and Esau",
-        "references": ["Genesis 22:23", "Genesis 24-28", "Genesis 35:8", "Genesis 49:31", "Romans 9:10"]
-      },
-      {
-        "id": "esau",
-        "name": "Esau",
-        "altName": "Edom",
-        "meaning": "Hairy/Red",
-        "birthYear": -1832,
-        "significance": "Firstborn of Isaac and Rebekah, sold birthright, founded Edom",
-        "occupation": "Hunter",
-        "references": ["Genesis 25:19-34", "Genesis 26-28", "Genesis 32-33", "Genesis 35:29", "Genesis 36", "Malachi 1:2-3", "Romans 9:10-13", "Hebrews 12:16-17"]
-      },
-      {
-        "id": "jacob",
-        "name": "Jacob",
-        "altName": "Israel",
-        "meaning": "Supplanter/He who struggles with God",
-        "birthYear": -1832,
-        "deathYear": -1685,
-        "lifespan": 147,
-        "significance": "Son of Isaac, father of 12 tribes of Israel, renamed Israel",
-        "occupation": "Shepherd/Herdsman",
-        "references": ["Genesis 25:21-34", "Genesis 27-35", "Genesis 37:1-11", "Genesis 42-49", "Exodus 1:1-5", "1 Chronicles 1:34", "1 Chronicles 2:1-2", "Matthew 1:2", "Luke 3:34", "Romans 9:10-13", "Hebrews 11:20-21"]
-      },
-      {
-        "id": "leah",
-        "name": "Leah",
-        "significance": "First wife of Jacob, mother of six sons and Dinah",
-        "deathYear": -1720,
-        "references": ["Genesis 29:16-35", "Genesis 30:9-21", "Genesis 31:4-14", "Genesis 33:1-7", "Genesis 49:31"]
-      },
-      {
-        "id": "rachel",
-        "name": "Rachel",
-        "significance": "Second wife of Jacob, mother of Joseph and Benjamin",
-        "deathYear": -1716,
-        "references": ["Genesis 29:6-30", "Genesis 30:1-24", "Genesis 31:4-35", "Genesis 33:1-7", "Genesis 35:16-20", "Genesis 48:7", "Ruth 4:11", "Jeremiah 31:15", "Matthew 2:18"]
-      },
-      {
-        "id": "bilhah",
-        "name": "Bilhah",
-        "significance": "Rachel's handmaid, mother of Dan and Naphtali",
-        "references": ["Genesis 29:29", "Genesis 30:1-8", "Genesis 35:22", "Genesis 37:2", "Genesis 46:23-25", "1 Chronicles 7:13"]
-      },
-      {
-        "id": "zilpah",
-        "name": "Zilpah",
-        "significance": "Leah's handmaid, mother of Gad and Asher",
-        "references": ["Genesis 29:24", "Genesis 30:9-13", "Genesis 35:26", "Genesis 37:2", "Genesis 46:16-18"]
-      },
-      {
-        "id": "reuben",
-        "name": "Reuben",
-        "meaning": "See, a son",
-        "birthYear": -1812,
-        "significance": "Firstborn son of Jacob and Leah, lost birthright due to sin",
-        "references": ["Genesis 29:32", "Genesis 35:23", "Genesis 37:21-30", "Genesis 42:22-37", "Genesis 46:8-9", "Genesis 49:3-4", "Exodus 1:2", "Numbers 26:5-11", "1 Chronicles 2:1", "1 Chronicles 5:1-3"]
-      },
-      {
-        "id": "simeon",
-        "name": "Simeon",
-        "meaning": "Hearing",
-        "birthYear": -1811,
-        "significance": "Second son of Jacob and Leah, tribe later absorbed into Judah",
-        "references": ["Genesis 29:33", "Genesis 34:25-31", "Genesis 42:24", "Genesis 43:23", "Genesis 46:10", "Genesis 49:5-7", "Exodus 1:2", "Numbers 26:12-14", "1 Chronicles 2:1", "1 Chronicles 4:24-43"]
-      },
-      {
-        "id": "levi",
-        "name": "Levi",
-        "meaning": "Attached/Joined",
-        "birthYear": -1810,
-        "significance": "Third son of Jacob and Leah, ancestor of priestly tribe",
-        "references": ["Genesis 29:34", "Genesis 34:25-31", "Genesis 46:11", "Genesis 49:5-7", "Exodus 1:2", "Exodus 2:1", "Exodus 6:16-25", "Numbers 3:17-39", "Malachi 2:4-8", "Matthew 1:2", "Luke 3:24", "Hebrews 7:5-14"]
-      },
-      {
-        "id": "judah",
-        "name": "Judah",
-        "meaning": "Praise",
-        "birthYear": -1809,
-        "significance": "Fourth son of Jacob and Leah, received ruling scepter promise",
-        "references": ["Genesis 29:35", "Genesis 37:26-27", "Genesis 38", "Genesis 43:3-10", "Genesis 44:14-34", "Genesis 46:12", "Genesis 49:8-12", "Ruth 4:12", "1 Chronicles 2:1-15", "1 Chronicles 4:1-23", "Matthew 1:2-3", "Luke 3:33", "Hebrews 7:14", "Revelation 5:5"]
-      },
-      {
-        "id": "dan",
-        "name": "Dan",
-        "meaning": "Judge",
-        "birthYear": -1808,
-        "significance": "Son of Jacob and Bilhah, tribal territory in north Israel",
-        "references": ["Genesis 30:6", "Genesis 46:23", "Genesis 49:16-18", "Exodus 1:4", "Numbers 26:42-43", "Judges 18", "1 Chronicles 2:2"]
-      },
-      {
-        "id": "naphtali",
-        "name": "Naphtali",
-        "meaning": "My wrestling",
-        "birthYear": -1807,
-        "significance": "Son of Jacob and Bilhah, tribe settled in northern Galilee",
-        "references": ["Genesis 30:8", "Genesis 46:24", "Genesis 49:21", "Exodus 1:4", "Numbers 26:48-50", "1 Chronicles 2:2", "1 Chronicles 7:13"]
-      },
-      {
-        "id": "gad",
-        "name": "Gad",
-        "meaning": "Good fortune/Troop",
-        "birthYear": -1807,
-        "significance": "Son of Jacob and Zilpah, tribe settled east of Jordan",
-        "references": ["Genesis 30:11", "Genesis 46:16", "Genesis 49:19", "Exodus 1:4", "Numbers 26:15-18", "1 Chronicles 2:2", "1 Chronicles 5:11-22"]
-      },
-      {
-        "id": "asher",
-        "name": "Asher",
-        "meaning": "Happy",
-        "birthYear": -1806,
-        "significance": "Son of Jacob and Zilpah, tribe settled in western Galilee",
-        "references": ["Genesis 30:13", "Genesis 46:17", "Genesis 49:20", "Exodus 1:4", "Numbers 26:44-47", "1 Chronicles 2:2", "1 Chronicles 7:30-40", "Luke 2:36"]
-      },
-      {
-        "id": "issachar",
-        "name": "Issachar",
-        "meaning": "Reward/Hire",
-        "birthYear": -1805,
-        "significance": "Fifth son of Jacob and Leah, tribe known for wisdom",
-        "references": ["Genesis 30:18", "Genesis 46:13", "Genesis 49:14-15", "Exodus 1:3", "Numbers 26:23-25", "1 Chronicles 2:1", "1 Chronicles 7:1-5"]
-      },
-      {
-        "id": "zebulun",
-        "name": "Zebulun",
-        "meaning": "Dwelling/Honor",
-        "birthYear": -1804,
-        "significance": "Sixth son of Jacob and Leah, tribe settled in northern Canaan",
-        "references": ["Genesis 30:20", "Genesis 46:14", "Genesis 49:13", "Exodus 1:3", "Numbers 26:26-27", "1 Chronicles 2:1"]
-      },
-      {
-        "id": "joseph",
-        "name": "Joseph",
-        "meaning": "May he add",
-        "birthYear": -1801,
-        "deathYear": -1691,
-        "lifespan": 110,
-        "significance": "Firstborn of Jacob and Rachel, sold by brothers, became ruler in Egypt",
-        "occupation": "Shepherd, Administrator/Vizier",
-        "references": ["Genesis 30:22-24", "Genesis 37-50", "Exodus 1:5-8", "Numbers 26:28-37", "1 Chronicles 2:2", "1 Chronicles 5:1-2", "Psalms 105:16-22", "Acts 7:9-14", "Hebrews 11:21-22"]
-      },
-      {
-        "id": "benjamin",
-        "name": "Benjamin",
-        "meaning": "Son of the right hand",
-        "birthYear": -1716,
-        "significance": "Youngest son of Jacob and Rachel, tribe produced first king",
-        "references": ["Genesis 35:16-18", "Genesis 42-46", "Genesis 49:27", "Exodus 1:3", "Numbers 26:38-41", "Judges 19-21", "1 Samuel 9:1-2", "1 Chronicles 2:2", "1 Chronicles 7:6-12", "Romans 11:1", "Philippians 3:5", "Revelation 7:8"]
-      },
-      {
-        "id": "dinah",
-        "name": "Dinah",
-        "birthYear": -1803,
-        "significance": "Daughter of Jacob and Leah, violated at Shechem",
-        "references": ["Genesis 30:21", "Genesis 34:1-31", "Genesis 46:15"]
-      }
-    ],
-    "judahToJesse": [
-      {
-        "id": "er",
-        "name": "Er",
-        "significance": "Firstborn son of Judah, died for wickedness",
-        "references": ["Genesis 38:3-7", "Genesis 46:12", "1 Chronicles 2:3"]
-      },
-      {
-        "id": "onan",
-        "name": "Onan",
-        "significance": "Second son of Judah, died for refusing duty to brother's widow",
-        "references": ["Genesis 38:4, 8-10", "Genesis 46:12", "1 Chronicles 2:3"]
-      },
-      {
-        "id": "shelah",
-        "name": "Shelah",
-        "significance": "Third son of Judah",
-        "references": ["Genesis 38:5, 11, 14, 26", "Genesis 46:12", "Numbers 26:20", "1 Chronicles 2:3", "1 Chronicles 4:21-23"]
-      },
-      {
-        "id": "tamar",
-        "name": "Tamar",
-        "significance": "Widow of Er and Onan, mother of Perez and Zerah by Judah",
-        "references": ["Genesis 38:6-30", "Ruth 4:12", "1 Chronicles 2:4", "Matthew 1:3"]
-      },
-      {
-        "id": "perez",
-        "name": "Perez",
-        "meaning": "Breach/Breaking forth",
-        "birthYear": -1780,
-        "significance": "Son of Judah and Tamar, ancestor of David",
-        "references": ["Genesis 38:29", "Genesis 46:12", "Ruth 4:12, 18", "1 Chronicles 2:4-5", "Matthew 1:3", "Luke 3:33"]
-      },
-      {
-        "id": "zerah",
-        "name": "Zerah",
-        "meaning": "Dawning/Scarlet",
-        "birthYear": -1780,
-        "significance": "Twin son of Judah and Tamar",
-        "references": ["Genesis 38:30", "Genesis 46:12", "Numbers 26:20", "Joshua 7:1, 17-18", "1 Chronicles 2:4, 6-8", "1 Chronicles 9:6", "Nehemiah 11:24"]
-      },
-      {
-        "id": "hezron",
-        "name": "Hezron",
-        "meaning": "Enclosed",
-        "birthYear": -1750,
-        "significance": "Son of Perez, grandson of Judah",
-        "references": ["Genesis 46:12", "Ruth 4:18-19", "1 Chronicles 2:5, 9, 18, 21, 24-25", "Matthew 1:3", "Luke 3:33"]
-      },
-      {
-        "id": "ram",
-        "name": "Ram",
-        "altName": "Aram",
-        "birthYear": -1720,
-        "significance": "Son of Hezron, ancestor of David",
-        "references": ["Ruth 4:19", "1 Chronicles 2:9-10", "Matthew 1:3-4", "Luke 3:33"]
-      },
-      {
-        "id": "amminadab",
-        "name": "Amminadab",
-        "meaning": "My people are noble",
-        "birthYear": -1690,
-        "significance": "Son of Ram, father-in-law of Aaron, ancestor of David",
-        "references": ["Exodus 6:23", "Numbers 1:7", "Numbers 2:3", "Numbers 7:12, 17", "Numbers 10:14", "Ruth 4:19-20", "1 Chronicles 2:10", "Matthew 1:4", "Luke 3:33"]
-      },
-      {
-        "id": "nahshon",
-        "name": "Nahshon",
-        "meaning": "Enchanter/Oracle",
-        "birthYear": -1660,
-        "significance": "Son of Amminadab, leader of Judah during Exodus",
-        "title": "Prince of Judah",
-        "references": ["Exodus 6:23", "Numbers 1:7", "Numbers 2:3", "Numbers 7:12, 17", "Numbers 10:14", "Ruth 4:20", "1 Chronicles 2:10-11", "Matthew 1:4", "Luke 3:32"]
-      },
-      {
-        "id": "salmon",
-        "name": "Salmon",
-        "altName": "Salma",
-        "birthYear": -1630,
-        "significance": "Son of Nahshon, husband of Rahab, ancestor of David",
-        "references": ["Ruth 4:20-21", "1 Chronicles 2:11", "Matthew 1:4-5", "Luke 3:32"]
-      },
-      {
-        "id": "rahab",
-        "name": "Rahab",
-        "origin": "Jericho",
-        "significance": "Helped Israelite spies, married Salmon, ancestor of David",
-        "references": ["Joshua 2:1-21", "Joshua 6:17, 22-25", "Matthew 1:5", "Hebrews 11:31", "James 2:25"]
-      },
-      {
-        "id": "boaz",
-        "name": "Boaz",
-        "meaning": "Strength/Swiftness",
-        "birthYear": -1600,
-        "significance": "Son of Salmon and Rahab, husband of Ruth, ancestor of David",
-        "occupation": "Wealthy landowner",
-        "references": ["Ruth 2-4", "1 Chronicles 2:11-12", "Matthew 1:5", "Luke 3:32"]
-      },
-      {
-        "id": "ruth",
-        "name": "Ruth",
-        "origin": "Moab",
-        "significance": "Moabite widow who followed Naomi, married Boaz, ancestress of David",
-        "references": ["Ruth 1-4", "Matthew 1:5"]
-      },
-      {
-        "id": "obed",
-        "name": "Obed",
-        "meaning": "Servant/Worshipper",
-        "birthYear": -1570,
-        "significance": "Son of Boaz and Ruth, grandfather of David",
-        "references": ["Ruth 4:13-22", "1 Chronicles 2:12", "Matthew 1:5", "Luke 3:32"]
-      },
-      {
-        "id": "jesse",
-        "name": "Jesse",
-        "meaning": "Wealthy/Gift",
-        "birthYear": -1540,
-        "significance": "Son of Obed, father of David, lived in Bethlehem",
-        "occupation": "Sheep breeder",
-        "references": ["Ruth 4:22", "1 Samuel 16:1-13", "1 Samuel 17:12-20", "1 Chronicles 2:12-13", "Isaiah 11:1, 10", "Matthew 1:5-6", "Luke 3:32", "Acts 13:22", "Romans 15:12"]
-      }
-    ],
-    "davidToExile": [
-      {
-        "id": "david",
-        "name": "David",
-        "meaning": "Beloved",
-        "birthYear": -1040,
-        "deathYear": -970,
-        "lifespan": 70,
-        "significance": "Second king of Israel, established kingdom, received Messianic covenant",
-        "occupation": "Shepherd, Musician, Warrior, King",
-        "title": "King of Israel",
-        "reign": "40 years (7 in Hebron, 33 in Jerusalem)",
-        "references": ["1 Samuel 16-31", "2 Samuel 1-24", "1 Kings 1-2", "1 Chronicles 10-29", "Psalms", "Matthew 1:1, 6", "Luke 3:31", "Acts 13:22-23", "Romans 1:3"]
-      },
-      {
-        "id": "bathsheba",
-        "name": "Bathsheba",
-        "birthYear": -1060,
-        "significance": "Wife of Uriah, then David, mother of Solomon",
-        "title": "Queen Mother",
-        "references": ["2 Samuel 11-12", "1 Kings 1-2", "Psalms 51", "Matthew 1:6"]
-      },
-      {
-        "id": "solomon",
-        "name": "Solomon",
-        "meaning": "Peace",
-        "birthYear": -990,
-        "deathYear": -930,
-        "lifespan": 60,
-        "significance": "Third king of Israel, known for wisdom and wealth, built temple",
-        "occupation": "King, Writer, Builder",
-        "title": "King of Israel",
-        "reign": "40 years",
-        "references": ["2 Samuel 12:24-25", "1 Kings 1-11", "1 Chronicles 22:9-10", "1 Chronicles 28-29", "2 Chronicles 1-9", "Proverbs", "Ecclesiastes", "Song of Solomon", "Matthew 1:6-7", "Matthew 6:29", "Matthew 12:42", "Luke 11:31", "Luke 3:31", "Acts 7:47"]
-      },
-      {
-        "id": "rehoboam",
-        "name": "Rehoboam",
-        "meaning": "The people are enlarged",
-        "birthYear": -970,
-        "deathYear": -913,
-        "significance": "First king of Judah after kingdom divided",
-        "title": "King of Judah",
-        "reign": "17 years",
-        "motherName": "Naamah (Ammonite)",
-        "references": ["1 Kings 11:43", "1 Kings 12-14", "2 Chronicles 9:31", "2 Chronicles 10-12", "Matthew 1:7"]
-      },
-      {
-        "id": "abijah",
-        "name": "Abijah",
-        "altName": "Abijam",
-        "meaning": "My father is Yahweh",
-        "birthYear": -950,
-        "deathYear": -910,
-        "significance": "Second king of Judah",
-        "title": "King of Judah",
-        "reign": "3 years",
-        "motherName": "Maacah",
-        "references": ["1 Kings 14:31-15:8", "2 Chronicles 13:1-22", "Matthew 1:7"]
-      },
-      {
-        "id": "asa",
-        "name": "Asa",
-        "meaning": "Healer",
-        "birthYear": -930,
-        "deathYear": -869,
-        "significance": "Third king of Judah, instituted religious reforms",
-        "title": "King of Judah",
-        "reign": "41 years",
-        "references": ["1 Kings 15:8-24", "2 Chronicles 14-16", "Jeremiah 41:9", "Matthew 1:7-8"]
-      },
-      {
-        "id": "jehoshaphat",
-        "name": "Jehoshaphat",
-        "meaning": "Yahweh has judged",
-        "birthYear": -908,
-        "deathYear": -848,
-        "significance": "Fourth king of Judah, instituted judicial reforms",
-        "title": "King of Judah",
-        "reign": "25 years",
-        "motherName": "Azubah",
-        "references": ["1 Kings 15:24", "1 Kings 22:1-50", "2 Kings 3:1-14", "2 Chronicles 17-20", "Matthew 1:8"]
-      },
-      {
-        "id": "jehoram",
-        "name": "Jehoram",
-        "altName": "Joram",
-        "meaning": "Yahweh is exalted",
-        "birthYear": -889,
-        "deathYear": -841,
-        "significance": "Fifth king of Judah, married Athaliah daughter of Ahab",
-        "title": "King of Judah",
-        "reign": "8 years",
-        "references": ["1 Kings 22:50", "2 Kings 8:16-24", "2 Chronicles 21:1-20", "Matthew 1:8"]
-      },
-      {
-        "id": "ahaziah",
-        "name": "Ahaziah",
-        "meaning": "Yahweh has seized",
-        "birthYear": -864,
-        "deathYear": -840,
-        "significance": "Sixth king of Judah, killed by Jehu",
-        "title": "King of Judah",
-        "reign": "1 year",
-        "motherName": "Athaliah",
-        "references": ["2 Kings 8:24-29", "2 Kings 9:27-29", "2 Chronicles 22:1-9"]
-      },
-      {
-        "id": "joash",
-        "name": "Joash",
-        "altName": "Jehoash",
-        "meaning": "Yahweh has given",
-        "birthYear": -860,
-        "deathYear": -800,
-        "significance": "Eighth king of Judah, hidden as infant from Athaliah",
-        "title": "King of Judah",
-        "reign": "40 years",
-        "motherName": "Zibiah",
-        "references": ["2 Kings 11:1-12:21", "2 Chronicles 22:10-24:27"]
-      },
-      {
-        "id": "amaziah",
-        "name": "Amaziah",
-        "meaning": "Yahweh is mighty",
-        "birthYear": -830,
-        "deathYear": -780,
-        "significance": "Ninth king of Judah",
-        "title": "King of Judah",
-        "reign": "29 years",
-        "motherName": "Jehoaddan",
-        "references": ["2 Kings 12:21", "2 Kings 14:1-20", "2 Chronicles 25:1-28"]
-      },
-      {
-        "id": "uzziah",
-        "name": "Uzziah",
-        "altName": "Azariah",
-        "meaning": "Yahweh is my strength",
-        "birthYear": -810,
-        "deathYear": -758,
-        "significance": "Tenth king of Judah, effective ruler but struck with leprosy",
-        "title": "King of Judah",
-        "reign": "52 years",
-        "motherName": "Jecoliah",
-        "references": ["2 Kings 14:21-22", "2 Kings 15:1-7", "2 Chronicles 26:1-23", "Isaiah 6:1", "Matthew 1:8-9"]
-      },
-      {
-        "id": "jotham",
-        "name": "Jotham",
-        "meaning": "Yahweh is perfect",
-        "birthYear": -783,
-        "deathYear": -742,
-        "significance": "Eleventh king of Judah",
-        "title": "King of Judah",
-        "reign": "16 years",
-        "motherName": "Jerusha",
-        "references": ["2 Kings 15:5-7, 32-38", "2 Chronicles 26:21-23", "2 Chronicles 27:1-9", "Isaiah 1:1", "Matthew 1:9"]
-      },
-      {
-        "id": "ahaz",
-        "name": "Ahaz",
-        "meaning": "He has grasped",
-        "birthYear": -765,
-        "deathYear": -726,
-        "significance": "Twelfth king of Judah, introduced idolatry",
-        "title": "King of Judah",
-        "reign": "16 years",
-        "references": ["2 Kings 15:38", "2 Kings 16:1-20", "2 Chronicles 27:9", "2 Chronicles 28:1-27", "Isaiah 1:1", "Isaiah 7:1-17", "Matthew 1:9"]
-      },
-      {
-        "id": "hezekiah",
-        "name": "Hezekiah",
-        "meaning": "Yahweh is my strength",
-        "birthYear": -745,
-        "deathYear": -697,
-        "significance": "Thirteenth king of Judah, instituted religious reforms",
-        "title": "King of Judah",
-        "reign": "29 years",
-        "motherName": "Abijah",
-        "references": ["2 Kings 16:20", "2 Kings 18-20", "2 Chronicles 28:27", "2 Chronicles 29-32", "Isaiah 36-39", "Matthew 1:9-10"]
-      },
-      {
-        "id": "manasseh",
-        "name": "Manasseh",
-        "meaning": "Causing to forget",
-        "birthYear": -709,
-        "deathYear": -642,
-        "significance": "Fourteenth king of Judah, longest reign, notorious for evil but repented",
-        "title": "King of Judah",
-        "reign": "55 years",
-        "motherName": "Hephzibah",
-        "references": ["2 Kings 20:21", "2 Kings 21:1-18", "2 Chronicles 32:33", "2 Chronicles 33:1-20", "Jeremiah 15:4", "Matthew 1:10"]
-      },
-      {
-        "id": "amon",
-        "name": "Amon",
-        "meaning": "Faithful/Master workman",
-        "birthYear": -664,
-        "deathYear": -640,
-        "significance": "Fifteenth king of Judah, followed evil ways of Manasseh",
-        "title": "King of Judah",
-        "reign": "2 years",
-        "motherName": "Meshullemeth",
-        "references": ["2 Kings 21:18-26", "2 Chronicles 33:20-25", "Matthew 1:10"]
-      },
-      {
-        "id": "josiah",
-        "name": "Josiah",
-        "meaning": "Yahweh supports/heals",
-        "birthYear": -648,
-        "deathYear": -609,
-        "significance": "Sixteenth king of Judah, instituted major religious reforms",
-        "title": "King of Judah",
-        "reign": "31 years",
-        "motherName": "Jedidah",
-        "references": ["2 Kings 21:26", "2 Kings 22:1-23:30", "2 Chronicles 33:25", "2 Chronicles 34-35", "Jeremiah 1:2", "Jeremiah 3:6", "Zephaniah 1:1", "Matthew 1:10-11"]
-      },
-      {
-        "id": "jehoiakim",
-        "name": "Jehoiakim",
-        "originalName": "Eliakim",
-        "meaning": "Yahweh raises up",
-        "birthYear": -633,
-        "deathYear": -598,
-        "significance": "Eighteenth king of Judah, puppet of Egypt then Babylon",
-        "title": "King of Judah",
-        "reign": "11 years",
-        "motherName": "Zebidah",
-        "references": ["2 Kings 23:34-24:6", "2 Chronicles 36:4-8", "Jeremiah 1:3", "Jeremiah 22:18-23", "Jeremiah 26:1-23", "Jeremiah 36:1-32"]
-      },
-      {
-        "id": "jeconiah",
-        "name": "Jeconiah",
-        "altName": "Jehoiachin/Coniah",
-        "meaning": "Yahweh establishes",
-        "birthYear": -615,
-        "deathYear": -560,
-        "significance": "Nineteenth king of Judah, exiled to Babylon",
-        "title": "King of Judah",
-        "reign": "3 months",
-        "motherName": "Nehushta",
-        "references": ["2 Kings 24:6-17", "2 Kings 25:27-30", "2 Chronicles 36:8-9", "Jeremiah 22:24-30", "Jeremiah 24:1", "Jeremiah 37:1", "Ezekiel 1:2", "Matthew 1:11-12"]
-      }
-    ],
-    "postExile": [
-      {
-        "id": "shealtiel",
-        "name": "Shealtiel",
-        "altName": "Salathiel",
-        "meaning": "I have asked of God",
-        "birthYear": -597,
-        "significance": "Son or heir of Jeconiah",
-        "references": ["Ezra 3:2, 8", "Ezra 5:2", "Nehemiah 12:1", "Haggai 1:1, 12, 14", "Haggai 2:2, 23", "Matthew 1:12", "Luke 3:27"]
-      },
-      {
-        "id": "zerubbabel",
-        "name": "Zerubbabel",
-        "meaning": "Seed of Babylon",
-        "birthYear": -575,
-        "significance": "Led first group of exiles back to Jerusalem, rebuilt temple",
-        "title": "Governor of Judah",
-        "references": ["Ezra 2:2", "Ezra 3:2-8", "Ezra 4:2-3", "Ezra 5:2", "Nehemiah 12:1, 47", "Haggai 1:1, 12, 14", "Haggai 2:2-23", "Zechariah 4:6-10", "Matthew 1:12-13", "Luke 3:27"]
-      },
-      {
-        "id": "abiud",
-        "name": "Abiud",
-        "birthYear": -550,
-        "significance": "Son of Zerubbabel in Matthew's genealogy",
-        "references": ["Matthew 1:13"]
-      },
-      {
-        "id": "eliakim",
-        "name": "Eliakim",
-        "birthYear": -525,
-        "significance": "Son of Abiud in Matthew's genealogy",
-        "references": ["Matthew 1:13"]
-      },
-      {
-        "id": "azor",
-        "name": "Azor",
-        "birthYear": -500,
-        "significance": "Son of Eliakim in Matthew's genealogy",
-        "references": ["Matthew 1:13-14"]
-      },
-      {
-        "id": "zadok",
-        "name": "Zadok",
-        "birthYear": -475,
-        "significance": "Son of Azor in Matthew's genealogy",
-        "references": ["Matthew 1:14"]
-      },
-      {
-        "id": "achim",
-        "name": "Achim",
-        "birthYear": -450,
-        "significance": "Son of Zadok in Matthew's genealogy",
-        "references": ["Matthew 1:14"]
-      },
-      {
-        "id": "eliud",
-        "name": "Eliud",
-        "birthYear": -425,
-        "significance": "Son of Achim in Matthew's genealogy",
-        "references": ["Matthew 1:14"]
-      },
-      {
-        "id": "eleazar",
-        "name": "Eleazar",
-        "birthYear": -400,
-        "significance": "Son of Eliud in Matthew's genealogy",
-        "references": ["Matthew 1:15"]
-      },
-      {
-        "id": "matthan",
-        "name": "Matthan",
-        "birthYear": -375,
-        "significance": "Son of Eleazar in Matthew's genealogy",
-        "references": ["Matthew 1:15"]
-      },
-      {
-        "id": "jacob",
-        "name": "Jacob",
-        "birthYear": -350,
-        "significance": "Father of Joseph, legal father of Jesus",
-        "references": ["Matthew 1:15-16"]
-      }
-    ],
-    "jesusLineage": [
-      {
-        "id": "joseph",
-        "name": "Joseph",
-        "meaning": "He will add",
-        "birthYear": -30,
-        "significance": "Legal father of Jesus, husband of Mary",
-        "occupation": "Carpenter",
-        "references": ["Matthew 1:16-25", "Matthew 2:13-23", "Luke 1:27", "Luke 2:4-5, 16, 22-39, 41-52", "Luke 3:23", "Luke 4:22", "John 1:45", "John 6:42"]
-      },
-      {
-        "id": "mary",
-        "name": "Mary",
-        "altName": "Miriam",
-        "meaning": "Bitter/Rebellious",
-        "birthYear": -20,
-        "significance": "Mother of Jesus, virgin who conceived by the Holy Spirit",
-        "references": ["Matthew 1:16-25", "Matthew 2:11-21", "Matthew 12:46-50", "Mark 3:31-35", "Mark 6:3", "Luke 1:26-56", "Luke 2:1-52", "Luke 8:19-21", "John 2:1-12", "John 19:25-27", "Acts 1:14"]
-      },
-      {
-        "id": "jesus",
-        "name": "Jesus",
-        "altName": "Yeshua/Christ/Messiah",
-        "meaning": "Yahweh saves",
-        "birthYear": -6,
-        "deathYear": 30,
-        "lifespan": 36,
-        "significance": "Son of God, Messiah, Savior of the world",
-        "occupation": "Carpenter, Rabbi, Savior",
-        "references": ["Matthew", "Mark", "Luke", "John", "Acts", "Romans", "1 Corinthians", "2 Corinthians", "Galatians", "Ephesians", "Philippians", "Colossians", "1 Thessalonians", "2 Thessalonians", "1 Timothy", "2 Timothy", "Titus", "Philemon", "Hebrews", "James", "1 Peter", "2 Peter", "1 John", "2 John", "3 John", "Jude", "Revelation"]
-      }
-    ],
-    "abraham": [
-      {
-        "id": "abraham",
-        "name": "Abraham",
-        "originalName": "Abram",
-        "meaning": "Father of many nations",
-        "birthYear": -2166,
-        "deathYear": -1991,
-        "lifespan": 175,
-        "significance": "Father of the faithful, received covenant from God",
-        "occupation": "Nomadic herder/Patriarch",
-        "references": ["Genesis 11:26-25:10", "1 Chronicles 1:27-28", "Matthew 1:1-2", "Luke 3:34", "Romans 4", "Galatians 3:6-29", "Hebrews 11:8-19", "James 2:21-23"]
-      },
-      {
-        "id": "sarah",
-        "name": "Sarah",
-        "originalName": "Sarai",
-        "meaning": "Princess",
-        "birthYear": -2156,
-        "deathYear": -2029,
-        "lifespan": 127,
-        "significance": "Wife of Abraham, mother of Isaac",
-        "references": ["Genesis 11:29-31", "Genesis 12:5-17:15", "Genesis 18:6-15", "Genesis 20:2-18", "Genesis 21:1-12", "Genesis 23:1-2, 19", "Genesis 24:36-67", "Genesis 25:10", "Isaiah 51:2", "Romans 4:19", "Romans 9:9", "Hebrews 11:11", "1 Peter 3:6"]
-      },
-      {
-        "id": "hagar",
-        "name": "Hagar",
-        "meaning": "Flight/Stranger",
-        "birthYear": -2140,
-        "significance": "Egyptian handmaid of Sarah, mother of Ishmael",
-        "references": ["Genesis 16:1-16", "Genesis 21:9-21", "Genesis 25:12", "Galatians 4:21-31"]
-      },
-      {
-        "id": "ishmael",
-        "name": "Ishmael",
-        "meaning": "God hears",
-        "birthYear": -2080,
-        "deathYear": -1943,
-        "lifespan": 137,
-        "significance": "Firstborn son of Abraham through Hagar",
-        "occupation": "Archer/Hunter",
-        "references": ["Genesis 16:11-16", "Genesis 17:18-25", "Genesis 21:9-21", "Genesis 25:9-17", "Genesis 28:9", "Genesis 36:3", "1 Chronicles 1:28-31"]
-      },
-      {
-        "id": "isaac",
-        "name": "Isaac",
-        "meaning": "Laughter",
-        "birthYear": -2066,
-        "deathYear": -1886,
-        "lifespan": 180,
-        "significance": "Son of promise, born to Abraham and Sarah in old age",
-        "occupation": "Herder/Farmer",
-        "references": ["Genesis 17:19-21", "Genesis 21:1-12", "Genesis 22:1-19", "Genesis 24-28", "Genesis 35:27-29", "1 Chronicles 1:28, 34", "Matthew 1:2", "Luke 3:34", "Romans 9:7", "Galatians 4:28-30", "Hebrews 11:17-20", "James 2:21"]
-      },
-      {
-        "id": "rebekah",
-        "name": "Rebekah",
-        "meaning": "Captivating",
-        "birthYear": -2046,
-        "significance": "Wife of Isaac, mother of Jacob and Esau",
-        "references": ["Genesis 22:23", "Genesis 24-28", "Genesis 35:8", "Genesis 49:31", "Romans 9:10"]
-      },
-      {
-        "id": "esau",
-        "name": "Esau",
-        "altName": "Edom",
-        "meaning": "Hairy/Red",
-        "birthYear": -2006,
-        "significance": "Firstborn son of Isaac and Rebekah, sold birthright",
-        "occupation": "Hunter",
-        "references": ["Genesis 25:21-34", "Genesis 26:34-28:9", "Genesis 32:3-23", "Genesis 33", "Genesis 35:29", "Genesis 36", "Deuteronomy 2:4-8", "Joshua 24:4", "1 Chronicles 1:35-54", "Malachi 1:2-3", "Romans 9:10-13", "Hebrews 11:20", "Hebrews 12:16-17"]
-      },
-      {
-        "id": "jacob",
-        "name": "Jacob",
-        "altName": "Israel",
-        "meaning": "Supplanter/He who struggles with God",
-        "birthYear": -2006,
-        "deathYear": -1859,
-        "lifespan": 147,
-        "significance": "Father of the 12 tribes of Israel",
-        "occupation": "Shepherd/Patriarch",
-        "references": ["Genesis 25:21-34", "Genesis 27-35", "Genesis 37", "Genesis 42-49", "Exodus 1:1-5", "1 Chronicles 1:34", "1 Chronicles 2:1-2", "Matthew 1:2", "Luke 3:34", "Acts 7:8-15", "Romans 9:10-13", "Hebrews 11:9-21"]
-      }
-    ],
-    "leah": [
-      {
-        "id": "leah",
-        "name": "Leah",
-        "meaning": "Weary",
-        "birthYear": -1990,
-        "significance": "First wife of Jacob, mother of six sons and Dinah",
-        "references": ["Genesis 29:16-35", "Genesis 30:9-21", "Genesis 31:4-14, 33", "Genesis 33:1-7", "Genesis 34:1", "Genesis 35:23, 26", "Genesis 46:15, 18", "Genesis 49:31", "Ruth 4:11"]
-      },
-      {
-        "id": "reuben",
-        "name": "Reuben",
-        "meaning": "See, a son",
-        "birthYear": -1927,
-        "significance": "Firstborn son of Jacob and Leah, lost birthright",
-        "occupation": "Tribal leader/Shepherd",
-        "references": ["Genesis 29:32", "Genesis 30:14", "Genesis 35:22-23", "Genesis 37:21-30", "Genesis 42:22, 37", "Genesis 46:8-9", "Genesis 48:5", "Genesis 49:3-4", "Exodus 1:2", "Numbers 1:5, 20-21", "Numbers 2:10-16", "Numbers 7:30-35", "Numbers 16:1-50", "Joshua 4:12", "Joshua 13:15-23", "Joshua 22", "Judges 5:15-16", "1 Chronicles 2:1", "1 Chronicles 5:1-10", "Ezekiel 48:6-7", "Revelation 7:5"]
-      },
-      {
-        "id": "simeon",
-        "name": "Simeon",
-        "meaning": "Heard",
-        "birthYear": -1926,
-        "significance": "Second son of Jacob and Leah",
-        "occupation": "Tribal leader/Shepherd",
-        "references": ["Genesis 29:33", "Genesis 34:25-31", "Genesis 42:24, 36", "Genesis 43:23", "Genesis 46:10", "Genesis 49:5-7", "Exodus 1:2", "Exodus 6:15", "Numbers 1:6, 22-23", "Numbers 2:12-13", "Numbers 26:12-14", "Joshua 19:1-9", "Judges 1:3, 17", "1 Chronicles 4:24-43", "Ezekiel 48:24-25", "Revelation 7:7"]
-      },
-      {
-        "id": "levi",
-        "name": "Levi",
-        "meaning": "Attached",
-        "birthYear": -1925,
-        "significance": "Third son of Jacob and Leah, progenitor of priestly tribe",
-        "occupation": "Tribal leader/Priest",
-        "references": ["Genesis 29:34", "Genesis 34:25-31", "Genesis 46:11", "Genesis 49:5-7", "Exodus 1:2", "Exodus 2:1-10", "Exodus 6:16-25", "Numbers 1:47-54", "Numbers 3-4", "Numbers 8", "Numbers 18", "Deuteronomy 10:8-9", "Deuteronomy 18:1-8", "Joshua 13:14, 33", "Joshua 21", "1 Chronicles 6", "1 Chronicles 9:2-34", "Ezekiel 40-48", "Malachi 2:4-9", "Malachi 3:3", "Hebrews 7", "Revelation 7:7"]
-      },
-      {
-        "id": "judah",
-        "name": "Judah",
-        "meaning": "Praise",
-        "birthYear": -1924,
-        "significance": "Fourth son of Jacob and Leah, received ruling scepter",
-        "occupation": "Tribal leader/Ruler",
-        "references": ["Genesis 29:35", "Genesis 37:26-27", "Genesis 38", "Genesis 43:3-10", "Genesis 44:14-34", "Genesis 46:12", "Genesis 49:8-12", "Numbers 1:7, 26-27", "Numbers 2:3-9", "Joshua 15", "Judges 1:1-20", "Ruth 4:12", "1 Chronicles 2:3-4:23", "1 Chronicles 5:2", "Matthew 1:2-3", "Luke 3:33", "Hebrews 7:14", "Revelation 5:5", "Revelation 7:5"]
-      },
-      {
-        "id": "issachar",
-        "name": "Issachar",
-        "meaning": "Man of hire/Reward",
-        "birthYear": -1921,
-        "significance": "Ninth son of Jacob, fifth by Leah",
-        "occupation": "Tribal leader/Scholar",
-        "references": ["Genesis 30:14-18", "Genesis 46:13", "Genesis 49:14-15", "Numbers 1:8, 28-29", "Numbers 2:5", "Numbers 7:18-23", "Numbers 26:23-25", "Deuteronomy 33:18-19", "Joshua 19:17-23", "Judges 5:15", "Judges 10:1-2", "1 Chronicles 7:1-5", "1 Chronicles 12:32", "Ezekiel 48:25-26", "Revelation 7:7"]
-      },
-      {
-        "id": "zebulun",
-        "name": "Zebulun",
-        "meaning": "Dwelling/Honor",
-        "birthYear": -1920,
-        "significance": "Tenth son of Jacob, sixth by Leah",
-        "occupation": "Tribal leader/Mariner",
-        "references": ["Genesis 30:19-20", "Genesis 46:14", "Genesis 49:13", "Numbers 1:9, 30-31", "Numbers 2:7", "Numbers 26:26-27", "Deuteronomy 33:18-19", "Joshua 19:10-16", "Judges 1:30", "Judges 4:6, 10", "Judges 5:14, 18", "Judges 6:35", "Judges 12:11-12", "1 Chronicles 2:1", "Psalm 68:27", "Isaiah 9:1", "Ezekiel 48:26-27", "Matthew 4:13-16", "Revelation 7:8"]
-      },
-      {
-        "id": "dinah",
-        "name": "Dinah",
-        "meaning": "Judgment",
-        "birthYear": -1919,
-        "significance": "Only daughter of Jacob mentioned by name",
-        "references": ["Genesis 30:21", "Genesis 34", "Genesis 46:15"]
-      }
-    ],
-    "bilhah": [
-      {
-        "id": "bilhah",
-        "name": "Bilhah",
-        "meaning": "Troubled/Timid",
-        "birthYear": -1980,
-        "significance": "Rachel's handmaid, mother of Dan and Naphtali",
-        "references": ["Genesis 29:29", "Genesis 30:3-8", "Genesis 35:22", "Genesis 35:25", "Genesis 37:2", "Genesis 46:25", "1 Chronicles 7:13"]
-      },
-      {
-        "id": "dan",
-        "name": "Dan",
-        "meaning": "Judge",
-        "birthYear": -1924,
-        "significance": "Fifth son of Jacob, first by Bilhah",
-        "occupation": "Tribal leader/Judge",
-        "references": ["Genesis 30:5-6", "Genesis 35:25", "Genesis 46:23", "Genesis 49:16-18", "Exodus 1:4", "Numbers 1:12, 38-39", "Numbers 2:25-31", "Numbers 26:42-43", "Deuteronomy 33:22", "Joshua 19:40-48", "Judges 1:34", "Judges 5:17", "Judges 13-16", "Judges 17-18", "1 Chronicles 2:2", "1 Chronicles 27:22", "Jeremiah 8:16", "Ezekiel 48:1-2", "Revelation 7:5-8"]
-      },
-      {
-        "id": "naphtali",
-        "name": "Naphtali",
-        "meaning": "My wrestling",
-        "birthYear": -1923,
-        "significance": "Sixth son of Jacob, second by Bilhah",
-        "occupation": "Tribal leader",
-        "references": ["Genesis 30:7-8", "Genesis 35:25", "Genesis 46:24", "Genesis 49:21", "Exodus 1:4", "Numbers 1:15, 42-43", "Numbers 2:29-30", "Numbers 26:48-50", "Deuteronomy 33:23", "Joshua 19:32-39", "Judges 1:33", "Judges 4:6-10", "Judges 5:18", "Judges 6:35", "Judges 7:23", "1 Chronicles 2:2", "1 Chronicles 7:13", "1 Chronicles 12:34", "1 Chronicles 27:19", "Isaiah 9:1", "Ezekiel 48:3-4", "Matthew 4:13-16", "Revelation 7:6"]
-      }
-    ],
-    "zilpah": [
-      {
-        "id": "zilpah",
-        "name": "Zilpah",
-        "meaning": "Frailty",
-        "birthYear": -1980,
-        "significance": "Leah's handmaid, mother of Gad and Asher",
-        "references": ["Genesis 29:24", "Genesis 30:9-13", "Genesis 35:26", "Genesis 37:2", "Genesis 46:18"]
-      },
-      {
-        "id": "gad",
-        "name": "Gad",
-        "meaning": "Good fortune/Troop",
-        "birthYear": -1922,
-        "significance": "Seventh son of Jacob, first by Zilpah",
-        "occupation": "Tribal leader/Warrior",
-        "references": ["Genesis 30:9-11", "Genesis 35:26", "Genesis 46:16", "Genesis 49:19", "Exodus 1:4", "Numbers 1:14, 24-25", "Numbers 2:14-15", "Numbers 26:15-18", "Deuteronomy 33:20-21", "Joshua 13:24-28", "Joshua 22", "Judges 5:17", "1 Chronicles 2:2", "1 Chronicles 5:11-22", "1 Chronicles 12:8-15", "1 Chronicles 12:37-38", "Ezekiel 48:27-28", "Revelation 7:5"]
-      },
-      {
-        "id": "asher",
-        "name": "Asher",
-        "meaning": "Happy",
-        "birthYear": -1921,
-        "significance": "Eighth son of Jacob, second by Zilpah",
-        "occupation": "Tribal leader/Agriculturist",
-        "references": ["Genesis 30:12-13", "Genesis 35:26", "Genesis 46:17", "Genesis 49:20", "Exodus 1:4", "Numbers 1:13, 40-41", "Numbers 2:27-28", "Numbers 26:44-47", "Deuteronomy 33:24-25", "Joshua 19:24-31", "Judges 1:31-32", "Judges 5:17", "Judges 6:35", "Judges 7:23", "1 Chronicles 2:2", "1 Chronicles 7:30-40", "1 Chronicles 12:36", "2 Chronicles 30:11", "Ezekiel 48:2-3", "Luke 2:36-38", "Revelation 7:6"]
-      }
-    ],
-    "rachel": [
-      {
-        "id": "rachel",
-        "name": "Rachel",
-        "meaning": "Ewe/Female sheep",
-        "birthYear": -1980,
-        "deathYear": -1911,
-        "significance": "Beloved wife of Jacob, mother of Joseph and Benjamin",
-        "references": ["Genesis 29:6-30:24", "Genesis 31:4-35", "Genesis 33:1-7", "Genesis 35:16-20, 24", "Genesis 46:19-22, 25", "Genesis 48:7", "Ruth 4:11", "1 Samuel 10:2", "Jeremiah 31:15", "Matthew 2:18"]
-      },
-      {
-        "id": "joseph",
-        "name": "Joseph",
-        "meaning": "He will add",
-        "birthYear": -1915,
-        "deathYear": -1805,
-        "lifespan": 110,
-        "significance": "Eleventh son of Jacob, first by Rachel, ruler in Egypt",
-        "occupation": "Administrator/Ruler of Egypt",
-        "references": ["Genesis 30:22-24", "Genesis 35:24", "Genesis 37", "Genesis 39-50", "Exodus 1:5-8", "Exodus 13:19", "Numbers 1:10, 32-33", "Numbers 26:28-37", "Deuteronomy 33:13-17", "Joshua 16-17", "Joshua 24:32", "Psalm 105:17-22", "Acts 7:9-14", "Hebrews 11:21-22", "Revelation 7:8"]
-      },
-      {
-        "id": "benjamin",
-        "name": "Benjamin",
-        "meaning": "Son of the right hand",
-        "birthYear": -1911,
-        "significance": "Twelfth son of Jacob, second by Rachel",
-        "occupation": "Tribal leader/Warrior",
-        "references": ["Genesis 35:16-20, 24", "Genesis 42:4, 36", "Genesis 43:15-34", "Genesis 44:12-34", "Genesis 45:14-22", "Genesis 46:19, 21", "Genesis 49:27", "Exodus 1:3", "Numbers 1:11, 36-37", "Numbers 2:22-23", "Numbers 26:38-41", "Deuteronomy 33:12", "Joshua 18:11-28", "Judges 1:21", "Judges 3:15", "Judges 5:14", "Judges 19-21", "1 Samuel 9:1-2", "1 Samuel 10:20-24", "2 Samuel 2:15", "2 Samuel 3:19", "1 Chronicles 2:2", "1 Chronicles 7:6-12", "1 Chronicles 8", "1 Chronicles 9:7-9", "1 Chronicles 12:1-7, 29", "Nehemiah 11:4-9", "Psalm 68:27", "Acts 13:21", "Romans 11:1", "Philippians 3:5", "Revelation 7:8"]
-      }
-    ],
-    "tribes": [
-      {
-        "id": "ephraim",
-        "name": "Ephraim",
-        "meaning": "Doubly fruitful",
-        "birthYear": -1886,
-        "significance": "Second son of Joseph, received firstborn blessing from Jacob",
-        "occupation": "Tribal leader",
-        "references": ["Genesis 41:52", "Genesis 48:1-20", "Genesis 50:23", "Numbers 1:10, 32-33", "Numbers 2:18-19", "Numbers 13:8, 16", "Numbers 26:35-37", "Deuteronomy 33:13-17", "Joshua 16:1-10", "Joshua 17:14-18", "Judges 1:29", "Judges 2:9", "Judges 3:27", "Judges 4:5", "Judges 5:14", "Judges 7:24-25", "Judges 8:1-3", "Judges 10:1-5", "Judges 12:1-6", "Judges 17-19", "1 Samuel 1:1", "1 Kings 11:26", "1 Chronicles 2:1", "1 Chronicles 7:20-29", "2 Chronicles 13:4-19", "2 Chronicles 17:2", "Psalm 60:7", "Psalm 78:9-11, 67", "Psalm 80:2", "Isaiah 7:2-9", "Isaiah 9:9-21", "Isaiah 11:13", "Jeremiah 7:15", "Jeremiah 31:6, 9, 18-20", "Ezekiel 37:16-19", "Hosea 4-14", "Zechariah 9:10-13", "Zechariah 10:7", "Revelation 7:8"]
-      },
-      {
-        "id": "manasseh",
-        "name": "Manasseh",
-        "meaning": "Causing to forget",
-        "birthYear": -1887,
-        "significance": "Firstborn son of Joseph, received secondary blessing",
-        "occupation": "Tribal leader",
-        "references": ["Genesis 41:51", "Genesis 48:1-20", "Genesis 50:23", "Numbers 1:10, 34-35", "Numbers 2:20-21", "Numbers 13:11", "Numbers 26:28-34", "Numbers 27:1-11", "Numbers 32:33-42", "Numbers 36", "Deuteronomy 3:13-15", "Deuteronomy 29:8", "Deuteronomy 33:13-17", "Joshua 13:29-31", "Joshua 16:4", "Joshua 17:1-13", "Joshua 22", "Judges 1:27", "Judges 6:15", "Judges 11:29", "1 Chronicles 2:21-23", "1 Chronicles 5:18-26", "1 Chronicles 7:14-19", "1 Chronicles 12:19-22, 31, 37", "2 Chronicles 15:9", "2 Chronicles 30:1, 10-11, 18", "2 Chronicles 31:1", "2 Chronicles 34:6, 9", "Psalm 60:7", "Psalm 80:2", "Psalm 108:8", "Isaiah 9:21", "Ezekiel 48:4-5", "Revelation 7:6"]
-      }
-    ],
-    "newTestament": [
-      {
-        "id": "annas",
-        "name": "Annas",
-        "birthYear": -23,
-        "deathYear": 40,
-        "title": "Former High Priest",
-        "tenure": "6 AD - 15 AD",
-        "significance": "Father-in-law of Caiaphas, influential religious leader",
-        "references": ["Luke 3:2", "John 18:13-24", "Acts 4:6"]
-      },
-      {
-        "id": "caiaphas",
-        "name": "Caiaphas",
-        "birthYear": -14,
-        "deathYear": 46,
-        "title": "High Priest",
-        "tenure": "18 AD - 36 AD",
-        "significance": "High priest who presided over trial of Jesus",
-        "references": ["Matthew 26:3-5, 57-68", "Luke 3:2", "John 11:49-53", "John 18:13-28", "Acts 4:6"]
-      },
-      {
-        "id": "herodArchelaus",
-        "name": "Herod Archelaus",
-        "birthYear": -23,
-        "deathYear": 18,
-        "title": "Ethnarch of Judea, Samaria, Idumea",
-        "reign": "4 BC - 6 AD",
-        "significance": "Ruler after Herod's death, reason for Holy Family settling in Galilee",
-        "references": ["Matthew 2:22"]
-      },
-      {
-        "id": "johnBaptist",
-        "name": "John the Baptist",
-        "birthYear": -7,
-        "deathYear": 28,
-        "significance": "Prophet who prepared the way for Jesus, baptized Jesus",
-        "occupation": "Prophet",
-        "references": ["Matthew 3:1-17", "Matthew 11:2-19", "Matthew 14:1-12", "Mark 1:2-11", "Mark 6:14-29", "Luke 1:5-25, 57-80", "Luke 3:1-22", "Luke 7:18-35", "Luke 9:7-9", "John 1:6-37", "John 3:22-36", "Acts 1:5", "Acts 11:16", "Acts 13:24-25", "Acts 18:25", "Acts 19:3-4"]
-      },
-      {
-        "id": "elizabeth",
-        "name": "Elizabeth",
-        "birthYear": -37,
-        "significance": "Mother of John the Baptist, relative of Mary",
-        "references": ["Luke 1:5-25, 39-45, 57-61"]
-      },
-      {
-        "id": "zechariah",
-        "name": "Zechariah",
-        "birthYear": -40,
-        "significance": "Father of John the Baptist, priest who received angelic vision",
-        "occupation": "Priest",
-        "references": ["Luke 1:5-25, 57-79"]
-      }
+    "sources": [
+      "Genesis", "Exodus", "Numbers", "Joshua", "Ruth", 
+      "1 & 2 Samuel", "1 & 2 Kings", "1 & 2 Chronicles", 
+      "Ezra", "Nehemiah", "Isaiah", "Jeremiah", "Ezekiel", 
+      "Daniel", "Hosea", "Matthew", "Luke", "John", "Acts"
     ]
   },
-  "relationships": {
-    "marriages": [
-      {
-        "id": "marriage-adam-eve",
-        "relationshipType": "Marriage",
-        "partner1": "adam",
-        "partner2": "eve",
-        "startYear": -4000,
-        "references": ["Genesis 2:21-25", "Genesis 3:8-24", "Genesis 4:1-2, 25"]
+  "people": [
+    {
+      "id": "adam",
+      "fullName": "Adam",
+      "birth": "Creation",
+      "death": "930 years after creation",
+      "age": 930,
+      "father": null,
+      "mother": null,
+      "spouses": ["eve"],
+      "children": ["cain", "abel", "seth"],
+      "biblicalReferences": ["Genesis 1:26-27", "Genesis 2:7", "Genesis 5:1-5"],
+      "description": "The first man created by God, husband of Eve, and father of humanity.",
+      "generation": 1,
+      "significance": "First human created by God",
+      "lineage": "Adamic",
+      "era": "antediluvian",
+      "estimatedYears": {
+        "birth": -4000,
+        "death": -3070
       },
-      {
-        "id": "marriage-abraham-sarah",
-        "relationshipType": "Marriage",
-        "partner1": "abraham",
-        "partner2": "sarah",
-        "startYear": -2091,
-        "references": ["Genesis 11:29-31", "Genesis 12:5", "Genesis 16:1-3", "Genesis 17:15-21", "Genesis 20:2-18", "Genesis 21:1-12", "Genesis 23:1-2, 19", "Genesis 24:36", "Genesis 25:10"]
-      },
-      {
-        "id": "marriage-isaac-rebekah",
-        "relationshipType": "Marriage",
-        "partner1": "isaac",
-        "partner2": "rebekah",
-        "startYear": -2026,
-        "references": ["Genesis 24", "Genesis 25:20-28", "Genesis 26:6-11", "Genesis 27", "Genesis 28:5", "Genesis 35:28-29", "Genesis 49:31"]
-      },
-      {
-        "id": "marriage-jacob-leah",
-        "relationshipType": "Marriage",
-        "partner1": "jacob",
-        "partner2": "leah",
-        "startYear": -1928,
-        "references": ["Genesis 29:15-30", "Genesis 31:4-16", "Genesis 33:1-2", "Genesis 35:23", "Genesis 49:31"]
-      },
-      {
-        "id": "marriage-jacob-rachel",
-        "relationshipType": "Marriage",
-        "partner1": "jacob",
-        "partner2": "rachel",
-        "startYear": -1921,
-        "references": ["Genesis 29:15-30", "Genesis 30:1-24", "Genesis 31:4-16", "Genesis 33:1-7", "Genesis 35:16-20, 24"]
-      },
-      {
-        "id": "marriage-joseph-mary",
-        "relationshipType": "Marriage",
-        "partner1": "joseph",
-        "partner2": "mary",
-        "startYear": -7,
-        "references": ["Matthew 1:18-25", "Luke 1:26-27", "Luke 2:4-5, 16, 21-24, 39-51"]
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true,
+        "isMajorPatriarch": true
       }
-    ],
-    "concubinage": [
-      {
-        "id": "concubinage-abraham-hagar",
-        "relationshipType": "Concubinage",
-        "partner1": "abraham",
-        "partner2": "hagar",
-        "startYear": -2081,
-        "references": ["Genesis 16:1-16", "Genesis 21:9-21", "Genesis 25:12", "Galatians 4:22-31"]
+    },
+    {
+      "id": "eve",
+      "fullName": "Eve",
+      "birth": "Creation",
+      "death": "Unknown",
+      "age": null,
+      "father": null,
+      "mother": null,
+      "spouses": ["adam"],
+      "children": ["cain", "abel", "seth"],
+      "biblicalReferences": ["Genesis 2:21-22", "Genesis 3:20", "Genesis 4:1-2"],
+      "description": "The first woman created by God, wife of Adam, and mother of humanity.",
+      "generation": 1,
+      "significance": "First woman created by God",
+      "lineage": "Adamic",
+      "era": "antediluvian",
+      "estimatedYears": {
+        "birth": -4000,
+        "death": null
       },
-      {
-        "id": "concubinage-jacob-bilhah",
-        "relationshipType": "Concubinage",
-        "partner1": "jacob",
-        "partner2": "bilhah",
-        "startYear": -1925,
-        "references": ["Genesis 30:1-8", "Genesis 35:22, 25", "Genesis 37:2", "Genesis 46:25"]
-      },
-      {
-        "id": "concubinage-jacob-zilpah",
-        "relationshipType": "Concubinage",
-        "partner1": "jacob",
-        "partner2": "zilpah",
-        "startYear": -1923,
-        "references": ["Genesis 30:9-13", "Genesis 35:26", "Genesis 37:2", "Genesis 46:18"]
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true,
+        "isMajorMatriarch": true
       }
-    ],
-    "parentChild": [
-      {
-        "id": "parent-adam-cain",
-        "relationshipType": "ParentChild",
-        "parent": "adam",
-        "child": "cain",
-        "references": ["Genesis 4:1-2"]
-      },
-      {
-        "id": "parent-eve-cain",
-        "relationshipType": "ParentChild",
-        "parent": "eve",
-        "child": "cain",
-        "references": ["Genesis 4:1-2"]
-      },
-      {
-        "id": "parent-adam-abel",
-        "relationshipType": "ParentChild",
-        "parent": "adam",
-        "child": "abel",
-        "references": ["Genesis 4:1-2"]
-      },
-      {
-        "id": "parent-eve-abel",
-        "relationshipType": "ParentChild",
-        "parent": "eve",
-        "child": "abel",
-        "references": ["Genesis 4:1-2"]
-      },
-      {
-        "id": "parent-adam-seth",
-        "relationshipType": "ParentChild",
-        "parent": "adam",
-        "child": "seth",
-        "references": ["Genesis 4:25-26", "Genesis 5:3-4", "1 Chronicles 1:1", "Luke 3:38"]
-      },
-      {
-        "id": "parent-eve-seth",
-        "relationshipType": "ParentChild",
-        "parent": "eve",
-        "child": "seth",
-        "references": ["Genesis 4:25-26"]
-      },
-      {
-        "id": "parent-seth-enosh",
-        "relationshipType": "ParentChild",
-        "parent": "seth",
-        "child": "enosh",
-        "references": ["Genesis 4:26", "Genesis 5:6-7", "1 Chronicles 1:1", "Luke 3:38"]
-      },
-      {
-        "id": "parent-enosh-kenan",
-        "relationshipType": "ParentChild",
-        "parent": "enosh",
-        "child": "kenan",
-        "references": ["Genesis 5:9-10", "1 Chronicles 1:2", "Luke 3:37"]
-      },
-      {
-        "id": "parent-kenan-mahalalel",
-        "relationshipType": "ParentChild",
-        "parent": "kenan",
-        "child": "mahalalel",
-        "references": ["Genesis 5:12-13", "1 Chronicles 1:2", "Luke 3:37"]
-      },
-      {
-        "id": "parent-mahalalel-jared",
-        "relationshipType": "ParentChild",
-        "parent": "mahalalel",
-        "child": "jared",
-        "references": ["Genesis 5:15-16", "1 Chronicles 1:2", "Luke 3:37"]
-      },
-      {
-        "id": "parent-jared-enoch",
-        "relationshipType": "ParentChild",
-        "parent": "jared",
-        "child": "enoch",
-        "references": ["Genesis 5:18-19", "1 Chronicles 1:3", "Luke 3:37"]
-      },
-      {
-        "id": "parent-enoch-methuselah",
-        "relationshipType": "ParentChild",
-        "parent": "enoch",
-        "child": "methuselah",
-        "references": ["Genesis 5:21-22", "1 Chronicles 1:3", "Luke 3:37"]
-      },
-      {
-        "id": "parent-methuselah-lamech",
-        "relationshipType": "ParentChild",
-        "parent": "methuselah",
-        "child": "lamech",
-        "references": ["Genesis 5:25-26", "1 Chronicles 1:3", "Luke 3:36"]
-      },
-      {
-        "id": "parent-lamech-noah",
-        "relationshipType": "ParentChild",
-        "parent": "lamech",
-        "child": "noah",
-        "references": ["Genesis 5:28-29", "Genesis 5:30", "1 Chronicles 1:3", "Luke 3:36"]
-      },
-      {
-        "id": "parent-noah-shem",
-        "relationshipType": "ParentChild",
-        "parent": "noah",
-        "child": "shem",
-        "references": ["Genesis 5:32", "Genesis 6:10", "Genesis 7:13", "Genesis 9:18-27", "Genesis 10:1", "1 Chronicles 1:4", "Luke 3:36"]
-      },
-      {
-        "id": "parent-abraham-ishmael",
-        "relationshipType": "ParentChild",
-        "parent": "abraham",
-        "child": "ishmael",
-        "references": ["Genesis 16:11-16", "Genesis 17:18-26", "Genesis 21:9-21", "Genesis 25:9-12", "1 Chronicles 1:28"]
-      },
-      {
-        "id": "parent-hagar-ishmael",
-        "relationshipType": "ParentChild",
-        "parent": "hagar",
-        "child": "ishmael",
-        "references": ["Genesis 16:11-16", "Genesis 21:9-21", "Genesis 25:12"]
-      },
-      {
-        "id": "parent-abraham-isaac",
-        "relationshipType": "ParentChild",
-        "parent": "abraham",
-        "child": "isaac",
-        "references": ["Genesis 17:19-21", "Genesis 21:1-12", "Genesis 22:1-19", "Genesis 25:5-11", "Genesis 26:1-5, 24", "Genesis 28:13", "Genesis 35:12", "1 Chronicles 1:28", "Matthew 1:2", "Luke 3:34", "Acts 7:8", "Romans 9:7", "Galatians 4:28", "Hebrews 11:17-18", "James 2:21"]
-      },
-      {
-        "id": "parent-sarah-isaac",
-        "relationshipType": "ParentChild",
-        "parent": "sarah",
-        "child": "isaac",
-        "references": ["Genesis 17:19-21", "Genesis 21:1-12", "Genesis 24:36", "Isaiah 51:2", "Romans 9:7-9", "Galatians 4:28-31", "Hebrews 11:11"]
-      },
-      {
-        "id": "parent-isaac-esau",
-        "relationshipType": "ParentChild",
-        "parent": "isaac",
-        "child": "esau",
-        "references": ["Genesis 25:21-28", "Genesis 27", "Genesis 28:1-9", "Genesis 32:3-33:16", "Genesis 35:29", "Genesis 36:1-43", "Malachi 1:2-3", "Romans 9:10-13", "Hebrews 11:20", "Hebrews 12:16-17"]
-      },
-      {
-        "id": "parent-rebekah-esau",
-        "relationshipType": "ParentChild",
-        "parent": "rebekah",
-        "child": "esau",
-        "references": ["Genesis 25:21-28", "Genesis 27", "Romans 9:10-13"]
-      },
-      {
-        "id": "parent-isaac-jacob",
-        "relationshipType": "ParentChild",
-        "parent": "isaac",
-        "child": "jacob",
-        "references": ["Genesis 25:21-28", "Genesis 27", "Genesis 28:1-22", "Genesis 35:27-29", "Genesis 46:1-5", "Genesis 48:15-16", "Malachi 1:2-3", "Matthew 1:2", "Luke 3:34", "Acts 7:8", "Romans 9:10-13", "Hebrews 11:20"]
-      },
-      {
-        "id": "parent-rebekah-jacob",
-        "relationshipType": "ParentChild",
-        "parent": "rebekah",
-        "child": "jacob",
-        "references": ["Genesis 25:21-28", "Genesis 27", "Genesis 28:5-7", "Romans 9:10-13"]
-      },
-      {
-        "id": "parent-jacob-reuben",
-        "relationshipType": "ParentChild",
-        "parent": "jacob",
-        "child": "reuben",
-        "references": ["Genesis 29:32", "Genesis 35:22-23", "Genesis 46:8-9", "Genesis 48:5", "Genesis 49:3-4", "Exodus 1:2", "1 Chronicles 2:1", "1 Chronicles 5:1-3"]
-      },
-      {
-        "id": "parent-leah-reuben",
-        "relationshipType": "ParentChild",
-        "parent": "leah",
-        "child": "reuben",
-        "references": ["Genesis 29:32", "Genesis 35:23", "Genesis 46:15", "Genesis 49:3"]
-      },
-      {
-        "id": "parent-jacob-simeon",
-        "relationshipType": "ParentChild",
-        "parent": "jacob",
-        "child": "simeon",
-        "references": ["Genesis 29:33", "Genesis 35:23", "Genesis 42:24, 36", "Genesis 43:23", "Genesis 46:10", "Genesis 49:5-7", "Exodus 1:2", "1 Chronicles 2:1"]
-      },
-      {
-        "id": "parent-leah-simeon",
-        "relationshipType": "ParentChild",
-        "parent": "leah",
-        "child": "simeon",
-        "references": ["Genesis 29:33", "Genesis 35:23", "Genesis 46:10", "Genesis 49:5-7"]
-      },
-      {
-        "id": "parent-jacob-levi",
-        "relationshipType": "ParentChild",
-        "parent": "jacob",
-        "child": "levi",
-        "references": ["Genesis 29:34", "Genesis 35:23", "Genesis 46:11", "Genesis 49:5-7", "Exodus 1:2", "1 Chronicles 2:1"]
-      },
-      {
-        "id": "parent-leah-levi",
-        "relationshipType": "ParentChild",
-        "parent": "leah",
-        "child": "levi",
-        "references": ["Genesis 29:34", "Genesis 35:23", "Genesis 46:11", "Genesis 49:5-7"]
-      },
-      {
-        "id": "parent-jacob-judah",
-        "relationshipType": "ParentChild",
-        "parent": "jacob",
-        "child": "judah",
-        "references": ["Genesis 29:35", "Genesis 35:23", "Genesis 37:26-27", "Genesis 43:3-10", "Genesis 44:14-34", "Genesis 46:12", "Genesis 49:8-12", "Exodus 1:2", "1 Chronicles 2:1-4", "Matthew 1:2", "Hebrews 7:14", "Revelation 5:5"]
-      },
-      {
-        "id": "parent-leah-judah",
-        "relationshipType": "ParentChild",
-        "parent": "leah",
-        "child": "judah",
-        "references": ["Genesis 29:35", "Genesis 35:23", "Genesis 46:12", "Genesis 49:8-12"]
-      },
-      {
-        "id": "parent-jacob-dan",
-        "relationshipType": "ParentChild",
-        "parent": "jacob",
-        "child": "dan",
-        "references": ["Genesis 30:5-6", "Genesis 35:25", "Genesis 46:23", "Genesis 49:16-18", "Exodus 1:4", "1 Chronicles 2:2"]
-      },
-      {
-        "id": "parent-bilhah-dan",
-        "relationshipType": "ParentChild",
-        "parent": "bilhah",
-        "child": "dan",
-        "references": ["Genesis 30:5-6", "Genesis 35:25", "Genesis 46:23", "Genesis 49:16-18"]
-      },
-      {
-        "id": "parent-jacob-naphtali",
-        "relationshipType": "ParentChild",
-        "parent": "jacob",
-        "child": "naphtali",
-        "references": ["Genesis 30:7-8", "Genesis 35:25", "Genesis 46:24", "Genesis 49:21", "Exodus 1:4", "1 Chronicles 2:2"]
-      },
-      {
-        "id": "parent-bilhah-naphtali",
-        "relationshipType": "ParentChild",
-        "parent": "bilhah",
-        "child": "naphtali",
-        "references": ["Genesis 30:7-8", "Genesis 35:25", "Genesis 46:24", "Genesis 49:21"]
-      },
-      {
-        "id": "parent-jacob-gad",
-        "relationshipType": "ParentChild",
-        "parent": "jacob",
-        "child": "gad",
-        "references": ["Genesis 30:9-11", "Genesis 35:26", "Genesis 46:16", "Genesis 49:19", "Exodus 1:4", "1 Chronicles 2:2"]
-      },
-      {
-"id": "parent-zilpah-gad",
-        "relationshipType": "ParentChild",
-        "parent": "zilpah",
-        "child": "gad",
-        "references": ["Genesis 30:9-11", "Genesis 35:26", "Genesis 46:16", "Genesis 49:19"]
-      },
-      {
-        "id": "parent-jacob-asher",
-        "relationshipType": "ParentChild",
-        "parent": "jacob",
-        "child": "asher",
-        "references": ["Genesis 30:12-13", "Genesis 35:26", "Genesis 46:17", "Genesis 49:20", "Exodus 1:4", "1 Chronicles 2:2"]
-      },
-      {
-        "id": "parent-zilpah-asher",
-        "relationshipType": "ParentChild",
-        "parent": "zilpah",
-        "child": "asher",
-        "references": ["Genesis 30:12-13", "Genesis 35:26", "Genesis 46:17", "Genesis 49:20"]
-      },
-      {
-        "id": "parent-jacob-issachar",
-        "relationshipType": "ParentChild",
-        "parent": "jacob",
-        "child": "issachar",
-        "references": ["Genesis 30:17-18", "Genesis 35:23", "Genesis 46:13", "Genesis 49:14-15", "Exodus 1:3", "1 Chronicles 2:1"]
-      },
-      {
-        "id": "parent-leah-issachar",
-        "relationshipType": "ParentChild",
-        "parent": "leah",
-        "child": "issachar",
-        "references": ["Genesis 30:17-18", "Genesis 35:23", "Genesis 46:13", "Genesis 49:14-15"]
-      },
-      {
-        "id": "parent-jacob-zebulun",
-        "relationshipType": "ParentChild",
-        "parent": "jacob",
-        "child": "zebulun",
-        "references": ["Genesis 30:19-20", "Genesis 35:23", "Genesis 46:14", "Genesis 49:13", "Exodus 1:3", "1 Chronicles 2:1"]
-      },
-      {
-        "id": "parent-leah-zebulun",
-        "relationshipType": "ParentChild",
-        "parent": "leah",
-        "child": "zebulun",
-        "references": ["Genesis 30:19-20", "Genesis 35:23", "Genesis 46:14", "Genesis 49:13"]
-      },
-      {
-        "id": "parent-jacob-dinah",
-        "relationshipType": "ParentChild",
-        "parent": "jacob",
-        "child": "dinah",
-        "references": ["Genesis 30:21", "Genesis 34:1-31", "Genesis 46:15"]
-      },
-      {
-        "id": "parent-leah-dinah",
-        "relationshipType": "ParentChild",
-        "parent": "leah",
-        "child": "dinah",
-        "references": ["Genesis 30:21", "Genesis 34:1-31", "Genesis 46:15"]
-      },
-      {
-        "id": "parent-jacob-joseph",
-        "relationshipType": "ParentChild",
-        "parent": "jacob",
-        "child": "joseph",
-        "references": ["Genesis 30:22-24", "Genesis 35:24", "Genesis 37:2-36", "Genesis 39-50", "Exodus 1:5-8", "1 Chronicles 2:2", "Acts 7:9-14"]
-      },
-      {
-        "id": "parent-rachel-joseph",
-        "relationshipType": "ParentChild",
-        "parent": "rachel",
-        "child": "joseph",
-        "references": ["Genesis 30:22-24", "Genesis 35:24", "Genesis 46:19"]
-      },
-      {
-        "id": "parent-jacob-benjamin",
-        "relationshipType": "ParentChild",
-        "parent": "jacob",
-        "child": "benjamin",
-        "references": ["Genesis 35:16-20, 24", "Genesis 42:4, 36", "Genesis 43:15-34", "Genesis 44:1-34", "Genesis 45:12-14", "Genesis 46:19, 21", "Genesis 49:27", "Exodus 1:3", "1 Chronicles 2:2"]
-      },
-      {
-        "id": "parent-rachel-benjamin",
-        "relationshipType": "ParentChild",
-        "parent": "rachel",
-        "child": "benjamin",
-        "references": ["Genesis 35:16-20, 24", "Genesis 46:19"]
-      },
-      {
-        "id": "parent-judah-perez",
-        "relationshipType": "ParentChild",
-        "parent": "judah",
-        "child": "perez",
-        "references": ["Genesis 38:29", "Genesis 46:12", "Ruth 4:18", "1 Chronicles 2:4-5", "Matthew 1:3", "Luke 3:33"]
-      },
-      {
-        "id": "parent-tamar-perez",
-        "relationshipType": "ParentChild",
-        "parent": "tamar",
-        "child": "perez",
-        "references": ["Genesis 38:29", "Ruth 4:12", "1 Chronicles 2:4", "Matthew 1:3"]
-      },
-      {
-        "id": "parent-judah-zerah",
-        "relationshipType": "ParentChild",
-        "parent": "judah",
-        "child": "zerah",
-        "references": ["Genesis 38:30", "Genesis 46:12", "1 Chronicles 2:4, 6"]
-      },
-      {
-        "id": "parent-tamar-zerah",
-        "relationshipType": "ParentChild",
-        "parent": "tamar",
-        "child": "zerah",
-        "references": ["Genesis 38:30", "1 Chronicles 2:4"]
-      },
-      {
-        "id": "parent-perez-hezron",
-        "relationshipType": "ParentChild",
-        "parent": "perez",
-        "child": "hezron",
-        "references": ["Genesis 46:12", "Ruth 4:18-19", "1 Chronicles 2:5, 9", "Matthew 1:3", "Luke 3:33"]
-      },
-      {
-        "id": "parent-hezron-ram",
-        "relationshipType": "ParentChild",
-        "parent": "hezron",
-        "child": "ram",
-        "references": ["Ruth 4:19", "1 Chronicles 2:9-10", "Matthew 1:3-4", "Luke 3:33"]
-      },
-      {
-        "id": "parent-ram-amminadab",
-        "relationshipType": "ParentChild",
-        "parent": "ram",
-        "child": "amminadab",
-        "references": ["Ruth 4:19-20", "1 Chronicles 2:10", "Matthew 1:4", "Luke 3:33"]
-      },
-      {
-        "id": "parent-amminadab-nahshon",
-        "relationshipType": "ParentChild",
-        "parent": "amminadab",
-        "child": "nahshon",
-        "references": ["Exodus 6:23", "Numbers 1:7", "Numbers 2:3", "Numbers 7:12", "Numbers 10:14", "Ruth 4:20", "1 Chronicles 2:10-11", "Matthew 1:4", "Luke 3:32-33"]
-      },
-      {
-        "id": "parent-nahshon-salmon",
-        "relationshipType": "ParentChild",
-        "parent": "nahshon",
-        "child": "salmon",
-        "references": ["Ruth 4:20-21", "1 Chronicles 2:11", "Matthew 1:4-5", "Luke 3:32"]
-      },
-      {
-        "id": "parent-salmon-boaz",
-        "relationshipType": "ParentChild",
-        "parent": "salmon",
-        "child": "boaz",
-        "references": ["Ruth 4:21", "1 Chronicles 2:11-12", "Matthew 1:5", "Luke 3:32"]
-      },
-      {
-        "id": "parent-rahab-boaz",
-        "relationshipType": "ParentChild",
-        "parent": "rahab",
-        "child": "boaz",
-        "references": ["Matthew 1:5"]
-      },
-      {
-        "id": "parent-boaz-obed",
-        "relationshipType": "ParentChild",
-        "parent": "boaz",
-        "child": "obed",
-        "references": ["Ruth 4:13-17, 21-22", "1 Chronicles 2:12", "Matthew 1:5", "Luke 3:32"]
-      },
-      {
-        "id": "parent-ruth-obed",
-        "relationshipType": "ParentChild",
-        "parent": "ruth",
-        "child": "obed",
-        "references": ["Ruth 4:13-17", "Matthew 1:5"]
-      },
-      {
-        "id": "parent-obed-jesse",
-        "relationshipType": "ParentChild",
-        "parent": "obed",
-        "child": "jesse",
-        "references": ["Ruth 4:17, 22", "1 Samuel 16:1-13", "1 Samuel 17:12-14", "1 Chronicles 2:12-13", "Isaiah 11:1, 10", "Matthew 1:5-6", "Luke 3:32", "Acts 13:22", "Romans 15:12"]
-      },
-      {
-        "id": "parent-jesse-david",
-        "relationshipType": "ParentChild",
-        "parent": "jesse",
-        "child": "david",
-        "references": ["1 Samuel 16:11-13", "1 Samuel 17:12-15, 17, 58", "1 Samuel 20:27, 30-31", "1 Samuel 22:7-9", "Ruth 4:17, 22", "1 Chronicles 2:13-15", "Psalm 72:20", "Matthew 1:6", "Luke 3:31-32", "Acts 13:22-23"]
-      },
-      {
-        "id": "parent-david-solomon",
-        "relationshipType": "ParentChild",
-        "parent": "david",
-        "child": "solomon",
-        "references": ["2 Samuel 5:14", "2 Samuel 12:24-25", "1 Kings 1:11-53", "1 Kings 2:1-12", "1 Kings 3-11", "1 Chronicles 3:5", "1 Chronicles 28:5-6", "2 Chronicles 1-9", "Matthew 1:6-7", "Luke 3:31"]
-      },
-      {
-        "id": "parent-bathsheba-solomon",
-        "relationshipType": "ParentChild",
-        "parent": "bathsheba",
-        "child": "solomon",
-        "references": ["2 Samuel 12:24-25", "1 Kings 1:11-31", "1 Kings 2:13-25", "1 Chronicles 3:5"]
-      },
-      {
-        "id": "parent-solomon-rehoboam",
-        "relationshipType": "ParentChild",
-        "parent": "solomon",
-        "child": "rehoboam",
-        "references": ["1 Kings 11:43", "1 Kings 12:1-24", "1 Kings 14:21-31", "1 Chronicles 3:10", "2 Chronicles 9:31", "2 Chronicles 10-12", "Matthew 1:7"]
-      },
-      {
-        "id": "parent-rehoboam-abijah",
-        "relationshipType": "ParentChild",
-        "parent": "rehoboam",
-        "child": "abijah",
-        "references": ["1 Kings 14:31", "1 Kings 15:1-8", "1 Chronicles 3:10", "2 Chronicles 12:16", "2 Chronicles 13:1-22", "Matthew 1:7"]
-      },
-      {
-        "id": "parent-abijah-asa",
-        "relationshipType": "ParentChild",
-        "parent": "abijah",
-        "child": "asa",
-        "references": ["1 Kings 15:8-24", "1 Chronicles 3:10", "2 Chronicles 14:1-16:14", "Matthew 1:7-8"]
-      },
-      {
-        "id": "parent-asa-jehoshaphat",
-        "relationshipType": "ParentChild",
-        "parent": "asa",
-        "child": "jehoshaphat",
-        "references": ["1 Kings 15:24", "1 Kings 22:41-50", "1 Chronicles 3:10", "2 Chronicles 17:1-21:1", "Matthew 1:8"]
-      },
-      {
-        "id": "parent-jehoshaphat-jehoram",
-        "relationshipType": "ParentChild",
-        "parent": "jehoshaphat",
-        "child": "jehoram",
-        "references": ["1 Kings 22:50", "2 Kings 8:16-24", "1 Chronicles 3:11", "2 Chronicles 21:1-20", "Matthew 1:8"]
-      },
-      {
-        "id": "parent-jehoram-uzziah",
-        "relationshipType": "ParentChild",
-        "parent": "jehoram",
-        "child": "uzziah",
-        "references": ["2 Kings 15:1-7", "1 Chronicles 3:11-12", "2 Chronicles 26:1-23", "Isaiah 1:1", "Isaiah 6:1", "Matthew 1:8-9"]
-      },
-      {
-        "id": "parent-uzziah-jotham",
-        "relationshipType": "ParentChild",
-        "parent": "uzziah",
-        "child": "jotham",
-        "references": ["2 Kings 15:5-7, 32-38", "1 Chronicles 3:12", "2 Chronicles 26:21-23", "2 Chronicles 27:1-9", "Isaiah 1:1", "Isaiah 7:1", "Matthew 1:9"]
-      },
-      {
-        "id": "parent-jotham-ahaz",
-        "relationshipType": "ParentChild",
-        "parent": "jotham",
-        "child": "ahaz",
-        "references": ["2 Kings 15:38", "2 Kings 16:1-20", "1 Chronicles 3:13", "2 Chronicles 27:9", "2 Chronicles 28:1-27", "Isaiah 1:1", "Isaiah 7:1-17", "Matthew 1:9"]
-      },
-      {
-        "id": "parent-ahaz-hezekiah",
-        "relationshipType": "ParentChild",
-        "parent": "ahaz",
-        "child": "hezekiah",
-        "references": ["2 Kings 16:20", "2 Kings 18:1-20:21", "1 Chronicles 3:13", "2 Chronicles 28:27", "2 Chronicles 29:1-32:33", "Isaiah 1:1", "Isaiah 36-39", "Matthew 1:9-10"]
-      },
-      {
-        "id": "parent-hezekiah-manasseh",
-        "relationshipType": "ParentChild",
-        "parent": "hezekiah",
-        "child": "manasseh",
-        "references": ["2 Kings 20:21", "2 Kings 21:1-18", "1 Chronicles 3:13", "2 Chronicles 32:33", "2 Chronicles 33:1-20", "Matthew 1:10"]
-      },
-      {
-        "id": "parent-manasseh-amon",
-        "relationshipType": "ParentChild",
-        "parent": "manasseh",
-        "child": "amon",
-        "references": ["2 Kings 21:18-26", "1 Chronicles 3:14", "2 Chronicles 33:20-25", "Matthew 1:10"]
-      },
-      {
-        "id": "parent-amon-josiah",
-        "relationshipType": "ParentChild",
-        "parent": "amon",
-        "child": "josiah",
-        "references": ["2 Kings 21:24-26", "2 Kings 22:1-23:30", "1 Chronicles 3:14-15", "2 Chronicles 33:25", "2 Chronicles 34:1-35:27", "Jeremiah 1:2-3", "Jeremiah 22:11-16", "Jeremiah 25:3", "Jeremiah 26:1", "Jeremiah 35:1", "Jeremiah 36:1-9", "Matthew 1:10-11"]
-      },
-      {
-        "id": "parent-josiah-jeconiah",
-        "relationshipType": "ParentChild",
-        "parent": "josiah",
-        "child": "jeconiah",
-        "references": ["1 Chronicles 3:16-17", "Jeremiah 22:24-30", "Jeremiah 24:1", "Jeremiah 27:20", "Jeremiah 28:4", "Jeremiah 29:2", "Matthew 1:11-12"]
-      },
-      {
-        "id": "parent-jeconiah-shealtiel",
-        "relationshipType": "ParentChild",
-        "parent": "jeconiah",
-        "child": "shealtiel",
-        "references": ["1 Chronicles 3:17", "Ezra 3:2, 8", "Ezra 5:2", "Nehemiah 12:1", "Haggai 1:1, 12, 14", "Haggai 2:2, 23", "Matthew 1:12", "Luke 3:27"]
-      },
-      {
-        "id": "parent-shealtiel-zerubbabel",
-        "relationshipType": "ParentChild",
-        "parent": "shealtiel",
-        "child": "zerubbabel",
-        "references": ["Ezra 3:2, 8", "Ezra 5:2", "Nehemiah 12:1", "Haggai 1:1, 12, 14", "Haggai 2:2, 4, 21-23", "Zechariah 4:6-10", "Matthew 1:12-13", "Luke 3:27"]
-      },
-      {
-        "id": "parent-zerubbabel-abiud",
-        "relationshipType": "ParentChild",
-        "parent": "zerubbabel",
-        "child": "abiud",
-        "references": ["Matthew 1:13"]
-      },
-      {
-        "id": "parent-abiud-eliakim",
-        "relationshipType": "ParentChild",
-        "parent": "abiud",
-        "child": "eliakim",
-        "references": ["Matthew 1:13"]
-      },
-      {
-        "id": "parent-eliakim-azor",
-        "relationshipType": "ParentChild",
-        "parent": "eliakim",
-        "child": "azor",
-        "references": ["Matthew 1:13-14"]
-      },
-      {
-        "id": "parent-azor-zadok",
-        "relationshipType": "ParentChild",
-        "parent": "azor",
-        "child": "zadok",
-        "references": ["Matthew 1:14"]
-      },
-      {
-        "id": "parent-zadok-achim",
-        "relationshipType": "ParentChild",
-        "parent": "zadok",
-        "child": "achim",
-        "references": ["Matthew 1:14"]
-      },
-      {
-        "id": "parent-achim-eliud",
-        "relationshipType": "ParentChild",
-        "parent": "achim",
-        "child": "eliud",
-        "references": ["Matthew 1:14-15"]
-      },
-      {
-        "id": "parent-eliud-eleazar",
-        "relationshipType": "ParentChild",
-        "parent": "eliud",
-        "child": "eleazar",
-        "references": ["Matthew 1:15"]
-      },
-      {
-        "id": "parent-eleazar-matthan",
-        "relationshipType": "ParentChild",
-        "parent": "eleazar",
-        "child": "matthan",
-        "references": ["Matthew 1:15"]
-      },
-      {
-        "id": "parent-matthan-jacob",
-        "relationshipType": "ParentChild",
-        "parent": "matthan",
-        "child": "jacob",
-        "references": ["Matthew 1:15-16"]
-      },
-      {
-        "id": "parent-jacob-joseph",
-        "relationshipType": "ParentChild",
-        "parent": "jacob",
-        "child": "joseph",
-        "references": ["Matthew 1:16"]
-      },
-      {
-        "id": "parent-joseph-jesus",
-        "relationshipType": "AdoptiveParent",
-        "parent": "joseph",
-        "child": "jesus",
-        "references": ["Matthew 1:16-25", "Matthew 2:13-23", "Matthew 13:55", "Luke 1:27", "Luke 2:4-5, 16, 22-33, 39-51", "Luke 3:23", "Luke 4:22", "John 1:45", "John 6:42"]
-      },
-      {
-        "id": "parent-mary-jesus",
-        "relationshipType": "ParentChild",
-        "parent": "mary",
-        "child": "jesus",
-        "references": ["Matthew 1:16-25", "Matthew 2:11-21", "Matthew 12:46-50", "Mark 3:31-35", "Mark 6:3", "Luke 1:26-38, 2:1-52", "Luke 8:19-21", "John 2:1-12", "John 19:25-27", "Acts 1:14"]
+    },
+    {
+      "id": "cain",
+      "fullName": "Cain",
+      "birth": "After Eden",
+      "death": "Unknown",
+      "age": null,
+      "father": "adam",
+      "mother": "eve",
+      "spouses": ["wife_of_cain"],
+      "children": ["enoch_son_of_cain"],
+      "biblicalReferences": ["Genesis 4:1-2", "Genesis 4:8-17"],
+      "description": "Firstborn son of Adam and Eve who killed his brother Abel and was marked by God.",
+      "generation": 2,
+      "significance": "First murderer in human history",
+      "lineage": "Cainite",
+      "era": "antediluvian",
+      "estimatedYears": {
+        "birth": -3970,
+        "death": null
+      },
+      "metadata": {
+        "isAncestorOfJesus": false,
+        "isAncestorOfDavid": false
       }
-    ],
-    "sibling": [
-      {
-        "id": "sibling-cain-abel",
-        "relationshipType": "Sibling",
-        "person1": "cain",
-        "person2": "abel",
-        "references": ["Genesis 4:1-2"]
+    },
+    {
+      "id": "abel",
+      "fullName": "Abel",
+      "birth": "After Eden",
+      "death": "Murdered by Cain",
+      "age": null,
+      "father": "adam",
+      "mother": "eve",
+      "spouses": [],
+      "children": [],
+      "biblicalReferences": ["Genesis 4:1-2", "Genesis 4:8", "Hebrews 11:4"],
+      "description": "Second son of Adam and Eve who was murdered by his brother Cain.",
+      "generation": 2,
+      "significance": "First murder victim",
+      "lineage": "Adamic",
+      "era": "antediluvian",
+      "estimatedYears": {
+        "birth": -3969,
+        "death": -3940
       },
-      {
-        "id": "sibling-cain-seth",
-        "relationshipType": "Sibling",
-        "person1": "cain",
-        "person2": "seth",
-        "references": ["Genesis 4:25"]
-      },
-      {
-        "id": "sibling-abel-seth",
-        "relationshipType": "Sibling",
-        "person1": "abel",
-        "person2": "seth",
-        "references": ["Genesis 4:25"]
-      },
-      {
-        "id": "sibling-ishmael-isaac",
-        "relationshipType": "Sibling",
-        "person1": "ishmael",
-        "person2": "isaac",
-        "halfSiblings": true,
-        "references": ["Genesis 21:9-10", "Galatians 4:22-30"]
-      },
-      {
-        "id": "sibling-esau-jacob",
-        "relationshipType": "Sibling",
-        "person1": "esau",
-        "person2": "jacob",
-        "twin": true,
-        "references": ["Genesis 25:24-26", "Romans 9:10-13"]
-      },
-      {
-        "id": "sibling-reuben-simeon",
-        "relationshipType": "Sibling",
-        "person1": "reuben",
-        "person2": "simeon",
-        "references": ["Genesis 29:32-33", "Genesis 35:23", "Genesis 42:22-24, 36", "Genesis 46:8-10"]
-      },
-      {
-        "id": "sibling-reuben-levi",
-        "relationshipType": "Sibling",
-        "person1": "reuben",
-        "person2": "levi",
-        "references": ["Genesis 29:32-34", "Genesis 35:23", "Genesis 46:8-11"]
-      },
-      {
-        "id": "sibling-reuben-judah",
-        "relationshipType": "Sibling",
-        "person1": "reuben",
-        "person2": "judah",
-        "references": ["Genesis 29:32-35", "Genesis 35:23", "Genesis 46:8-12"]
-      },
-      {
-        "id": "sibling-reuben-issachar",
-        "relationshipType": "Sibling",
-        "person1": "reuben",
-        "person2": "issachar",
-        "references": ["Genesis 30:14-18", "Genesis 35:23", "Genesis 46:8-13"]
-      },
-      {
-        "id": "sibling-reuben-zebulun",
-        "relationshipType": "Sibling",
-        "person1": "reuben",
-        "person2": "zebulun",
-        "references": ["Genesis 30:14-20", "Genesis 35:23", "Genesis 46:8-14"]
-      },
-      {
-        "id": "sibling-simeon-levi",
-        "relationshipType": "Sibling",
-        "person1": "simeon",
-        "person2": "levi",
-        "references": ["Genesis 29:33-34", "Genesis 34:25-31", "Genesis 35:23", "Genesis 46:10-11", "Genesis 49:5-7"]
-      },
-      {
-        "id": "sibling-simeon-judah",
-        "relationshipType": "Sibling",
-        "person1": "simeon",
-        "person2": "judah",
-        "references": ["Genesis 29:33-35", "Genesis 35:23", "Genesis 46:10-12"]
-      },
-      {
-        "id": "sibling-simeon-issachar",
-        "relationshipType": "Sibling",
-        "person1": "simeon",
-        "person2": "issachar",
-        "references": ["Genesis 30:17-18", "Genesis 35:23", "Genesis 46:10-13"]
-      },
-      {
-        "id": "sibling-simeon-zebulun",
-        "relationshipType": "Sibling",
-        "person1": "simeon",
-        "person2": "zebulun",
-        "references": ["Genesis 30:19-20", "Genesis 35:23", "Genesis 46:10-14"]
-      },
-      {
-        "id": "sibling-levi-judah",
-        "relationshipType": "Sibling",
-        "person1": "levi",
-        "person2": "judah",
-        "references": ["Genesis 29:34-35", "Genesis 35:23", "Genesis 46:11-12"]
-      },
-      {
-        "id": "sibling-levi-issachar",
-        "relationshipType": "Sibling",
-        "person1": "levi",
-        "person2": "issachar",
-        "references": ["Genesis 30:17-18", "Genesis 35:23", "Genesis 46:11-13"]
-      },
-      {
-        "id": "sibling-levi-zebulun",
-        "relationshipType": "Sibling",
-        "person1": "levi",
-        "person2": "zebulun",
-        "references": ["Genesis 30:19-20", "Genesis 35:23", "Genesis 46:11-14"]
-      },
-      {
-        "id": "sibling-judah-issachar",
-        "relationshipType": "Sibling",
-        "person1": "judah",
-        "person2": "issachar",
-        "references": ["Genesis 30:17-18", "Genesis 35:23", "Genesis 46:12-13"]
-      },
-      {
-        "id": "sibling-judah-zebulun",
-        "relationshipType": "Sibling",
-        "person1": "judah",
-        "person2": "zebulun",
-        "references": ["Genesis 30:19-20", "Genesis 35:23", "Genesis 46:12-14"]
-      },
-      {
-        "id": "sibling-issachar-zebulun",
-        "relationshipType": "Sibling",
-        "person1": "issachar",
-        "person2": "zebulun",
-        "references": ["Genesis 30:17-20", "Genesis 35:23", "Genesis 46:13-14"]
+      "metadata": {
+        "isAncestorOfJesus": false,
+        "isAncestorOfDavid": false,
+        "righteous": true
       }
-    ]
-  }
-}
+    },
+    {
+      "id": "seth",
+      "fullName": "Seth",
+      "birth": "130 years after creation",
+      "death": "1042 years after creation",
+      "age": 912,
+      "father": "adam",
+      "mother": "eve",
+      "spouses": ["wife_of_seth"],
+      "children": ["enosh"],
+      "biblicalReferences": ["Genesis 4:25-26", "Genesis 5:3-8"],
+      "description": "Third son of Adam and Eve, born after Abel's murder, progenitor of the Messianic line.",
+      "generation": 2,
+      "significance": "Ancestor of Noah and Jesus",
+      "lineage": "Sethite",
+      "era": "antediluvian",
+      "estimatedYears": {
+        "birth": -3870,
+        "death": -2958
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true,
+        "isMajorPatriarch": true
+      }
+    },
+    {
+      "id": "enosh",
+      "fullName": "Enosh",
+      "birth": "235 years after creation",
+      "death": "1140 years after creation",
+      "age": 905,
+      "father": "seth",
+      "mother": "wife_of_seth",
+      "spouses": ["wife_of_enosh"],
+      "children": ["kenan"],
+      "biblicalReferences": ["Genesis 4:26", "Genesis 5:6-11"],
+      "description": "Son of Seth and grandson of Adam, during whose time people began to call on the name of the LORD.",
+      "generation": 3,
+      "significance": "During his time people began to call on the name of the LORD",
+      "lineage": "Sethite",
+      "era": "antediluvian",
+      "estimatedYears": {
+        "birth": -3765,
+        "death": -2860
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "kenan",
+      "fullName": "Kenan",
+      "birth": "325 years after creation",
+      "death": "1235 years after creation",
+      "age": 910,
+      "father": "enosh",
+      "mother": "wife_of_enosh",
+      "spouses": ["wife_of_kenan"],
+      "children": ["mahalalel"],
+      "biblicalReferences": ["Genesis 5:9-14", "Luke 3:37"],
+      "description": "Son of Enosh and father of Mahalalel in the Sethite line.",
+      "generation": 4,
+      "significance": "Ancestor in the messianic lineage",
+      "lineage": "Sethite",
+      "era": "antediluvian",
+      "estimatedYears": {
+        "birth": -3675,
+        "death": -2765
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "mahalalel",
+      "fullName": "Mahalalel",
+      "birth": "395 years after creation",
+      "death": "1290 years after creation",
+      "age": 895,
+      "father": "kenan",
+      "mother": "wife_of_kenan",
+      "spouses": ["wife_of_mahalalel"],
+      "children": ["jared"],
+      "biblicalReferences": ["Genesis 5:12-17", "Luke 3:37"],
+      "description": "Son of Kenan and father of Jared in the Sethite genealogy.",
+      "generation": 5,
+      "significance": "Ancestor in the messianic lineage",
+      "lineage": "Sethite",
+      "era": "antediluvian",
+      "estimatedYears": {
+        "birth": -3605,
+        "death": -2710
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "jared",
+      "fullName": "Jared",
+      "birth": "460 years after creation",
+      "death": "1422 years after creation",
+      "age": 962,
+      "father": "mahalalel",
+      "mother": "wife_of_mahalalel",
+      "spouses": ["wife_of_jared"],
+      "children": ["enoch_son_of_jared"],
+      "biblicalReferences": ["Genesis 5:15-20", "Luke 3:37"],
+      "description": "Son of Mahalalel and father of Enoch in the Sethite genealogy.",
+      "generation": 6,
+      "significance": "Father of Enoch and ancestor in the messianic lineage",
+      "lineage": "Sethite",
+      "era": "antediluvian",
+      "estimatedYears": {
+        "birth": -3540,
+        "death": -2578
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "enoch_son_of_jared",
+      "fullName": "Enoch (Son of Jared)",
+      "birth": "622 years after creation",
+      "death": "Taken by God at 987 years after creation",
+      "age": 365,
+      "father": "jared",
+      "mother": "wife_of_jared",
+      "spouses": ["wife_of_enoch"],
+      "children": ["methuselah"],
+      "biblicalReferences": ["Genesis 5:18-24", "Hebrews 11:5", "Jude 1:14-15"],
+      "description": "Righteous son of Jared who walked faithfully with God and was taken to heaven without experiencing death.",
+      "generation": 7,
+      "significance": "Walked with God and was taken without experiencing death",
+      "lineage": "Sethite",
+      "era": "antediluvian",
+      "estimatedYears": {
+        "birth": -3378,
+        "death": -3013
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true,
+        "righteous": true,
+        "prophet": true
+      }
+    },
+    {
+      "id": "methuselah",
+      "fullName": "Methuselah",
+      "birth": "687 years after creation",
+      "death": "1656 years after creation (year of flood)",
+      "age": 969,
+      "father": "enoch_son_of_jared",
+      "mother": "wife_of_enoch",
+      "spouses": ["wife_of_methuselah"],
+      "children": ["lamech_son_of_methuselah"],
+      "biblicalReferences": ["Genesis 5:21-27", "Luke 3:37"],
+      "description": "Son of Enoch who lived longer than any other person recorded in the Bible.",
+      "generation": 8,
+      "significance": "Longest-lived person in the Bible",
+      "lineage": "Sethite",
+      "era": "antediluvian",
+      "estimatedYears": {
+        "birth": -3313,
+        "death": -2344
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "lamech_son_of_methuselah",
+      "fullName": "Lamech (Son of Methuselah)",
+      "birth": "874 years after creation",
+      "death": "1651 years after creation",
+      "age": 777,
+      "father": "methuselah",
+      "mother": "wife_of_methuselah",
+      "spouses": ["wife_of_lamech"],
+      "children": ["noah"],
+      "biblicalReferences": ["Genesis 5:25-31", "Luke 3:36"],
+      "description": "Son of Methuselah and father of Noah.",
+      "generation": 9,
+      "significance": "Father of Noah",
+      "lineage": "Sethite",
+      "era": "antediluvian",
+      "estimatedYears": {
+        "birth": -3126,
+        "death": -2349
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "noah",
+      "fullName": "Noah",
+      "birth": "1056 years after creation",
+      "death": "2006 years after creation",
+      "age": 950,
+      "father": "lamech_son_of_methuselah",
+      "mother": "wife_of_lamech",
+      "spouses": ["wife_of_noah"],
+      "children": ["shem", "ham", "japheth"],
+      "biblicalReferences": ["Genesis 5:28-32", "Genesis 6-9", "Hebrews 11:7"],
+      "description": "Righteous man who found favor with God and built the ark to preserve life during the great flood.",
+      "generation": 10,
+      "significance": "Built the ark and survived the flood",
+      "lineage": "Sethite",
+      "era": "antediluvian",
+      "estimatedYears": {
+        "birth": -2944,
+        "death": -1994
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true,
+        "isMajorPatriarch": true,
+        "righteous": true
+      }
+    },
+    {
+      "id": "shem",
+      "fullName": "Shem",
+      "birth": "1558 years after creation",
+      "death": "2158 years after creation",
+      "age": 600,
+      "father": "noah",
+      "mother": "wife_of_noah",
+      "spouses": ["wife_of_shem"],
+      "children": ["arphaxad"],
+      "biblicalReferences": ["Genesis 5:32", "Genesis 6:10", "Genesis 9:26-27", "Genesis 11:10-11"],
+      "description": "Eldest son of Noah from whom descended the Semitic peoples, including Hebrews.",
+      "generation": 11,
+      "significance": "Father of the Semitic peoples",
+      "lineage": "Semitic",
+      "era": "postdiluvian",
+      "estimatedYears": {
+        "birth": -2442,
+        "death": -1842
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true,
+        "isMajorPatriarch": true
+      }
+    },
+    {
+      "id": "arphaxad",
+      "fullName": "Arphaxad",
+      "birth": "1658 years after creation",
+      "death": "2096 years after creation",
+      "age": 438,
+      "father": "shem",
+      "mother": "wife_of_shem",
+      "spouses": ["wife_of_arphaxad"],
+      "children": ["shelah"],
+      "biblicalReferences": ["Genesis 10:22", "Genesis 11:10-13", "Luke 3:36"],
+      "description": "Son of Shem born two years after the flood.",
+      "generation": 12,
+      "significance": "Ancestor in the messianic lineage",
+      "lineage": "Semitic",
+      "era": "postdiluvian",
+      "estimatedYears": {
+        "birth": -2342,
+        "death": -1904
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "shelah",
+      "fullName": "Shelah",
+      "birth": "1693 years after creation",
+      "death": "2126 years after creation",
+      "age": 433,
+      "father": "arphaxad",
+      "mother": "wife_of_arphaxad",
+      "spouses": ["wife_of_shelah"],
+      "children": ["eber"],
+      "biblicalReferences": ["Genesis 10:24", "Genesis 11:12-15", "Luke 3:35"],
+      "description": "Son of Arphaxad and father of Eber in the line of Shem.",
+      "generation": 13,
+      "significance": "Ancestor in the messianic lineage",
+      "lineage": "Semitic",
+      "era": "postdiluvian",
+      "estimatedYears": {
+        "birth": -2307,
+        "death": -1874
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "eber",
+      "fullName": "Eber",
+      "birth": "1723 years after creation",
+      "death": "2187 years after creation",
+      "age": 464,
+      "father": "shelah",
+      "mother": "wife_of_shelah",
+      "spouses": ["wife_of_eber"],
+      "children": ["peleg", "joktan"],
+      "biblicalReferences": ["Genesis 10:21-25", "Genesis 11:14-17", "Luke 3:35"],
+      "description": "Son of Shelah from whom the Hebrew people likely derived their name.",
+      "generation": 14,
+      "significance": "Possible namesake of the Hebrew people",
+      "lineage": "Semitic",
+      "era": "postdiluvian",
+      "estimatedYears": {
+        "birth": -2277,
+        "death": -1813
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "peleg",
+      "fullName": "Peleg",
+      "birth": "1757 years after creation",
+      "death": "1996 years after creation",
+      "age": 239,
+      "father": "eber",
+      "mother": "wife_of_eber",
+      "spouses": ["wife_of_peleg"],
+      "children": ["reu"],
+      "biblicalReferences": ["Genesis 10:25", "Genesis 11:16-19", "Luke 3:35"],
+      "description": "Son of Eber during whose lifetime the earth was divided.",
+      "generation": 15,
+      "significance": "During his lifetime the earth was divided",
+      "lineage": "Semitic",
+      "era": "postdiluvian",
+      "estimatedYears": {
+        "birth": -2243,
+        "death": -2004
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "reu",
+      "fullName": "Reu",
+      "birth": "1787 years after creation",
+      "death": "2026 years after creation",
+      "age": 239,
+      "father": "peleg",
+      "mother": "wife_of_peleg",
+      "spouses": ["wife_of_reu"],
+      "children": ["serug"],
+      "biblicalReferences": ["Genesis 11:18-21", "Luke 3:35"],
+      "description": "Son of Peleg and father of Serug in the Messianic lineage.",
+      "generation": 16,
+      "significance": "Ancestor in the messianic lineage",
+      "lineage": "Semitic",
+      "era": "postdiluvian",
+      "estimatedYears": {
+        "birth": -2213,
+        "death": -1974
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "serug",
+      "fullName": "Serug",
+      "birth": "1819 years after creation",
+      "death": "2049 years after creation",
+      "age": 230,
+      "father": "reu",
+      "mother": "wife_of_reu",
+      "spouses": ["wife_of_serug"],
+      "children": ["nahor"],
+      "biblicalReferences": ["Genesis 11:20-23", "Luke 3:35"],
+      "description": "Son of Reu and father of Nahor in the line leading to Abraham.",
+      "generation": 17,
+      "significance": "Ancestor in the messianic lineage",
+      "lineage": "Semitic",
+      "era": "postdiluvian",
+      "estimatedYears": {
+        "birth": -2181,
+        "death": -1951
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "nahor",
+      "fullName": "Nahor",
+      "birth": "1849 years after creation",
+      "death": "1997 years after creation",
+      "age": 148,
+      "father": "serug",
+      "mother": "wife_of_serug",
+      "spouses": ["wife_of_nahor"],
+      "children": ["terah"],
+      "biblicalReferences": ["Genesis 11:22-25", "Luke 3:34"],
+      "description": "Son of Serug and father of Terah in the Abrahamic lineage.",
+      "generation": 18,
+      "significance": "Grandfather of Abraham",
+      "lineage": "Semitic",
+      "era": "postdiluvian",
+      "estimatedYears": {
+        "birth": -2151,
+        "death": -2003
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "terah",
+      "fullName": "Terah",
+      "birth": "1878 years after creation",
+      "death": "2083 years after creation",
+      "age": 205,
+      "father": "nahor",
+      "mother": "wife_of_nahor",
+      "spouses": ["wife_of_terah"],
+      "children": ["abraham", "nahor_son_of_terah", "haran"],
+      "biblicalReferences": ["Genesis 11:24-32", "Joshua 24:2", "Luke 3:34"],
+      "description": "Father of Abraham, Nahor, and Haran who left Ur of the Chaldeans for Canaan but settled in Haran.",
+      "generation": 19,
+      "significance": "Father of Abraham",
+      "lineage": "Semitic",
+      "era": "patriarchal",
+      "estimatedYears": {
+        "birth": -2122,
+        "death": -1917
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true,
+        "idolater": true
+      }
+    },
+    {
+      "id": "abraham",
+      "fullName": "Abraham (Abram)",
+      "birth": "1948 years after creation",
+      "death": "2123 years after creation",
+      "age": 175,
+      "father": "terah",
+      "mother": "wife_of_terah",
+      "spouses": ["sarah", "hagar", "keturah"],
+      "children": ["ishmael", "isaac", "zimran", "jokshan", "medan", "midian", "ishbak", "shuah"],
+      "biblicalReferences": ["Genesis 11:26-25:10", "Matthew 1:1-2", "Luke 3:34", "Hebrews 11:8-19"],
+      "description": "Patriarch of the Jewish people called by God to leave his homeland for Canaan; father of Isaac and recipient of God's covenant.",
+      "generation": 20,
+      "significance": "Father of the Jewish nation and recipient of God's covenant",
+      "lineage": "Hebrew",
+      "era": "patriarchal",
+      "estimatedYears": {
+        "birth": -2052,
+        "death": -1877
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true,
+        "isMajorPatriarch": true,
+        "righteous": true,
+        "faithHero": true
+      }
+    },
+    {
+      "id": "sarah",
+      "fullName": "Sarah (Sarai)",
+      "birth": "1958 years after creation",
+      "death": "2085 years after creation",
+      "age": 127,
+      "father": "terah",
+      "mother": "wife_of_terah",
+      "spouses": ["abraham"],
+      "children": ["isaac"],
+      "biblicalReferences": ["Genesis 11:29-31", "Genesis 17:15-21", "Genesis 23:1-2", "Hebrews 11:11-12"],
+      "description": "Wife of Abraham and mother of Isaac who miraculously conceived in her old age as God promised.",
+      "generation": 20,
+      "significance": "Mother of Isaac; ancestress of Israel",
+      "lineage": "Hebrew",
+      "era": "patriarchal",
+      "estimatedYears": {
+        "birth": -2042,
+        "death": -1915
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true,
+        "isMajorMatriarch": true,
+        "faithHero": true
+      }
+    },
+    {
+      "id": "hagar",
+      "fullName": "Hagar",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": null,
+      "mother": null,
+      "spouses": ["abraham"],
+      "children": ["ishmael"],
+      "biblicalReferences": ["Genesis 16:1-16", "Genesis 21:8-21", "Galatians 4:22-31"],
+      "description": "Egyptian servant of Sarah who became Abraham's concubine and mother of Ishmael.",
+      "generation": 20,
+      "significance": "Mother of Ishmael and ancestress of Arab peoples",
+      "lineage": "Egyptian",
+      "era": "patriarchal",
+      "estimatedYears": {
+        "birth": null,
+        "death": null
+      },
+      "metadata": {
+        "isAncestorOfJesus": false,
+        "isAncestorOfDavid": false
+      }
+    },
+    {
+      "id": "ishmael",
+      "fullName": "Ishmael",
+      "birth": "2034 years after creation",
+      "death": "2171 years after creation",
+      "age": 137,
+      "father": "abraham",
+      "mother": "hagar",
+      "spouses": ["egyptian_wife"],
+      "children": ["twelve_princes"],
+      "biblicalReferences": ["Genesis 16:11-16", "Genesis 17:20", "Genesis 21:8-21", "Genesis 25:12-18"],
+      "description": "Firstborn son of Abraham through Hagar who became the ancestor of Arab tribes.",
+      "generation": 21,
+      "significance": "Father of Arab nations",
+      "lineage": "Ishmaelite",
+      "era": "patriarchal",
+      "estimatedYears": {
+        "birth": -1966,
+        "death": -1829
+      },
+      "metadata": {
+        "isAncestorOfJesus": false,
+        "isAncestorOfDavid": false
+      }
+    },
+    {
+      "id": "isaac",
+      "fullName": "Isaac",
+      "birth": "2048 years after creation",
+      "death": "2228 years after creation",
+      "age": 180,
+      "father": "abraham",
+      "mother": "sarah",
+      "spouses": ["rebekah"],
+      "children": ["esau", "jacob"],
+      "biblicalReferences": ["Genesis 17:19-21", "Genesis 21-28", "Genesis 35:27-29", "Matthew 1:2", "Luke 3:34"],
+      "description": "Son of promise born to Abraham and Sarah in their old age; husband of Rebekah and father of Jacob and Esau.",
+      "generation": 21,
+      "significance": "Child of promise and patriarch of Israel",
+      "lineage": "Hebrew",
+      "era": "patriarchal",
+      "estimatedYears": {
+        "birth": -1952,
+        "death": -1772
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true,
+        "isMajorPatriarch": true,
+        "faithHero": true
+      }
+    },
+    {
+      "id": "rebekah",
+      "fullName": "Rebekah",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "bethuel",
+      "mother": "wife_of_bethuel",
+      "spouses": ["isaac"],
+      "children": ["esau", "jacob"],
+      "biblicalReferences": ["Genesis 22:23", "Genesis 24-28", "Genesis 49:31"],
+      "description": "Wife of Isaac and mother of Esau and Jacob who helped secure the blessing for her favorite son Jacob.",
+      "generation": 21,
+      "significance": "Mother of Jacob/Israel",
+      "lineage": "Aramean",
+      "era": "patriarchal",
+      "estimatedYears": {
+        "birth": -1972,
+        "death": -1792
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true,
+        "isMajorMatriarch": true
+      }
+    },
+    {
+      "id": "jacob",
+      "fullName": "Jacob (Israel)",
+      "birth": "2108 years after creation",
+      "death": "2255 years after creation",
+      "age": 147,
+      "father": "isaac",
+      "mother": "rebekah",
+      "spouses": ["rachel", "leah", "bilhah", "zilpah"],
+      "children": [
+        "reuben", "simeon", "levi", "judah", "dan", "naphtali",
+        "gad", "asher", "issachar", "zebulun", "dinah", "joseph", "benjamin"
+      ],
+      "biblicalReferences": ["Genesis 25-50", "Matthew 1:2", "Luke 3:34", "Hebrews 11:21"],
+      "description": "Son of Isaac who wrestled with God and was renamed Israel; father of the twelve tribes of Israel.",
+      "generation": 22,
+      "significance": "Father of the twelve tribes of Israel",
+      "lineage": "Hebrew",
+      "era": "patriarchal",
+      "estimatedYears": {
+        "birth": -1892,
+        "death": -1745
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true,
+        "isMajorPatriarch": true,
+        "faithHero": true
+      }
+    },
+    {
+      "id": "leah",
+      "fullName": "Leah",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "laban",
+      "mother": "wife_of_laban",
+      "spouses": ["jacob"],
+      "children": ["reuben", "simeon", "levi", "judah", "issachar", "zebulun", "dinah"],
+      "biblicalReferences": ["Genesis 29-31", "Genesis 49:31"],
+      "description": "First wife of Jacob and mother of six of the twelve tribes of Israel, including Judah.",
+      "generation": 22,
+      "significance": "Mother of Judah and the priestly tribe of Levi",
+      "lineage": "Aramean",
+      "era": "patriarchal",
+      "estimatedYears": {
+        "birth": -1912,
+        "death": -1775
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true,
+        "isMajorMatriarch": true
+      }
+    },
+    {
+      "id": "rachel",
+      "fullName": "Rachel",
+      "birth": "Unknown",
+      "death": "While giving birth to Benjamin",
+      "age": null,
+      "father": "laban",
+      "mother": "wife_of_laban",
+      "spouses": ["jacob"],
+      "children": ["joseph", "benjamin"],
+      "biblicalReferences": ["Genesis 29-35", "Genesis 48:7"],
+      "description": "Beloved second wife of Jacob and mother of Joseph and Benjamin.",
+      "generation": 22,
+      "significance": "Mother of Joseph and Benjamin",
+      "lineage": "Aramean",
+      "era": "patriarchal",
+      "estimatedYears": {
+        "birth": -1914,
+        "death": -1862
+      },
+      "metadata": {
+        "isAncestorOfDavid": true,
+        "isMajorMatriarch": true
+      }
+    },
+    {
+      "id": "judah",
+      "fullName": "Judah",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "jacob",
+      "mother": "leah",
+      "spouses": ["daughter_of_shua", "tamar"],
+      "children": ["er", "onan", "shelah", "perez", "zerah"],
+      "biblicalReferences": ["Genesis 29:35", "Genesis 37-50", "Matthew 1:2-3", "Luke 3:33"],
+      "description": "Fourth son of Jacob and Leah whose descendants became the tribe of Judah from which David and Jesus descended.",
+      "generation": 23,
+      "significance": "Ancestor of the royal line of David and Jesus",
+      "lineage": "Hebrew (Tribe of Judah)",
+      "era": "patriarchal",
+      "estimatedYears": {
+        "birth": -1872,
+        "death": -1765
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true,
+        "tribalHead": true
+      }
+    },
+    {
+      "id": "perez",
+      "fullName": "Perez",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "judah",
+      "mother": "tamar",
+      "spouses": ["wife_of_perez"],
+      "children": ["hezron", "hamul"],
+      "biblicalReferences": ["Genesis 38:27-30", "Ruth 4:18", "Matthew 1:3", "Luke 3:33"],
+      "description": "Son of Judah and Tamar who became an ancestor in the Messianic line.",
+      "generation": 24,
+      "significance": "Ancestor in the Messianic lineage",
+      "lineage": "Tribe of Judah",
+      "era": "patriarchal",
+      "estimatedYears": {
+        "birth": -1842,
+        "death": null
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "hezron",
+      "fullName": "Hezron",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "perez",
+      "mother": "wife_of_perez",
+      "spouses": ["wife_of_hezron"],
+      "children": ["ram"],
+      "biblicalReferences": ["Genesis 46:12", "Ruth 4:18-19", "Matthew 1:3", "Luke 3:33"],
+      "description": "Son of Perez and ancestor of David in the tribe of Judah.",
+      "generation": 25,
+      "significance": "Ancestor in the Messianic lineage",
+      "lineage": "Tribe of Judah",
+      "era": "exodus-conquest",
+      "estimatedYears": {
+        "birth": -1820,
+        "death": null
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "ram",
+      "fullName": "Ram (Aram)",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "hezron",
+      "mother": "wife_of_hezron",
+      "spouses": ["wife_of_ram"],
+      "children": ["amminadab"],
+      "biblicalReferences": ["Ruth 4:19", "1 Chronicles 2:9-10", "Matthew 1:3-4", "Luke 3:33"],
+      "description": "Son of Hezron and ancestor of David in the tribe of Judah.",
+      "generation": 26,
+      "significance": "Ancestor in the Messianic lineage",
+      "lineage": "Tribe of Judah",
+      "era": "exodus-conquest",
+      "estimatedYears": {
+        "birth": -1790,
+        "death": null
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "amminadab",
+      "fullName": "Amminadab",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "ram",
+      "mother": "wife_of_ram",
+      "spouses": ["wife_of_amminadab"],
+      "children": ["nahshon"],
+      "biblicalReferences": ["Exodus 6:23", "Ruth 4:19-20", "Matthew 1:4", "Luke 3:33"],
+      "description": "Son of Ram and father of Nahshon; his daughter Elisheba married Aaron the high priest.",
+      "generation": 27,
+      "significance": "His daughter married Aaron the high priest",
+      "lineage": "Tribe of Judah",
+      "era": "exodus-conquest",
+      "estimatedYears": {
+        "birth": -1760,
+        "death": null
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "nahshon",
+      "fullName": "Nahshon",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "amminadab",
+      "mother": "wife_of_amminadab",
+      "spouses": ["wife_of_nahshon"],
+      "children": ["salmon"],
+      "biblicalReferences": ["Numbers 1:7", "Ruth 4:20", "Matthew 1:4", "Luke 3:32"],
+      "description": "Son of Amminadab and leader of the tribe of Judah during the wilderness wanderings.",
+      "generation": 28,
+      "significance": "Leader of the tribe of Judah during the Exodus",
+      "lineage": "Tribe of Judah",
+      "era": "exodus-conquest",
+      "estimatedYears": {
+        "birth": -1730,
+        "death": -1650
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true,
+        "tribalLeader": true
+      }
+    },
+    {
+      "id": "salmon",
+      "fullName": "Salmon (Salma)",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "nahshon",
+      "mother": "wife_of_nahshon",
+      "spouses": ["rahab"],
+      "children": ["boaz"],
+      "biblicalReferences": ["Ruth 4:20-21", "Matthew 1:4-5", "Luke 3:32"],
+      "description": "Son of Nahshon who married Rahab of Jericho after the conquest of Canaan.",
+      "generation": 29,
+      "significance": "Married Rahab and father of Boaz",
+      "lineage": "Tribe of Judah",
+      "era": "judges-kings",
+      "estimatedYears": {
+        "birth": -1700,
+        "death": -1620
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "boaz",
+      "fullName": "Boaz",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "salmon",
+      "mother": "rahab",
+      "spouses": ["ruth"],
+      "children": ["obed"],
+      "biblicalReferences": ["Ruth 2-4", "Matthew 1:5", "Luke 3:32"],
+      "description": "Wealthy landowner from Bethlehem who married Ruth the Moabitess and became the great-grandfather of David.",
+      "generation": 30,
+      "significance": "Kinsman-redeemer of Ruth and great-grandfather of David",
+      "lineage": "Tribe of Judah",
+      "era": "judges-kings",
+      "estimatedYears": {
+        "birth": -1670,
+        "death": -1590
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true,
+        "righteous": true
+      }
+    },
+    {
+      "id": "ruth",
+      "fullName": "Ruth",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": null,
+      "mother": null,
+      "spouses": ["mahlon", "boaz"],
+      "children": ["obed"],
+      "biblicalReferences": ["Ruth 1-4", "Matthew 1:5"],
+      "description": "Moabite woman who followed her mother-in-law Naomi to Bethlehem and married Boaz, becoming an ancestress of David and Jesus.",
+      "generation": 30,
+      "significance": "Great-grandmother of David and ancestress of Jesus",
+      "lineage": "Moabite",
+      "era": "judges-kings",
+      "estimatedYears": {
+        "birth": -1675,
+        "death": -1595
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true,
+        "foreignWoman": true,
+        "faithHero": true
+      }
+    },
+    {
+      "id": "obed",
+      "fullName": "Obed",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "boaz",
+      "mother": "ruth",
+      "spouses": ["wife_of_obed"],
+      "children": ["jesse"],
+      "biblicalReferences": ["Ruth 4:13-22", "Matthew 1:5", "Luke 3:32"],
+      "description": "Son of Boaz and Ruth who became the grandfather of King David.",
+      "generation": 31,
+      "significance": "Grandfather of King David",
+      "lineage": "Tribe of Judah",
+      "era": "judges-kings",
+      "estimatedYears": {
+        "birth": -1640,
+        "death": -1560
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "jesse",
+      "fullName": "Jesse",
+      "birth": "Unknown",
+      "death": "Unknown",
+      "age": null,
+      "father": "obed",
+      "mother": "wife_of_obed",
+      "spouses": ["wife_of_jesse"],
+      "children": ["eliab", "abinadab", "shimea", "nethanel", "raddai", "ozem", "david"],
+      "biblicalReferences": ["Ruth 4:22", "1 Samuel 16:1-13", "Isaiah 11:1-10", "Matthew 1:5-6", "Luke 3:32"],
+      "description": "Father of King David who lived in Bethlehem; his lineage is prophetically significant in Isaiah's 'root of Jesse' prophecy.",
+      "generation": 32,
+      "significance": "Father of King David and subject of Messianic prophecy",
+      "lineage": "Tribe of Judah",
+      "era": "judges-kings",
+      "estimatedYears": {
+        "birth": -1610,
+        "death": -1530
+      },
+      "metadata": {
+        "isAncestorOfJesus": true,
+        "isAncestorOfDavid": true
+      }
+    },
+    {
+      "id": "david",
+      "fullName": "David",
+      "birth": "Around 1040 BC",
+      "death": "Around 970 BC",
+      "age": 70,
+      "father": "jesse",
+      "mother": "wife_of_jesse",
+      "spouses": ["michal", "abigail", "bathsheba", "multiple_others"],
+      "children": ["amnon", "daniel", "absalom", "adonijah", "shephatiah", "ithream", "solomon", "others"],
+      "biblicalReferences": ["1 Samuel 16-1 Kings 2", "Matthew 1:6 

@@ -1,6 +1,36 @@
 {
-  "liveServer.settings.CustomMimeTypes": {
-    "js": "text/javascript",
-    "css": "text/css"
+  "language": "en",
+  "theme": "light",
+  "display": {
+      "fullNames": true,
+      "showAllNodes": false,
+      "nodeSize": 10,
+      "lineThickness": 1.5,
+      "fontSizes": {
+          "name": 14,
+          "dates": 12,
+          "relation": 10
+      }
+  },
+  "interaction": {
+      "zoomSpeed": 0.5,
+      "panEnabled": true,
+      "tooltipDelay": 300
+  },
+  "filters": {
+      "minGenerations": 1,
+      "maxGenerations": 30,
+      "showWomen": true,
+      "showMen": true
+  },
+  "features": {
+      "biblicalReferences": true,
+      "ageDisplay": true,
+      "relationshipLabels": true,
+      "searchHighlight": true
+  },
+  "performance": {
+      "maxVisibleNodes": 500,
+      "renderQuality": "high"
   }
 }
