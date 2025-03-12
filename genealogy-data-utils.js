@@ -1,2142 +1,1472 @@
 /**
- * Genealogy Data Utilities
- * A comprehensive module for loading, processing, and analyzing genealogy data.
+ * Biblical Genealogy Data Utilities
+ * Processes, validates, and enriches genealogical data for visualization
  */
+const GenealogyDataUtils = (function() {
+    // Core relationship types used throughout the application
+    const RELATIONSHIP_TYPES = {
+        PARENT: 'parent',
+        CHILD: 'child',
+        SPOUSE: 'spouse',
+        SIBLING: 'sibling',
+        ANCESTOR: 'ancestor',
+        DESCENDANT: 'descendant',
+        EXTENDED_FAMILY: 'extended-family',
+        MENTOR: 'mentor',
+        DISCIPLE: 'disciple',
+        ALLY: 'ally',
+        RIVAL: 'rival'
+    };
+    
+    // Configuration with defaults
+    const config = {
+        dataSource: 'Genealogy-dataset.json',
+        fallbackSource: '',
+        useCache: true,
+        fetchTimeout: 5000, // milliseconds
+        defaultEra: 'unknown',
+        generations: {
+            startYear: -4000,
+            yearSpan: 25
+        },
+        eras: [
+            { id: 'antediluvian', name: 'Antediluvian Period', startYear: -4000, endYear: -2350 },
+            { id: 'postdiluvian', name: 'Post-Flood Period', startYear: -2349, endYear: -2000 },
+            { id: 'patriarchal', name: 'Patriarchal Period', startYear: -1999, endYear: -1500 },
+            { id: 'exodus-conquest', name: 'Exodus & Conquest', startYear: -1499, endYear: -1100 },
+            { id: 'judges-kings', name: 'Judges & Kings', startYear: -1099, endYear: -586 },
+            { id: 'exile-return', name: 'Exile & Return', startYear: -585, endYear: -400 },
+            { id: 'intertestamental', name: 'Intertestamental Period', startYear: -399, endYear: -5 },
+            { id: 'new-testament', name: 'New Testament Era', startYear: -4, endYear: 100 }
+        ],
+        keyFigures: [
+            'adam', 'noah', 'abraham', 'isaac', 'jacob', 'joseph', 'moses', 'joshua', 'samuel',
+            'david', 'solomon', 'elijah', 'isaiah', 'jeremiah', 'ezekiel', 'daniel',
+            'john_the_baptist', 'jesus', 'peter', 'paul', 'john'
+        ],
+        cacheKey: 'biblicalGenealogyData',
+        errorLoggingEnabled: true,
+        performanceMonitoring: true
+    };
 
-// Define relationship types for consistency across the application
-const RELATIONSHIP_TYPES = {
-  MARRIAGE: 'marriage',
-  PARENT_CHILD: 'parent-child',
-  FATHER_CHILD: 'father-child',
-  MOTHER_CHILD: 'mother-child',
-  SIBLING: 'sibling',
-  SPOUSE: 'spouse',
-  HUSBAND_WIFE: 'husband-wife',
-  ANCESTOR: 'ancestor',
-  DESCENDANT: 'descendant'
-};
+    // Error types for improved error handling
+    const ERROR_TYPES = {
+        VALIDATION: 'VALIDATION_ERROR',
+        DATA_LOADING: 'DATA_LOADING_ERROR',
+        PROCESSING: 'PROCESSING_ERROR',
+        NOT_FOUND: 'NOT_FOUND_ERROR',
+        RELATIONSHIP: 'RELATIONSHIP_ERROR',
+        CONFIGURATION: 'CONFIGURATION_ERROR',
+        EXPORT: 'EXPORT_ERROR'
+    };
 
-/**
-* Loads genealogy data from a JSON file or URL
-* @param {string} source - Path to JSON file or URL
-* @param {Object} options - Optional configuration
-* @param {boolean} options.validateData - Whether to validate the data
-* @param {boolean} options.enrichData - Whether to enrich the data with computed fields
-* @param {Function} options.progressCallback - Callback for load progress
-* @returns {Promise<Object>} - Promise resolving to the genealogy data
-*/
-async function loadGenealogyData(source, options = {}) {
-  try {
-      // Create default options
-      const config = {
-          validateData: true,
-          enrichData: true,
-          progressCallback: null,
-          ...options
-      };
-      
-      // Call progress callback with initial state
-      if (typeof config.progressCallback === 'function') {
-          config.progressCallback({ loaded: 0, total: 100, status: 'Fetching data...' });
-      }
-      
-      // Fetch the data
-      const response = await fetch(source);
-      
-      if (!response.ok) {
-          throw new Error(`Failed to load data: ${response.status} ${response.statusText}`);
-      }
-      
-      // Process the data
-      const data = await response.json();
-      
-      // Call progress callback with successful load
-      if (typeof config.progressCallback === 'function') {
-          config.progressCallback({ loaded: 50, total: 100, status: 'Processing data...' });
-      }
-      
-      // Validate if requested
-      if (config.validateData) {
-          const validationResult = validateGenealogyData(data);
-          if (!validationResult.valid) {
-              throw new Error(`Invalid data format: ${validationResult.errors.join(', ')}`);
-          }
-      }
-      
-      // Enrich data if requested
-      let processedData = data;
-      if (config.enrichData) {
-          processedData = enrichDataset(data);
-      }
-      
-      // Call progress callback with completion
-      if (typeof config.progressCallback === 'function') {
-          config.progressCallback({ loaded: 100, total: 100, status: 'Data loaded successfully' });
-      }
-      
-      return processedData;
-  } catch (error) {
-      console.error("Error loading genealogy data:", error);
-      throw error;
-  }
-}
+    // Performance tracking
+    const perfMetrics = {
+        startTimes: {},
+        endTimes: {},
+        durations: {}
+    };
 
-/**
-* Loads genealogy data from a file input element
-* @param {HTMLInputElement} fileInput - The file input element
-* @param {Object} options - Optional configuration
-* @returns {Promise<Object>} - Promise resolving to the genealogy data
-*/
-async function loadGenealogyDataFromFileInput(fileInput, options = {}) {
-  return new Promise((resolve, reject) => {
-      if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
-          reject(new Error("No file selected"));
-          return;
-      }
-      
-      const file = fileInput.files[0];
-      const reader = new FileReader();
-      
-      reader.onload = (event) => {
-          try {
-              const data = JSON.parse(event.target.result);
-              
-              // Validate if requested
-              if (options.validateData) {
-                  const validationResult = validateGenealogyData(data);
-                  if (!validationResult.valid) {
-                      reject(new Error(`Invalid data format: ${validationResult.errors.join(', ')}`));
-                      return;
-                  }
-              }
-              
-              // Enrich data if requested
-              if (options.enrichData) {
-                  resolve(enrichDataset(data));
-              } else {
-                  resolve(data);
-              }
-          } catch (error) {
-              reject(new Error(`Failed to parse JSON: ${error.message}`));
-          }
-      };
-      
-      reader.onerror = () => {
-          reject(new Error("Failed to read file"));
-      };
-      
-      reader.readAsText(file);
-  });
-}
+    /**
+     * Start tracking performance for a named operation
+     * @param {string} operationName - Name of operation to track
+     */
+    function startPerformanceTracking(operationName) {
+        if (config.performanceMonitoring) {
+            perfMetrics.startTimes[operationName] = performance.now();
+        }
+    }
 
-/**
-* Validates the structure of genealogy data
-* @param {Object} data - The genealogy data to validate
-* @returns {Object} - Validation result with valid flag and any errors
-*/
-function validateGenealogyData(data) {
-  const errors = [];
-  
-  // Check that data is an object
-  if (!data || typeof data !== 'object') {
-      return { valid: false, errors: ['Data must be a valid object'] };
-  }
-  
-  // Check people array
-  if (!Array.isArray(data.people)) {
-      errors.push('Data must contain a "people" array');
-  } else {
-      // Check each person
-      data.people.forEach((person, index) => {
-          if (!person.id) {
-              errors.push(`Person at index ${index} is missing an id`);
-          }
-          
-          // Check that IDs are unique
-          const idMatches = data.people.filter(p => p.id === person.id);
-          if (idMatches.length > 1) {
-              errors.push(`Duplicate person ID found: ${person.id}`);
-          }
-      });
-  }
-  
-  // Check relationships array if it exists
-  if (data.relationships) {
-      if (!Array.isArray(data.relationships)) {
-          errors.push('Relationships must be an array');
-      } else {
-          // Check each relationship
-          data.relationships.forEach((rel, index) => {
-              if (!rel.from || !rel.to || !rel.type) {
-                  errors.push(`Relationship at index ${index} is missing required fields (from, to, type)`);
-                  return;
-              }
-              
-              // Check that from/to reference existing people
-              const fromExists = data.people.some(p => p.id === rel.from);
-              const toExists = data.people.some(p => p.id === rel.to);
-              
-              if (!fromExists) {
-                  errors.push(`Relationship at index ${index} references non-existent person ID in "from": ${rel.from}`);
-              }
-              
-              if (!toExists) {
-                  errors.push(`Relationship at index ${index} references non-existent person ID in "to": ${rel.to}`);
-              }
-          });
-      }
-  }
-  
-  return {
-      valid: errors.length === 0,
-      errors
-  };
-}
+    /**
+     * End tracking performance for a named operation
+     * @param {string} operationName - Name of operation to track
+     * @returns {number} Duration in milliseconds
+     */
+    function endPerformanceTracking(operationName) {
+        if (config.performanceMonitoring && perfMetrics.startTimes[operationName]) {
+            perfMetrics.endTimes[operationName] = performance.now();
+            perfMetrics.durations[operationName] = perfMetrics.endTimes[operationName] - perfMetrics.startTimes[operationName];
+            console.log(`Performance: ${operationName} took ${perfMetrics.durations[operationName].toFixed(2)}ms`);
+            return perfMetrics.durations[operationName];
+        }
+        return 0;
+    }
 
-/**
-* Enriches a genealogy dataset with computed fields
-* @param {Object} data - The genealogy data to enrich
-* @returns {Object} - The enriched data
-*/
-function enrichDataset(data) {
-  if (!data || !data.people) {
-      console.error("Invalid data provided to enrichDataset");
-      return data;
-  }
-  
-  // Create a deep clone to avoid modifying the original
-  const enriched = JSON.parse(JSON.stringify(data));
-  
-  // Create a map for efficient lookups
-  const peopleMap = new Map();
-  enriched.people.forEach(person => {
-      peopleMap.set(person.id, person);
-  });
-  
-  // Calculate birth/death years from dates if possible
-  enriched.people.forEach(person => {
-      // Extract year from "YYYY-MM-DD" or "YYYY" format
-      if (person.birthDate && !person.birthYear) {
-          const match = person.birthDate.match(/^(\d{4})/);
-          if (match) {
-              person.birthYear = parseInt(match[1], 10);
-          }
-      }
-      
-      if (person.deathDate && !person.deathYear) {
-          const match = person.deathDate.match(/^(\d{4})/);
-          if (match) {
-              person.deathYear = parseInt(match[1], 10);
-          }
-      }
-      
-      // Calculate age if possible
-      if (person.birthYear && person.deathYear) {
-          person.age = person.deathYear - person.birthYear;
-      } else if (person.birthYear) {
-          // If alive, use current year
-          const currentYear = new Date().getFullYear();
-          person.isAlive = !person.deathYear && person.birthYear <= currentYear;
-          if (person.isAlive) {
-              person.age = currentYear - person.birthYear;
-          }
-      }
-  });
-  
-  // Add relationship-derived fields if relationships exist
-  if (enriched.relationships && enriched.relationships.length > 0) {
-      // Maps to store family relationships
-      const childrenByParent = new Map();
-      const spousesByPerson = new Map();
-      const siblingsByPerson = new Map();
-      
-      // Initialize maps
-      enriched.people.forEach(person => {
-          childrenByParent.set(person.id, []);
-          spousesByPerson.set(person.id, []);
-          siblingsByPerson.set(person.id, []);
-      });
-      
-      // Process relationships
-      enriched.relationships.forEach(rel => {
-          // Handle parent-child relationships
-          if (rel.type === RELATIONSHIP_TYPES.PARENT_CHILD || 
-              rel.type === RELATIONSHIP_TYPES.FATHER_CHILD || 
-              rel.type === RELATIONSHIP_TYPES.MOTHER_CHILD) {
-              
-              const parentId = rel.from;
-              const childId = rel.to;
-              
-              // Add child to parent's children
-              if (childrenByParent.has(parentId)) {
-                  const children = childrenByParent.get(parentId);
-                  if (!children.includes(childId)) {
-                      children.push(childId);
-                  }
-              }
-              
-              // Set parent ID on child
-              const child = peopleMap.get(childId);
-              const parent = peopleMap.get(parentId);
-              
-              if (child && parent) {
-                  if (parent.gender === 'male') {
-                      child.fatherId = parentId;
-                  } else if (parent.gender === 'female') {
-                      child.motherId = parentId;
-                  }
-              }
-          }
-          
-          // Handle marriage relationships
-          if (rel.type === RELATIONSHIP_TYPES.MARRIAGE || 
-              rel.type === RELATIONSHIP_TYPES.SPOUSE || 
-              rel.type === RELATIONSHIP_TYPES.HUSBAND_WIFE) {
-              
-              const person1Id = rel.from;
-              const person2Id = rel.to;
-              
-              // Add to spouse lists (both directions)
-              if (spousesByPerson.has(person1Id)) {
-                  const spouses = spousesByPerson.get(person1Id);
-                  if (!spouses.includes(person2Id)) {
-                      spouses.push(person2Id);
-                  }
-              }
-              
-              if (spousesByPerson.has(person2Id)) {
-                  const spouses = spousesByPerson.get(person2Id);
-                  if (!spouses.includes(person1Id)) {
-                      spouses.push(person1Id);
-                  }
-              }
-          }
-          
-          // Handle sibling relationships
-          if (rel.type === RELATIONSHIP_TYPES.SIBLING) {
-              const sibling1Id = rel.from;
-              const sibling2Id = rel.to;
-              
-              // Add to sibling lists (both directions)
-              if (siblingsByPerson.has(sibling1Id)) {
-                  const siblings = siblingsByPerson.get(sibling1Id);
-                  if (!siblings.includes(sibling2Id)) {
-                      siblings.push(sibling2Id);
-                  }
-              }
-              
-              if (siblingsByPerson.has(sibling2Id)) {
-                  const siblings = siblingsByPerson.get(sibling2Id);
-                  if (!siblings.includes(sibling1Id)) {
-                      siblings.push(sibling1Id);
-                  }
-              }
-          }
-      });
-      
-      // Add computed family fields to people
-      enriched.people.forEach(person => {
-          // Add children array
-          const children = childrenByParent.get(person.id) || [];
-          if (children.length > 0) {
-              person.childrenIds = children;
-              person.childCount = children.length;
-          }
-          
-          // Add spouse array
-          const spouses = spousesByPerson.get(person.id) || [];
-          if (spouses.length > 0) {
-              person.spouseIds = spouses;
-              person.spouseCount = spouses.length;
-          }
-          
-          // Add sibling array
-          const siblings = siblingsByPerson.get(person.id) || [];
-          if (siblings.length > 0) {
-              person.siblingIds = siblings;
-              person.siblingCount = siblings.length;
-          }
-      });
-  }
-  
-  // Infer missing parent-child relationships from fatherId/motherId
-  enriched.people.forEach(person => {
-      if (person.fatherId) {
-          const father = peopleMap.get(person.fatherId);
-          if (father) {
-              if (!father.childrenIds) {
-                  father.childrenIds = [];
-              }
-              if (!father.childrenIds.includes(person.id)) {
-                  father.childrenIds.push(person.id);
-              }
-              father.childCount = father.childrenIds.length;
-              
-              // Add relationship if it doesn't exist
-              if (!enriched.relationships) {
-                  enriched.relationships = [];
-              }
-              
-              const relationshipExists = enriched.relationships.some(
-                  rel => (rel.from === father.id && rel.to === person.id && 
-                        (rel.type === RELATIONSHIP_TYPES.FATHER_CHILD || rel.type === RELATIONSHIP_TYPES.PARENT_CHILD))
-              );
-              
-              if (!relationshipExists) {
-                  enriched.relationships.push({
-                      from: father.id,
-                      to: person.id,
-                      type: RELATIONSHIP_TYPES.FATHER_CHILD
-                  });
-              }
-          }
-      }
-      
-      if (person.motherId) {
-          const mother = peopleMap.get(person.motherId);
-          if (mother) {
-              if (!mother.childrenIds) {
-                  mother.childrenIds = [];
-              }
-              if (!mother.childrenIds.includes(person.id)) {
-                  mother.childrenIds.push(person.id);
-              }
-              mother.childCount = mother.childrenIds.length;
-              
-              // Add relationship if it doesn't exist
-              if (!enriched.relationships) {
-                  enriched.relationships = [];
-              }
-              
-              const relationshipExists = enriched.relationships.some(
-                  rel => (rel.from === mother.id && rel.to === person.id && 
-                        (rel.type === RELATIONSHIP_TYPES.MOTHER_CHILD || rel.type === RELATIONSHIP_TYPES.PARENT_CHILD))
-              );
-              
-              if (!relationshipExists) {
-                  enriched.relationships.push({
-                      from: mother.id,
-                      to: person.id,
-                      type: RELATIONSHIP_TYPES.MOTHER_CHILD
-                  });
-              }
-          }
-      }
-  });
-  
-  // Calculate generation numbers if not already present
-  // Start with a reference person (e.g., the earliest ancestor or a specified person)
-  const rootPersons = findRootAncestors(enriched);
-  
-  // Set generation for root persons
-  rootPersons.forEach(root => {
-      root.generation = 0;
-      
-      // Traverse down the family tree
-      assignGenerations(root, peopleMap, 0);
-  });
-  
-  // Update metadata
-  if (!enriched.metadata) {
-      enriched.metadata = {};
-  }
-  
-  enriched.metadata.enriched = true;
-  enriched.metadata.lastUpdated = new Date().toISOString();
-  enriched.metadata.peopleCount = enriched.people.length;
-  enriched.metadata.relationshipsCount = enriched.relationships ? enriched.relationships.length : 0;
-  
-  return enriched;
-}
+    /**
+     * Enhanced error handling system
+     * @param {string} type - Error type from ERROR_TYPES
+     * @param {string} message - Error message
+     * @param {*} [data=null] - Additional error data
+     * @returns {Object} Structured error object
+     */
+    function handleError(type, message, data = null) {
+        const error = {
+            type,
+            message,
+            timestamp: new Date().toISOString(),
+            data
+        };
+        
+        if (config.errorLoggingEnabled) {
+            console.error(`${error.type}: ${error.message}`);
+            
+            // Store error in application error log if available
+            if (typeof window !== 'undefined' && !window.genealogyErrorLog) {
+                window.genealogyErrorLog = [];
+            }
+            
+            if (typeof window !== 'undefined') {
+                window.genealogyErrorLog.push(error);
+            }
+        }
+        
+        return error;
+    }
 
-/**
-* Helper function to find root ancestors (people with no parents)
-* @param {Object} data - The genealogy data
-* @returns {Array} - Array of root ancestor person objects
-*/
-function findRootAncestors(data) {
-  if (!data || !data.people) {
-      return [];
-  }
-  
-  return data.people.filter(person => {
-      return (!person.fatherId && !person.motherId);
-  });
-}
+    /**
+     * Loads genealogy data from a file or URL
+     * @param {string} [source=config.dataSource] - Data source path
+     * @param {Object} [options={}] - Loading options
+     * @returns {Promise<Object>} Promise resolving to genealogy data
+     */
+    async function loadGenealogyData(source = config.dataSource, options = {}) {
+        startPerformanceTracking('loadGenealogyData');
+        
+        const opts = {
+            useCache: config.useCache,
+            timeout: config.fetchTimeout,
+            ...options
+        };
+        
+        // Check cache first if enabled
+        if (opts.useCache && typeof localStorage !== 'undefined') {
+            try {
+                const cachedData = localStorage.getItem(config.cacheKey);
+                if (cachedData) {
+                    const data = JSON.parse(cachedData);
+                    const cacheTimestamp = data._cacheTimestamp || 0;
+                    const cacheAge = Date.now() - cacheTimestamp;
+                    
+                    // Use cache if it's less than 1 day old
+                    if (cacheAge < 86400000) {
+                        console.log('Using cached genealogy data');
+                        endPerformanceTracking('loadGenealogyData');
+                        return data;
+                    }
+                }
+            } catch (error) {
+                console.warn('Cache retrieval failed:', error);
+            }
+        }
+        
+        try {
+            // Set up fetch with timeout
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), opts.timeout);
+            
+            const response = await fetch(source, { signal: controller.signal });
+            clearTimeout(timeoutId);
+            
+            if (!response.ok) {
+                throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
+            }
+            
+            const rawData = await response.json();
+            
+            if (!isValidDataStructure(rawData)) {
+                throw new Error('Invalid data structure');
+            }
+            
+            // Process the data
+            const processedData = processGenealogyData(rawData);
+            
+            // Cache the processed data if caching is enabled
+            if (opts.useCache && typeof localStorage !== 'undefined') {
+                try {
+                    processedData._cacheTimestamp = Date.now();
+                    localStorage.setItem(config.cacheKey, JSON.stringify(processedData));
+                } catch (error) {
+                    console.warn('Failed to cache data:', error);
+                }
+            }
+            
+            endPerformanceTracking('loadGenealogyData');
+            return processedData;
+        } catch (error) {
+            const errorDetails = {
+                source,
+                options: opts,
+                message: error.message
+            };
+            
+            handleError(ERROR_TYPES.DATA_LOADING, `Failed to load genealogy data: ${error.message}`, errorDetails);
+            
+            // Try fallback source if available
+            if (config.fallbackSource && source !== config.fallbackSource) {
+                console.log(`Attempting to load from fallback source: ${config.fallbackSource}`);
+                return loadGenealogyData(config.fallbackSource, options);
+            }
+            
+            throw error;
+        }
+    }
 
-/**
-* Helper function to recursively assign generation numbers
-* @param {Object} person - The current person
-* @param {Map} peopleMap - Map of people by ID for efficient lookup
-* @param {number} generation - The current generation number
-*/
-function assignGenerations(person, peopleMap, generation) {
-  person.generation = generation;
-  
-  // Process children if any
-  if (person.childrenIds && person.childrenIds.length > 0) {
-      person.childrenIds.forEach(childId => {
-          const child = peopleMap.get(childId);
-          if (child) {
-              // Only update if not already assigned or if new generation is higher
-              if (child.generation === undefined || child.generation < generation + 1) {
-                  assignGenerations(child, peopleMap, generation + 1);
-              }
-          }
-      });
-  }
-  
-  // Also process spouses to ensure they're in the same generation
-  if (person.spouseIds && person.spouseIds.length > 0) {
-      person.spouseIds.forEach(spouseId => {
-          const spouse = peopleMap.get(spouseId);
-          if (spouse && (spouse.generation === undefined || spouse.generation !== generation)) {
-              assignGenerations(spouse, peopleMap, generation);
-          }
-      });
-  }
-}
+    /**
+     * Loads genealogy data from a file input element
+     * @param {HTMLInputElement} fileInput - File input DOM element
+     * @returns {Promise<Object>} Promise resolving to genealogy data
+     */
+    function loadGenealogyDataFromFileInput(fileInput) {
+        return new Promise((resolve, reject) => {
+            if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+                reject(new Error("No file selected"));
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = (event) => {
+                try {
+                    const data = JSON.parse(event.target.result);
+                    
+                    if (!isValidDataStructure(data)) {
+                        reject(new Error("Invalid data structure"));
+                        return;
+                    }
+                    
+                    resolve(processGenealogyData(data));
+                } catch (error) {
+                    reject(new Error(`Failed to parse JSON: ${error.message}`));
+                }
+            };
+            
+            reader.onerror = () => {
+                reject(new Error("Failed to read file"));
+            };
+            
+            reader.readAsText(file);
+        });
+    }
 
-/**
-* Converts genealogy data to a format suitable for graph visualization
-* @param {Object} data - The genealogy data to convert
-* @param {Object} options - Options for conversion
-* @returns {Object} - The graph data (nodes and links)
-*/
-function convertToGraphData(data, options = {}) {
-  if (!data || !data.people) {
-      console.error("Invalid data provided to convertToGraphData");
-      return { nodes: [], links: [] };
-  }
-  
-  // Default options
-  const config = {
-      includeDetailedInfo: true,
-      useGenerationLevels: true,
-      includeFamilyGroups: true,
-      ...options
-  };
-  
-  // Create nodes for each person
-  const nodes = data.people.map(person => {
-      const node = {
-          id: person.id,
-          name: person.name || 'Unknown',
-          gender: person.gender || 'unknown',
-          birthYear: person.birthYear,
-          deathYear: person.deathYear,
-          generation: person.generation !== undefined ? person.generation : null
-      };
-      
-      // Add detailed info if requested
-      if (config.includeDetailedInfo) {
-          node.age = person.age;
-          node.isAlive = person.isAlive;
-          node.fatherId = person.fatherId;
-          node.motherId = person.motherId;
-          node.childCount = person.childCount || 0;
-          node.spouseCount = person.spouseCount || 0;
-          node.description = person.description;
-          node.tribe = person.tribe;
-          node.birthPlace = person.birthPlace;
-          node.deathPlace = person.deathPlace;
-          node.occupation = person.occupation;
-      }
-      
-      return node;
-  });
-  
-  // Create links for relationships
-  const links = [];
-  
-  if (data.relationships && Array.isArray(data.relationships)) {
-      data.relationships.forEach(rel => {
-          const link = {
-              source: rel.from,
-              target: rel.to,
-              type: rel.type
-          };
-          
-          // Add any relationship metadata
-          if (rel.date) link.date = rel.date;
-          if (rel.place) link.place = rel.place;
-          if (rel.description) link.description = rel.description;
-          
-          links.push(link);
-      });
-  }
-  
-  // Add family groups if requested
-  if (config.includeFamilyGroups) {
-      // Create a family node for each parent pair
-      const families = new Map();
-      
-      // Find all marriages
-      data.people.forEach(person => {
-          if (person.spouseIds && person.spouseIds.length > 0) {
-              person.spouseIds.forEach(spouseId => {
-                  const familyId = [person.id, spouseId].sort().join('-');
-                  
-                  if (!families.has(familyId)) {
-                      // Find mutual children
-                      const children = data.people.filter(p => 
-                          (p.fatherId === person.id && p.motherId === spouseId) ||
-                          (p.fatherId === spouseId && p.motherId === person.id)
-                      );
-                      
-                      if (children.length > 0) {
-                          families.set(familyId, {
-                              id: `family-${familyId}`,
-                              type: 'family',
-                              parents: [person.id, spouseId],
-                              children: children.map(c => c.id)
-                          });
-                      }
-                  }
-              });
-          }
-      });
-      
-      // Add family nodes and links
-      families.forEach(family => {
-          // Add family node
-          nodes.push({
-              id: family.id,
-              type: 'family',
-              parents: family.parents,
-              children: family.children
-          });
-          
-          // Add links from parents to family
-          family.parents.forEach(parentId => {
-              links.push({
-                  source: parentId,
-                  target: family.id,
-                  type: 'parent-family'
-              });
-          });
-          
-          // Add links from family to children
-          family.children.forEach(childId => {
-              links.push({
-                  source: family.id,
-                  target: childId,
-                  type: 'family-child'
-              });
-          });
-      });
-  }
-  
-  return { nodes, links };
-}
+    /**
+     * Process raw genealogy data into a format usable by the application
+     * @param {Object} data - Raw genealogy data
+     * @returns {Object} Processed genealogy data
+     */
+    function processGenealogyData(data) {
+        startPerformanceTracking('processGenealogyData');
+        
+        try {
+            // Make a deep copy to avoid modifying the original data
+            const processedData = JSON.parse(JSON.stringify(data));
+            
+            // Validate the data structure
+            if (!isValidDataStructure(processedData)) {
+                throw new Error('Invalid data structure');
+            }
+            
+            // Transform data structure if needed
+            if (processedData.people && !processedData.nodes) {
+                processedData.nodes = processedData.people.map(person => ({
+                    id: person.id,
+                    name: person.fullName || person.name,
+                    gender: person.gender,
+                    birthYear: person.birthYear,
+                    deathYear: person.deathYear,
+                    significance: person.significance || 'minor',
+                    era: determineEra(person.birthYear) || config.defaultEra,
+                    isKeyFigure: isKeyBiblicalFigure(person.id),
+                    generation: calculateGeneration(person.birthYear),
+                    tribe: person.tribe,
+                    occupation: person.occupation,
+                    ...person
+                }));
+            }
+            
+            // Build relationship links if needed
+            if (processedData.relationships && !processedData.links) {
+                processedData.links = buildRelationships(processedData);
+            }
+            
+            // Add indices for faster lookups
+            processedData.indices = indexGenealogyData(processedData);
+            
+            // Add computed statistics
+            processedData.statistics = computeStatistics(processedData);
+            
+            endPerformanceTracking('processGenealogyData');
+            return processedData;
+        } catch (error) {
+            handleError(
+                ERROR_TYPES.PROCESSING,
+                `Error processing genealogy data: ${error.message}`,
+                { error }
+            );
+            throw error;
+        }
+    }
 
-/**
-* Finds the ancestral or descendant lineage for a person
-* @param {Object} data - The genealogy data
-* @param {string} personId - The ID of the person to find lineage for
-* @param {Object} options - Options for lineage tracing
-* @returns {Object} - The lineage data
-*/
-function findLineage(data, personId, options = {}) {
-  if (!data || !data.people || !personId) {
-      console.error("Invalid parameters provided to findLineage");
-      return { ancestor: [], descendant: [] };
-  }
-  
-  // Default options
-  const config = {
-      direction: 'both', // 'ancestor', 'descendant', or 'both'
-      maxGenerations: 10, // Maximum generations to trace
-      includeSiblings: false, // Whether to include siblings in the lineage
-      includeSpouses: true, // Whether to include spouses in the lineage
-      ...options
-  };
-  
-  // Create a map for efficient lookups
-  const peopleMap = new Map();
-  data.people.forEach(person => {
-      peopleMap.set(person.id, person);
-  });
-  
-  // Get the starting person
-  const startPerson = peopleMap.get(personId);
-  if (!startPerson) {
-      console.error(`Person with ID ${personId} not found`);
-      return { ancestor: [], descendant: [] };
-  }
-  
-  // Initialize result
-  const result = {
-      ancestor: [],
-      descendant: [],
-      startPerson: {
-          id: startPerson.id,
-          name: startPerson.name,
-          gender: startPerson.gender,
-          birthYear: startPerson.birthYear,
-          deathYear: startPerson.deathYear
-      }
-  };
-  
-  // Trace ancestral lineage if requested
-  if (config.direction === 'ancestor' || config.direction === 'both') {
-      // Start with parents
-      let currentGeneration = [];
-      
-      if (startPerson.fatherId && peopleMap.has(startPerson.fatherId)) {
-          currentGeneration.push(peopleMap.get(startPerson.fatherId));
-      }
-      
-      if (startPerson.motherId && peopleMap.has(startPerson.motherId)) {
-          currentGeneration.push(peopleMap.get(startPerson.motherId));
-      }
-      
-      // Process each generation
-      for (let gen = 1; gen <= config.maxGenerations && currentGeneration.length > 0; gen++) {
-          // Add current generation to result
-          result.ancestor.push({
-              generation: gen,
-              people: currentGeneration.map(person => ({
-                  id: person.id,
-                  name: person.name,
-                  gender: person.gender,
-                  birthYear: person.birthYear,
-                  deathYear: person.deathYear,
-                  isDirectAncestor: true
-              }))
-          });
-          
-          // Include spouses if requested
-          if (config.includeSpouses) {
-              currentGeneration.forEach(person => {
-                  if (person.spouseIds) {
-                      person.spouseIds.forEach(spouseId => {
-                          if (peopleMap.has(spouseId)) {
-                              const spouse = peopleMap.get(spouseId);
-                              // Check if spouse is already in the generation
-                              const exists = result.ancestor[gen - 1].people.some(p => p.id === spouseId);
-                              
-                              if (!exists) {
-                                  result.ancestor[gen - 1].people.push({
-                                      id: spouse.id,
-                                      name: spouse.name,
-                                      gender: spouse.gender,
-                                      birthYear: spouse.birthYear,
-                                      deathYear: spouse.deathYear,
-                                      isDirectAncestor: false,
-                                      isSpouse: true,
-                                      spouseOf: person.id
-                                  });
-                              }
-                          }
-                      });
-                  }
-              });
-          }
-          
-          // Include siblings if requested
-          if (config.includeSiblings) {
-              const siblingsToAdd = [];
-              
-              currentGeneration.forEach(person => {
-                  if (person.siblingIds) {
-                      person.siblingIds.forEach(siblingId => {
-                          if (peopleMap.has(siblingId)) {
-                              const sibling = peopleMap.get(siblingId);
-                              // Check if sibling is already in the generation
-                              const exists = result.ancestor[gen - 1].people.some(p => p.id === siblingId);
-                              
-                              if (!exists) {
-                                  siblingsToAdd.push({
-                                      id: sibling.id,
-                                      name: sibling.name,
-                                      gender: sibling.gender,
-                                      birthYear: sibling.birthYear,
-                                      deathYear: sibling.deathYear,
-                                      isDirectAncestor: false,
-                                      isSibling: true,
-                                      siblingOf: person.id
-                                  });
-                              }
-                          }
-                      });
-                  }
-              });
-              
-              result.ancestor[gen - 1].people.push(...siblingsToAdd);
-          }
-          
-          // Prepare next generation (parents of current generation)
-          const nextGeneration = [];
-          
-          currentGeneration.forEach(person => {
-              if (person.fatherId && peopleMap.has(person.fatherId)) {
-                  const father = peopleMap.get(person.fatherId);
-                  // Check if already included
-                  if (!nextGeneration.some(p => p.id === father.id)) {
-                      nextGeneration.push(father);
-                  }
-              }
-              
-              if (person.motherId && peopleMap.has(person.motherId)) {
-                  const mother = peopleMap.get(person.motherId);
-                  // Check if already included
-                  if (!nextGeneration.some(p => p.id === mother.id)) {
-                      nextGeneration.push(mother);
-                  }
-              }
-          });
-          
-          currentGeneration = nextGeneration;
-      }
-  }
-  
-  // Trace descendant lineage if requested
-  if (config.direction === 'descendant' || config.direction === 'both') {
-      let currentGeneration = [startPerson];
-      
-      // Add spouse(s) to starting generation if requested
-      if (config.includeSpouses && startPerson.spouseIds) {
-          startPerson.spouseIds.forEach(spouseId => {
-              if (peopleMap.has(spouseId)) {
-                  const spouse = peopleMap.get(spouseId);
-                  currentGeneration.push(spouse);
-              }
-          });
-      }
-      
-      // Process descendants
-      result.descendant.push({
-          generation: 0,
-          people: currentGeneration.map(person => ({
-              id: person.id,
-              name: person.name,
-              gender: person.gender,
-              birthYear: person.birthYear,
-              deathYear: person.deathYear,
-              isDirectDescendant: person.id === personId,
-              isSpouse: person.id !== personId
-          }))
-      });
-      
-      // Start with just the person and their spouse(s) for descendants
-      currentGeneration = [startPerson];
-      
-      // Process each generation
-      for (let gen = 1; gen <= config.maxGenerations; gen++) {
-          const descendants = [];
-          
-          // Find all children of the current generation
-          currentGeneration.forEach(person => {
-              if (person.childrenIds) {
-                  person.childrenIds.forEach(childId => {
-                      if (peopleMap.has(childId)) {
-                          const child = peopleMap.get(childId);
-                          // Check if already included
-                          if (!descendants.some(p => p.id === child.id)) {
-                              descendants.push(child);
-                          }
-                      }
-                  });
-              }
-          });
-          
-          if (descendants.length === 0) {
-              break; // No more descendants
-          }
-          
-          // Add spouses of descendants if requested
-          const spouses = [];
-          if (config.includeSpouses) {
-              descendants.forEach(person => {
-                  if (person.spouseIds) {
-                      person.spouseIds.forEach(spouseId => {
-                          if (peopleMap.has(spouseId)) {
-                              const spouse = peopleMap.get(spouseId);
-                              // Check if already included
-                              if (!descendants.some(p => p.id === spouse.id) && !spouses.some(p => p.id === spouse.id)) {
-                                  spouses.push(spouse);
-                              }
-                          }
-                      });
-                  }
-              });
-          }
-          
-          // Add this generation to result
-          result.descendant.push({
-              generation: gen,
-              people: [
-                  ...descendants.map(person => ({
-                      id: person.id,
-                      name: person.name,
-                      gender: person.gender,
-                      birthYear: person.birthYear,
-                      deathYear: person.deathYear,
-                      isDirectDescendant: true
-                  })),
-                  ...spouses.map(person => ({
-                      id: person.id,
-                      name: person.name,
-                      gender: person.gender,
-                      birthYear: person.birthYear,
-                      deathYear: person.deathYear,
-                      isDirectDescendant: false,
-                      isSpouse: true
-                  }))
-              ]
-          });
-          
-          // Include siblings if requested
-          if (config.includeSiblings) {
-              const siblingsToAdd = [];
-              
-              descendants.forEach(person => {
-                  if (person.siblingIds) {
-                      person.siblingIds.forEach(siblingId => {
-                          if (peopleMap.has(siblingId)) {
-                              const sibling = peopleMap.get(siblingId);
-                              // Check if sibling is already in the generation
-                              const exists = result.descendant[gen].people.some(p => p.id === siblingId);
-                              
-                              if (!exists && !siblingsToAdd.some(s => s.id === siblingId)) {
-                                  siblingsToAdd.push({
-                                      id: sibling.id,
-                                      name: sibling.name,
-                                      gender: sibling.gender,
-                                      birthYear: sibling.birthYear,
-                                      deathYear: sibling.deathYear,
-                                      isDirectDescendant: false,
-                                      isSibling: true,
-                                      siblingOf: person.id
-                                  });
-                              }
-                          }
-                      });
-                  }
-              });
-              
-              result.descendant[gen].people.push(...siblingsToAdd);
-          }
-          
-          // Update current generation for next iteration
-          currentGeneration = [...descendants, ...spouses];
-      }
-  }
-  
-  return result;
-}
+    /**
+     * Validates the data structure
+     * @param {Object} data - The data to validate
+     * @returns {boolean} - Whether the data is valid
+     */
+    function isValidDataStructure(data) {
+        // Check if data is an object
+        if (!data || typeof data !== 'object') {
+            console.error('Data is not an object');
+            return false;
+        }
+        
+        // Check for people/nodes array
+        if ((!data.people && !data.nodes) || 
+            (data.people && !Array.isArray(data.people)) ||
+            (data.nodes && !Array.isArray(data.nodes))) {
+            console.error('Data must contain a people or nodes array');
+            return false;
+        }
+        
+        // Check for relationships/links array
+        if ((!data.relationships && !data.links) ||
+            (data.relationships && !Array.isArray(data.relationships)) ||
+            (data.links && !Array.isArray(data.links))) {
+            console.error('Data must contain a relationships or links array');
+            return false;
+        }
+        
+        return true;
+    }
 
-/**
-* Finds the shortest relationship path between two people
-* @param {Object} data - The genealogy data
-* @param {string} person1Id - The ID of the first person
-* @param {string} person2Id - The ID of the second person
-* @param {Object} options - Options for path finding
-* @returns {Object} - The relationship path
-*/
-function findRelationshipPath(data, person1Id, person2Id, options = {}) {
-  if (!data || !data.people || !person1Id || !person2Id) {
-      console.error("Invalid parameters provided to findRelationshipPath");
-      return { found: false };
-  }
-  
-  // Default options
-  const config = {
-      maxDepth: 10, // Maximum relationship distance to search
-      includeDetail: true, // Whether to include detailed relationship descriptions
-      ...options
-  };
-  
-  // Create a map for efficient lookups
-  const peopleMap = new Map();
-  data.people.forEach(person => {
-      peopleMap.set(person.id, person);
-  });
-  
-  // Get the people
-  const person1 = peopleMap.get(person1Id);
-  const person2 = peopleMap.get(person2Id);
-  
-  if (!person1 || !person2) {
-      console.error("One or both people not found");
-      return { found: false, error: "One or both people not found" };
-  }
-  
-  // Direct relationship - same person
-  if (person1Id === person2Id) {
-      return {
-          found: true,
-          distance: 0,
-          path: [{ id: person1Id, name: person1.name }],
-          relationship: "Same person"
-      };
-  }
-  
-  // Build adjacency map for breadth-first search
-  const adjacencyMap = new Map();
-  
-  // Add all people to adjacency map
-  data.people.forEach(person => {
-      adjacencyMap.set(person.id, []);
-  });
-  
-  // Add relationships to adjacency map
-  // Parent-child relationships
-  data.people.forEach(person => {
-      if (person.fatherId && peopleMap.has(person.fatherId)) {
-          // Child to father
-          adjacencyMap.get(person.id).push({
-              id: person.fatherId,
-              type: RELATIONSHIP_TYPES.FATHER_CHILD,
-              direction: 'parent'
-          });
-          
-          // Father to child
-          adjacencyMap.get(person.fatherId).push({
-              id: person.id,
-              type: RELATIONSHIP_TYPES.FATHER_CHILD,
-              direction: 'child'
-          });
-      }
-      
-      if (person.motherId && peopleMap.has(person.motherId)) {
-          // Child to mother
-          adjacencyMap.get(person.id).push({
-              id: person.motherId,
-              type: RELATIONSHIP_TYPES.MOTHER_CHILD,
-              direction: 'parent'
-          });
-          
-          // Mother to child
-          adjacencyMap.get(person.motherId).push({
-              id: person.id,
-              type: RELATIONSHIP_TYPES.MOTHER_CHILD,
-              direction: 'child'
-          });
-      }
-  });
-  
-  // Add explicit relationships from data
-  if (data.relationships) {
-      data.relationships.forEach(rel => {
-          // Marriage relationships
-          if (rel.type === RELATIONSHIP_TYPES.MARRIAGE || 
-              rel.type === RELATIONSHIP_TYPES.SPOUSE || 
-              rel.type === RELATIONSHIP_TYPES.HUSBAND_WIFE) {
-              
-              // Bidirectional relationship
-              adjacencyMap.get(rel.from).push({
-                  id: rel.to,
-                  type: rel.type,
-                  direction: 'spouse'
-              });
-              
-              adjacencyMap.get(rel.to).push({
-                  id: rel.from,
-                  type: rel.type,
-                  direction: 'spouse'
-              });
-          }
-          
-          // Sibling relationships
-          if (rel.type === RELATIONSHIP_TYPES.SIBLING) {
-              adjacencyMap.get(rel.from).push({
-                  id: rel.to,
-                  type: rel.type,
-                  direction: 'sibling'
-              });
-              
-              adjacencyMap.get(rel.to).push({
-                  id: rel.from,
-                  type: rel.type,
-                  direction: 'sibling'
-              });
-          }
-      });
-  }
-  
-  // Breadth-first search for shortest path
-  const queue = [{
-      id: person1Id,
-      path: [{ id: person1Id, name: person1.name }],
-      steps: []
-  }];
-  
-  const visited = new Set([person1Id]);
-  
-  while (queue.length > 0) {
-      const current = queue.shift();
-      
-      // Check if we've reached the target
-      if (current.id === person2Id) {
-          // Calculate relationship description
-          let relationshipDesc = "";
-          
-          if (config.includeDetail && current.steps.length > 0) {
-              relationshipDesc = describeRelationship(current.steps);
-          }
-          
-          return {
-              found: true,
-              distance: current.steps.length,
-              path: current.path,
-              steps: current.steps,
-              relationship: relationshipDesc
-          };
-      }
-      
-      // Stop if we've reached the maximum depth
-      if (current.steps.length >= config.maxDepth) {
-          continue;
-      }
-      
-      // Check all neighbors
-      const neighbors = adjacencyMap.get(current.id) || [];
-      
-      for (const neighbor of neighbors) {
-          if (!visited.has(neighbor.id)) {
-              visited.add(neighbor.id);
-              
-              const person = peopleMap.get(neighbor.id);
-              
-              queue.push({
-                  id: neighbor.id,
-                  path: [...current.path, { id: neighbor.id, name: person.name }],
-                  steps: [...current.steps, {
-                      from: current.id,
-                      to: neighbor.id,
-                      type: neighbor.type,
-                      direction: neighbor.direction
-                  }]
-              });
-          }
-      }
-  }
-  
-  // No path found
-  return {
-      found: false,
-      error: "No relationship path found"
-  };
-}
+    /**
+     * Creates indices for faster data lookups
+     * @param {Object} data - Genealogy data
+     * @returns {Object} Index objects
+     */
+    function indexGenealogyData(data) {
+        const indices = {
+            byId: {},
+            byName: {},
+            byEra: {},
+            byGeneration: {},
+            byTribe: {},
+            bySignificance: {}
+        };
+        
+        const nodes = data.nodes || data.people || [];
+        
+        // Build indices
+        nodes.forEach(person => {
+            // Index by ID
+            indices.byId[person.id] = person;
+            
+            // Index by name (lowercase for case-insensitive lookup)
+            const name = (person.fullName || person.name || '').toLowerCase();
+            if (name) {
+                if (!indices.byName[name]) {
+                    indices.byName[name] = [];
+                }
+                indices.byName[name].push(person);
+            }
+            
+            // Index by era
+            const era = person.era || determineEra(person.birthYear);
+            if (era) {
+                if (!indices.byEra[era]) {
+                    indices.byEra[era] = [];
+                }
+                indices.byEra[era].push(person);
+            }
+            
+            // Index by generation
+            const generation = person.generation || calculateGeneration(person.birthYear);
+            if (generation) {
+                if (!indices.byGeneration[generation]) {
+                    indices.byGeneration[generation] = [];
+                }
+                indices.byGeneration[generation].push(person);
+            }
+            
+            // Index by tribe
+            if (person.tribe) {
+                if (!indices.byTribe[person.tribe]) {
+                    indices.byTribe[person.tribe] = [];
+                }
+                indices.byTribe[person.tribe].push(person);
+            }
+            
+            // Index by significance
+            if (person.significance) {
+                if (!indices.bySignificance[person.significance]) {
+                    indices.bySignificance[person.significance] = [];
+                }
+                indices.bySignificance[person.significance].push(person);
+            }
+        });
+        
+        return indices;
+    }
 
-/**
-* Helper function to describe a relationship path in plain language
-* @param {Array} steps - The relationship steps
-* @returns {string} - The relationship description
-*/
-function describeRelationship(steps) {
-  if (!steps || steps.length === 0) {
-      return "Same person";
-  }
-  
-  if (steps.length === 1) {
-      const step = steps[0];
-      
-      if (step.type === RELATIONSHIP_TYPES.FATHER_CHILD) {
-          return step.direction === 'parent' ? "Father" : "Child";
-      } else if (step.type === RELATIONSHIP_TYPES.MOTHER_CHILD) {
-          return step.direction === 'parent' ? "Mother" : "Child";
-      } else if (step.type === RELATIONSHIP_TYPES.MARRIAGE || 
-                 step.type === RELATIONSHIP_TYPES.SPOUSE || 
-                 step.type === RELATIONSHIP_TYPES.HUSBAND_WIFE) {
-          return "Spouse";
-      } else if (step.type === RELATIONSHIP_TYPES.SIBLING) {
-          return "Sibling";
-      }
-      
-      return "Direct relationship";
-  }
-  
-  // More complex relationships
-  if (steps.length === 2) {
-      const step1 = steps[0];
-      const step2 = steps[1];
-      
-      // Grandparent relationship
-      if ((step1.direction === 'parent' && step2.direction === 'parent')) {
-          return "Grandparent";
-      }
-      
-      // Grandchild relationship
-      if ((step1.direction === 'child' && step2.direction === 'child')) {
-          return "Grandchild";
-      }
-      
-      // Aunt/Uncle relationship
-      if ((step1.direction === 'parent' && step2.direction === 'sibling') ||
-          (step1.direction === 'sibling' && step2.direction === 'parent')) {
-          return "Aunt/Uncle";
-      }
-      
-      // Niece/Nephew relationship
-      if ((step1.direction === 'sibling' && step2.direction === 'child') ||
-          (step1.direction === 'child' && step2.direction === 'sibling')) {
-          return "Niece/Nephew";
-      }
-      
-      // Parent-in-law
-      if ((step1.direction === 'spouse' && step2.direction === 'parent') ||
-          (step1.direction === 'parent' && step2.direction === 'spouse')) {
-          return "Parent-in-law";
-      }
-      
-      // Child-in-law
-      if ((step1.direction === 'spouse' && step2.direction === 'child') ||
-          (step1.direction === 'child' && step2.direction === 'spouse')) {
-          return "Child-in-law";
-      }
-  }
-  
-  // For longer or more complex paths, provide a general description
-  if (steps.length >= 3) {
-      return `Extended family (${steps.length} steps away)`;
-  }
-  
-  return `Related (${steps.length} steps away)`;
-}
+    /**
+     * Builds relationship links from relationship data
+     * @param {Object} data - Genealogy data
+     * @returns {Array} Array of relationship links
+     */
+    function buildRelationships(data) {
+        const relationships = data.relationships || [];
+        const links = [];
+        
+        relationships.forEach(rel => {
+            if (!rel.from || !rel.to || !rel.type) {
+                return;
+            }
+            
+            links.push({
+                source: rel.from,
+                target: rel.to,
+                type: rel.type,
+                strength: getRelationshipStrength(rel.type),
+                ...rel
+            });
+            
+            // Add reciprocal relationship if needed
+            if (rel.bidirectional) {
+                links.push({
+                    source: rel.to,
+                    target: rel.from,
+                    type: getReciprocalRelationship(rel.type),
+                    strength: getRelationshipStrength(rel.type),
+                    ...rel
+                });
+            }
+        });
+        
+        return links;
+    }
 
-/**
-* Generates a color scheme for different data categories
-* @param {Object} data - The genealogy data
-* @param {Object} options - Color scheme options
-* @returns {Object} - The generated color scheme
-*/
-function generateCategoryColors(data, options = {}) {
-  if (!data || !data.people) {
-      console.error("Invalid data provided to generateCategoryColors");
-      return {};
-  }
-  
-  // Default options
-  const config = {
-      theme: 'default', // 'default', 'light', 'dark', 'colorful'
-      ...options
-  };
-  
-  // Define color palettes for different themes
-  const colorThemes = {
-      default: {
-          male: '#5B9BD5',
-          female: '#ED7D31',
-          unknownGender: '#A5A5A5',
-          marriage: '#70AD47',
-          parent: '#4472C4',
-          sibling: '#FFC000',
-          ancestor: '#7030A0',
-          highlight: '#FF0000',
-          selected: '#00B0F0',
-          mainLineage: '#00B050',
-          default: '#808080'
-      },
-      light: {
-          male: '#A9CCE3',
-          female: '#F5CBA7',
-          unknownGender: '#D5D8DC',
-          marriage: '#A9DFBF',
-          parent: '#AED6F1',
-          sibling: '#FAD7A0',
-          ancestor: '#D2B4DE',
-          highlight: '#F5B7B1',
-          selected: '#85C1E9',
-          mainLineage: '#ABEBC6',
-          default: '#BDC3C7'
-      },
-      dark: {
-          male: '#1A5276',
-          female: '#943126',
-          unknownGender: '#283747',
-          marriage: '#196F3D',
-          parent: '#1F618D',
-          sibling: '#B7950B',
-          ancestor: '#4A235A',
-          highlight: '#CB4335',
-          selected: '#2874A6',
-          mainLineage: '#0B5345',
-          default: '#17202A'
-      },
-      colorful: {
-          male: '#3498DB',
-          female: '#E74C3C',
-          unknownGender: '#95A5A6',
-          marriage: '#27AE60',
-          parent: '#2980B9',
-          sibling: '#F1C40F',
-          ancestor: '#8E44AD',
-          highlight: '#E84393',
-          selected: '#00CEC9',
-          mainLineage: '#00B894',
-          default: '#636E72'
-      }
-  };
-  
-  // Select the appropriate color theme
-  const colors = colorThemes[config.theme] || colorThemes.default;
-  
-  // Get unique generations
-  const generations = new Set();
-  data.people.forEach(person => {
-      if (person.generation !== undefined) {
-          generations.add(person.generation);
-      }
-  });
-  
-  // Generate colors for generations
-  const generationColors = {};
-  Array.from(generations).sort((a, b) => a - b).forEach((gen, index) => {
-      // Use a gradient from blue to red for generations
-      const hue = 240 - (index * (240 / Math.max(generations.size - 1, 1)));
-      generationColors[gen] = `hsl(${hue}, 70%, 60%)`;
-  });
-  
-  // Get unique tribes/groups if they exist in the data
-  const tribes = new Set();
-  data.people.forEach(person => {
-      if (person.tribe) {
-          tribes.add(person.tribe);
-      }
-  });
-  
-  // Generate colors for tribes/groups
-  const tribeColors = {};
-  Array.from(tribes).sort().forEach((tribe, index) => {
-      const hue = (index * (360 / Math.max(tribes.size, 1))) % 360;
-      tribeColors[tribe] = `hsl(${hue}, 70%, 50%)`;
-  });
-  
-  return {
-      gender: {
-          male: colors.male,
-          female: colors.female,
-          unknown: colors.unknownGender
-      },
-      relationship: {
-          marriage: colors.marriage,
-          parent: colors.parent,
-          sibling: colors.sibling,
-          ancestor: colors.ancestor
-      },
-      generation: generationColors,
-      tribe: tribeColors,
-      highlight: colors.highlight,
-      selected: colors.selected,
-      mainLineage: colors.mainLineage,
-      default: colors.default
-  };
-}
+    /**
+     * Gets the reciprocal relationship type
+     * @param {string} relationshipType - Original relationship type
+     * @returns {string} Reciprocal relationship type
+     */
+    function getReciprocalRelationship(relationshipType) {
+        const reciprocals = {
+            [RELATIONSHIP_TYPES.PARENT]: RELATIONSHIP_TYPES.CHILD,
+            [RELATIONSHIP_TYPES.CHILD]: RELATIONSHIP_TYPES.PARENT,
+            [RELATIONSHIP_TYPES.ANCESTOR]: RELATIONSHIP_TYPES.DESCENDANT,
+            [RELATIONSHIP_TYPES.DESCENDANT]: RELATIONSHIP_TYPES.ANCESTOR,
+            [RELATIONSHIP_TYPES.MENTOR]: RELATIONSHIP_TYPES.DISCIPLE,
+            [RELATIONSHIP_TYPES.DISCIPLE]: RELATIONSHIP_TYPES.MENTOR,
+            [RELATIONSHIP_TYPES.ALLY]: RELATIONSHIP_TYPES.ALLY,
+            [RELATIONSHIP_TYPES.RIVAL]: RELATIONSHIP_TYPES.RIVAL,
+            [RELATIONSHIP_TYPES.SPOUSE]: RELATIONSHIP_TYPES.SPOUSE,
+            [RELATIONSHIP_TYPES.SIBLING]: RELATIONSHIP_TYPES.SIBLING,
+            [RELATIONSHIP_TYPES.EXTENDED_FAMILY]: RELATIONSHIP_TYPES.EXTENDED_FAMILY
+        };
+        
+        return reciprocals[relationshipType] || relationshipType;
+    }
 
-/**
- * Creates a subgraph containing only specific people and their relationships
- * @param {Object} data - The full genealogy data
- * @param {Array<string>} personIds - Array of person IDs to include in the subgraph
- * @param {Object} options - Options for subgraph creation
- * @param {boolean} options.includeParents - Whether to include parents of selected people
- * @param {boolean} options.includeChildren - Whether to include children of selected people
- * @param {boolean} options.includeSiblings - Whether to include siblings of selected people
- * @param {boolean} options.includeSpouses - Whether to include spouses of selected people
- * @param {number} options.maxGenerationsUp - Maximum number of ancestral generations to include
- * @param {number} options.maxGenerationsDown - Maximum number of descendant generations to include
- * @returns {Object} - A subgraph containing only the selected people and their relationships
- */
-function createSubgraph(data, personIds, options = {}) {
-  if (!data || !data.people || !Array.isArray(personIds)) {
-      console.error("Invalid data or personIds provided to createSubgraph");
-      return { people: [], relationships: [] };
-  }
-  
-  // Default options
-  const config = {
-      includeParents: false,
-      includeChildren: false,
-      includeSiblings: false,
-      includeSpouses: false,
-      maxGenerationsUp: 0,
-      maxGenerationsDown: 0,
-      ...options
-  };
-  
-  // Create sets to track IDs to include
-  const includedIds = new Set(personIds);
-  const processedIds = new Set();
-  const toProcess = [...personIds];
-  
-  // Create a map for efficient person lookups
-  const peopleMap = new Map();
-  data.people.forEach(person => {
-      peopleMap.set(person.id, person);
-  });
-  
-  // Create maps for relationships
-  const parentMap = new Map();
-  const childrenMap = new Map();
-  const siblingMap = new Map();
-  const spouseMap = new Map();
-  
-  // Initialize relationship maps
-  data.people.forEach(person => {
-      parentMap.set(person.id, []);
-      childrenMap.set(person.id, []);
-      siblingMap.set(person.id, []);
-      spouseMap.set(person.id, []);
-  });
-  
-  // Fill relationship maps from data
-  if (data.relationships) {
-      data.relationships.forEach(rel => {
-          if (rel.type === RELATIONSHIP_TYPES.PARENT_CHILD || 
-              rel.type === RELATIONSHIP_TYPES.FATHER_CHILD || 
-              rel.type === RELATIONSHIP_TYPES.MOTHER_CHILD) {
-              
-              // Add parent-child relationship
-              if (childrenMap.has(rel.from)) {
-                  childrenMap.get(rel.from).push(rel.to);
-              }
-              
-              if (parentMap.has(rel.to)) {
-                  parentMap.get(rel.to).push(rel.from);
-              }
-          }
-          
-          if (rel.type === RELATIONSHIP_TYPES.MARRIAGE || 
-              rel.type === RELATIONSHIP_TYPES.SPOUSE || 
-              rel.type === RELATIONSHIP_TYPES.HUSBAND_WIFE) {
-              
-              // Add spouse relationship (bidirectional)
-              if (spouseMap.has(rel.from)) {
-                  spouseMap.get(rel.from).push(rel.to);
-              }
-              
-              if (spouseMap.has(rel.to)) {
-                  spouseMap.get(rel.to).push(rel.from);
-              }
-          }
-          
-          if (rel.type === RELATIONSHIP_TYPES.SIBLING) {
-              // Add sibling relationship (bidirectional)
-              if (siblingMap.has(rel.from)) {
-                  siblingMap.get(rel.from).push(rel.to);
-              }
-              
-              if (siblingMap.has(rel.to)) {
-                  siblingMap.get(rel.to).push(rel.from);
-              }
-          }
-      });
-  }
-  
-  // Also fill relationship maps from person data
-  data.people.forEach(person => {
-      // Add parent relationships
-      if (person.fatherId) {
-          if (parentMap.has(person.id)) {
-              parentMap.get(person.id).push(person.fatherId);
-          }
-          
-          if (childrenMap.has(person.fatherId)) {
-              childrenMap.get(person.fatherId).push(person.id);
-          }
-      }
-      
-      if (person.motherId) {
-          if (parentMap.has(person.id)) {
-              parentMap.get(person.id).push(person.motherId);
-          }
-          
-          if (childrenMap.has(person.motherId)) {
-              childrenMap.get(person.motherId).push(person.id);
-          }
-      }
-      
-      // Add children, siblings, and spouses from arrays if they exist
-      if (Array.isArray(person.childrenIds)) {
-          person.childrenIds.forEach(childId => {
-              if (childrenMap.has(person.id)) {
-                  childrenMap.get(person.id).push(childId);
-              }
-              
-              if (parentMap.has(childId)) {
-                  parentMap.get(childId).push(person.id);
-              }
-          });
-      }
-      
-      if (Array.isArray(person.siblingIds)) {
-          person.siblingIds.forEach(siblingId => {
-              if (siblingMap.has(person.id)) {
-                  siblingMap.get(person.id).push(siblingId);
-              }
-              
-              if (siblingMap.has(siblingId)) {
-                  siblingMap.get(siblingId).push(person.id);
-              }
-          });
-      }
-      
-      if (Array.isArray(person.spouseIds)) {
-          person.spouseIds.forEach(spouseId => {
-              if (spouseMap.has(person.id)) {
-                  spouseMap.get(person.id).push(spouseId);
-              }
-              
-              if (spouseMap.has(spouseId)) {
-                  spouseMap.get(spouseId).push(person.id);
-              }
-          });
-      }
-  });
-  
-  // Process people to include in the subgraph
-  while (toProcess.length > 0) {
-      const personId = toProcess.shift();
-      if (processedIds.has(personId)) continue;
-      processedIds.add(personId);
-      
-      const person = peopleMap.get(personId);
-      if (!person) continue;
-      
-      // Track generations for ancestors
-      const currentGenUp = person.generationUp || 0;
-      
-      // Track generations for descendants
-      const currentGenDown = person.generationDown || 0;
-      
-      // Include parents if requested and within generation limit
-      if (config.includeParents && currentGenUp < config.maxGenerationsUp) {
-          const parents = parentMap.get(personId) || [];
-          parents.forEach(parentId => {
-              if (!includedIds.has(parentId)) {
-                  includedIds.add(parentId);
-                  toProcess.push(parentId);
-                  
-                  // Set generation tracking for ancestor
-                  const parent = peopleMap.get(parentId);
-                  if (parent) {
-                      parent.generationUp = currentGenUp + 1;
-                  }
-              }
-          });
-      }
-      
-      // Include children if requested and within generation limit
-      if (config.includeChildren && currentGenDown < config.maxGenerationsDown) {
-          const children = childrenMap.get(personId) || [];
-          children.forEach(childId => {
-              if (!includedIds.has(childId)) {
-                  includedIds.add(childId);
-                  toProcess.push(childId);
-                  
-                  // Set generation tracking for descendant
-                  const child = peopleMap.get(childId);
-                  if (child) {
-                      child.generationDown = currentGenDown + 1;
-                  }
-              }
-          });
-      }
-      
-      // Include siblings if requested
-      if (config.includeSiblings) {
-          const siblings = siblingMap.get(personId) || [];
-          siblings.forEach(siblingId => {
-              if (!includedIds.has(siblingId)) {
-                  includedIds.add(siblingId);
-                  toProcess.push(siblingId);
-              }
-          });
-      }
-      
-      // Include spouses if requested
-      if (config.includeSpouses) {
-          const spouses = spouseMap.get(personId) || [];
-          spouses.forEach(spouseId => {
-              if (!includedIds.has(spouseId)) {
-                  includedIds.add(spouseId);
-                  toProcess.push(spouseId);
-              }
-          });
-      }
-  }
-  
-  // Create the subgraph
-  const subgraph = {
-      people: data.people.filter(person => includedIds.has(person.id)),
-      relationships: []
-  };
-  
-  // Include only relationships between included people
-  if (data.relationships) {
-      subgraph.relationships = data.relationships.filter(rel => 
-          includedIds.has(rel.from) && includedIds.has(rel.to)
-      );
-  }
-  
-  return subgraph;
-}
+    /**
+     * Gets the strength value for a relationship type
+     * @param {string} relationshipType - Relationship type
+     * @returns {number} Strength value (1-10)
+     */
+    function getRelationshipStrength(relationshipType) {
+        const strengths = {
+            [RELATIONSHIP_TYPES.PARENT]: 10,
+            [RELATIONSHIP_TYPES.CHILD]: 10,
+            [RELATIONSHIP_TYPES.SPOUSE]: 9,
+            [RELATIONSHIP_TYPES.SIBLING]: 8,
+            [RELATIONSHIP_TYPES.ANCESTOR]: 7,
+            [RELATIONSHIP_TYPES.DESCENDANT]: 7,
+            [RELATIONSHIP_TYPES.EXTENDED_FAMILY]: 5,
+            [RELATIONSHIP_TYPES.MENTOR]: 6,
+            [RELATIONSHIP_TYPES.DISCIPLE]: 6,
+            [RELATIONSHIP_TYPES.ALLY]: 4,
+            [RELATIONSHIP_TYPES.RIVAL]: 3
+        };
+        
+        return strengths[relationshipType] || 1;
+    }
 
-/**
-* Computes statistics about a genealogy dataset
-* @param {Object} data - The genealogy data
-* @returns {Object} - Statistics about the dataset
-*/
-function computeStatistics(data) {
-  if (!data || !data.people) {
-      console.error("Invalid data provided to computeStatistics");
-      return {};
-  }
-  
-  const stats = {
-      totalCount: data.people.length,
-      gender: {
-          male: 0,
-          female: 0,
-          unknown: 0,
-          other: 0
-      },
-      relationships: {
-          marriages: 0,
-          children: 0,
-          siblings: 0
-      },
-      birthYears: {},
-      deathYears: {},
-      longevity: {
-          averageAge: 0,
-          maxAge: 0,
-          minAge: Infinity
-      },
-      surnames: {},
-      locations: {
-          birth: {},
-          death: {}
-      },
-      generations: {
-          count: 0,
-          min: Infinity,
-          max: -Infinity
-      }
-  };
-  
-  // Compute gender statistics
-  data.people.forEach(person => {
-      // Gender stats
-      if (person.gender === 'male') {
-          stats.gender.male++;
-      } else if (person.gender === 'female') {
-          stats.gender.female++;
-      } else if (!person.gender) {
-          stats.gender.unknown++;
-      } else {
-          stats.gender.other++;
-      }
-      
-      // Birth years
-      if (person.birthYear) {
-          stats.birthYears[person.birthYear] = (stats.birthYears[person.birthYear] || 0) + 1;
-      }
-      
-      // Death years
-      if (person.deathYear) {
-          stats.deathYears[person.deathYear] = (stats.deathYears[person.deathYear] || 0) + 1;
-      }
-      
-      // Age statistics
-      if (person.age) {
-          stats.longevity.averageAge += person.age;
-          stats.longevity.maxAge = Math.max(stats.longevity.maxAge, person.age);
-          stats.longevity.minAge = Math.min(stats.longevity.minAge, person.age);
-      }
-      
-      // Surname statistics
-      if (person.surname) {
-          stats.surnames[person.surname] = (stats.surnames[person.surname] || 0) + 1;
-      }
-      
-      // Location statistics
-      if (person.birthPlace) {
-          stats.locations.birth[person.birthPlace] = (stats.locations.birth[person.birthPlace] || 0) + 1;
-      }
-      
-      if (person.deathPlace) {
-          stats.locations.death[person.deathPlace] = (stats.locations.death[person.deathPlace] || 0) + 1;
-      }
-      
-      // Generation statistics
-      if (person.generation !== undefined) {
-          stats.generations.min = Math.min(stats.generations.min, person.generation);
-          stats.generations.max = Math.max(stats.generations.max, person.generation);
-      }
-  });
-  
-  // Calculate average age
-  if (stats.longevity.minAge === Infinity) {
-      stats.longevity.minAge = 0;
-  }
-  
-  stats.longevity.averageAge = stats.longevity.averageAge / 
-      (data.people.filter(p => p.age !== undefined).length || 1);
-  
-  // Count generations
-  stats.generations.count = stats.generations.max - stats.generations.min + 1;
-  
-  // Count relationships
-  if (data.relationships) {
-      data.relationships.forEach(rel => {
-          if (rel.type === RELATIONSHIP_TYPES.MARRIAGE || 
-              rel.type === RELATIONSHIP_TYPES.SPOUSE || 
-              rel.type === RELATIONSHIP_TYPES.HUSBAND_WIFE) {
-              stats.relationships.marriages++;
-          } else if (rel.type === RELATIONSHIP_TYPES.PARENT_CHILD || 
-                    rel.type === RELATIONSHIP_TYPES.FATHER_CHILD || 
-                    rel.type === RELATIONSHIP_TYPES.MOTHER_CHILD) {
-              stats.relationships.children++;
-          } else if (rel.type === RELATIONSHIP_TYPES.SIBLING) {
-              stats.relationships.siblings++;
-          }
-      });
-  }
-  
-  // Count children based on person data
-  let childCount = 0;
-  data.people.forEach(person => {
-      if (Array.isArray(person.childrenIds)) {
-          childCount += person.childrenIds.length;
-      }
-  });
-  
-  // If we have more children from person data than from relationships, update the count
-  stats.relationships.children = Math.max(stats.relationships.children, childCount);
-  
-  return stats;
-}
+    /**
+     * Calculates the generation based on birth year
+     * @param {number|string} birthYear - Birth year
+     * @returns {number} Generation number
+     */
+    function calculateGeneration(birthYear) {
+        if (birthYear === undefined || birthYear === null) {
+            return 0;
+        }
+        
+        const birthYearNum = parseInt(birthYear);
+        if (isNaN(birthYearNum)) {
+            return 0;
+        }
+        
+        return Math.floor((birthYearNum - config.generations.startYear) / config.generations.yearSpan);
+    }
 
-/**
-* Exports genealogy data to a specific format
-* @param {Object} data - The genealogy data
-* @param {string} format - The format to export to ('gedcom', 'csv', 'json')
-* @param {Object} options - Export options
-* @returns {string} - The exported data as a string
-*/
-function exportGenealogyData(data, format = 'gedcom', options = {}) {
-  if (!data || !data.people) {
-      console.error("Invalid data provided to exportGenealogyData");
-      return "";
-  }
-  
-  // Default options
-  const config = {
-      includeNotes: true,
-      includeSources: true,
-      includeMedia: false, // Media can be large, so default to exclude
-      dateFormat: 'YYYY-MM-DD', // ISO format by default
-      ...options
-  };
-  
-  switch (format.toLowerCase()) {
-      case 'gedcom':
-          return exportToGedcom(data, config);
-      case 'csv':
-          return exportToCsv(data, config);
-      case 'json':
-          return exportToJson(data, config);
-      default:
-          console.error(`Unsupported export format: ${format}`);
-          return "";
-  }
-}
+    /**
+     * Determines the era based on a year
+     * @param {number|string} year - Year to check
+     * @returns {string} Era identifier
+     */
+    function determineEra(year) {
+        if (year === undefined || year === null) {
+            return config.defaultEra;
+        }
+        
+        const yearNum = parseInt(year);
+        if (isNaN(yearNum)) {
+            return config.defaultEra;
+        }
+        
+        for (const era of config.eras) {
+            if (yearNum >= era.startYear && yearNum <= era.endYear) {
+                return era.id;
+            }
+        }
+        
+        return config.defaultEra;
+    }
 
-/**
-* Exports genealogy data to GEDCOM format
-* @param {Object} data - The genealogy data
-* @param {Object} config - Export configuration
-* @returns {string} - GEDCOM formatted string
-*/
-function exportToGedcom(data, config) {
-  const gedcom = [];
-  
-  // GEDCOM header
-  gedcom.push("0 HEAD");
-  gedcom.push("1 CHAR UTF-8");
-  gedcom.push("1 GEDC");
-  gedcom.push("2 VERS 5.5.1");
-  gedcom.push("2 FORM LINEAGE-LINKED");
-  gedcom.push("1 SOUR GENEALOGY_DATA_UTILS");
-  gedcom.push("2 VERS 1.0");
-  gedcom.push("1 DATE " + new Date().toISOString().split('T')[0]);
-  gedcom.push("2 TIME " + new Date().toISOString().split('T')[1].split('.')[0]);
-  
-  // Generate a map of person IDs to GEDCOM IDs
-  const gedcomIdMap = new Map();
-  data.people.forEach((person, index) => {
-      gedcomIdMap.set(person.id, `I${index + 1}`);
-  });
-  
-  // Track families
-  const families = [];
-  const familyMap = new Map(); // Maps husband+wife IDs to family ID
-  
-  // Add people to GEDCOM
-  data.people.forEach((person, index) => {
-      const gedcomId = gedcomIdMap.get(person.id);
-      
-      gedcom.push(`0 ${gedcomId} INDI`);
-      
-      // Add name
-      if (person.givenName || person.surname) {
-          const givenName = person.givenName || '';
-          const surname = person.surname || '';
-          gedcom.push(`1 NAME ${givenName} /${surname}/`);
-          
-          if (person.givenName) {
-              gedcom.push(`2 GIVN ${person.givenName}`);
-          }
-          
-          if (person.surname) {
-              gedcom.push(`2 SURN ${person.surname}`);
-          }
-      } else if (person.name) {
-          // Try to parse name if in format "Given Surname"
-          const nameParts = person.name.split(' ');
-          if (nameParts.length >= 2) {
-              const givenName = nameParts.slice(0, -1).join(' ');
-              const surname = nameParts[nameParts.length - 1];
-              gedcom.push(`1 NAME ${givenName} /${surname}/`);
-          } else {
-              gedcom.push(`1 NAME ${person.name}`);
-          }
-      }
-      
-      // Add sex
-      if (person.gender) {
-          const sex = person.gender.toUpperCase().charAt(0);
-          if (sex === 'M' || sex === 'F') {
-              gedcom.push(`1 SEX ${sex}`);
-          }
-      }
-      
-      // Add birth information
-      if (person.birthDate || person.birthPlace || person.birthYear) {
-          gedcom.push("1 BIRT");
-          
-          if (person.birthDate) {
-              gedcom.push(`2 DATE ${formatGedcomDate(person.birthDate, config.dateFormat)}`);
-          } else if (person.birthYear) {
-              gedcom.push(`2 DATE ${person.birthYear}`);
-          }
-          
-          if (person.birthPlace) {
-              gedcom.push(`2 PLAC ${person.birthPlace}`);
-          }
-      }
-      
-      // Add death information
-      if (person.deathDate || person.deathPlace || person.deathYear) {
-          gedcom.push("1 DEAT");
-          
-          if (person.deathDate) {
-              gedcom.push(`2 DATE ${formatGedcomDate(person.deathDate, config.dateFormat)}`);
-          } else if (person.deathYear) {
-              gedcom.push(`2 DATE ${person.deathYear}`);
-          }
-          
-          if (person.deathPlace) {
-              gedcom.push(`2 PLAC ${person.deathPlace}`);
-          }
-      }
-      
-      // Add occupation
-      if (person.occupation) {
-          gedcom.push(`1 OCCU ${person.occupation}`);
-      }
-      
-      // Add notes
-      if (config.includeNotes && person.notes) {
-          if (Array.isArray(person.notes)) {
-              person.notes.forEach(note => {
-                  gedcom.push(`1 NOTE ${note}`);
-              });
-          } else {
-              gedcom.push(`1 NOTE ${person.notes}`);
-          }
-      }
-      
-      // Add sources
-      if (config.includeSources && person.sources) {
-          if (Array.isArray(person.sources)) {
-              person.sources.forEach(source => {
-                  gedcom.push(`1 SOUR ${source}`);
-              });
-          } else {
-              gedcom.push(`1 SOUR ${person.sources}`);
-          }
-      }
-  });
-  
-  // Process relationships to create families
-  if (data.relationships) {
-      // First, gather marriages
-      data.relationships.forEach((rel, index) => {
-          if (rel.type === RELATIONSHIP_TYPES.MARRIAGE || 
-              rel.type === RELATIONSHIP_TYPES.SPOUSE || 
-              rel.type === RELATIONSHIP_TYPES.HUSBAND_WIFE) {
-              
-              const husband = data.people.find(p => p.id === rel.from && p.gender === 'male');
-              const wife = data.people.find(p => p.id === rel.to && p.gender === 'female');
-              
-              // If genders aren't specified or match, try to determine by relationship direction
-              const person1 = data.people.find(p => p.id === rel.from);
-              const person2 = data.people.find(p => p.id === rel.to);
-              
-              if (husband && wife) {
-                  // Husband and wife are correctly identified
-                  const familyKey = `${husband.id}-${wife.id}`;
-                  
-                  if (!familyMap.has(familyKey)) {
-                      const familyId = `F${families.length + 1}`;
-                      familyMap.set(familyKey, familyId);
-                      
-                      families.push({
-                          id: familyId,
-                          husbandId: husband.id,
-                          wifeId: wife.id,
-                          childrenIds: []
-                      });
-                  }
-              } else if (person1 && person2) {
-                  // Default to using the direction in the relationship
-                  const familyKey = `${person1.id}-${person2.id}`;
-                  
-                  if (!familyMap.has(familyKey)) {
-                      const familyId = `F${families.length + 1}`;
-                      familyMap.set(familyKey, familyId);
-                      
-                      families.push({
-                          id: familyId,
-                          husbandId: person1.id,
-                          wifeId: person2.id,
-                          childrenIds: []
-                      });
-                  }
-              }
-          }
-      });
-      
-      // Then, gather parent-child relationships
-      data.relationships.forEach(rel => {
-          if (rel.type === RELATIONSHIP_TYPES.PARENT_CHILD || 
-              rel.type === RELATIONSHIP_TYPES.FATHER_CHILD || 
-              rel.type === RELATIONSHIP_TYPES.MOTHER_CHILD) {
-              
-              const parent = data.people.find(p => p.id === rel.from);
-              const child = data.people.find(p => p.id === rel.to);
-              
-              if (parent && child) {
-                  // Find the family where this parent is husband or wife
-                  const family = families.find(f => 
-                      f.husbandId === parent.id || f.wifeId === parent.id
-                  );
-                  
-                  if (family && !family.childrenIds.includes(child.id)) {
-                      family.childrenIds.push(child.id);
-                  } else if (!family) {
-                      // Create a new family with just one parent
-                      const familyId = `F${families.length + 1}`;
-                      
-                      const newFamily = {
-                          id: familyId,
-                          childrenIds: [child.id]
-                      };
-                      
-                      if (parent.gender === 'male') {
-                          newFamily.husbandId = parent.id;
-                      } else {
-                          newFamily.wifeId = parent.id;
-                      }
-                      
-                      families.push(newFamily);
-                  }
-              }
-          }
-      });
-  }
-  
-  // Add families to GEDCOM
-  families.forEach(family => {
-      gedcom.push(`0 ${family.id} FAM`);
-      
-      if (family.husbandId) {
-          const husbandGedcomId = gedcomIdMap.get(family.husbandId);
-          if (husbandGedcomId) {
-              gedcom.push(`1 HUSB @${husbandGedcomId}@`);
-          }
-      }
-      
-      if (family.wifeId) {
-          const wifeGedcomId = gedcomIdMap.get(family.wifeId);
-          if (wifeGedcomId) {
-              gedcom.push(`1 WIFE @${wifeGedcomId}@`);
-          }
-      }
-      
-      family.childrenIds.forEach(childId => {
-          const childGedcomId = gedcomIdMap.get(childId);
-          if (childGedcomId) {
-              gedcom.push(`1 CHIL @${childGedcomId}@`);
-          }
-      });
-  });
-  
-  // Add trailer
-  gedcom.push("0 TRLR");
-  
-  return gedcom.join("\n");
-}
+    /**
+     * Checks if a person is a key biblical figure
+     * @param {string} id - Person ID
+     * @returns {boolean} Whether the person is a key figure
+     */
+    function isKeyBiblicalFigure(id) {
+        return config.keyFigures.includes(id);
+    }
 
-/**
-* Exports genealogy data to CSV format
-* @param {Object} data - The genealogy data
-* @param {Object} config - Export configuration
-* @returns {string} - CSV formatted string
-*/
-function exportToCsv(data, config) {
-  if (!data.people || data.people.length === 0) {
-      return "";
-  }
-  
-  // Determine all possible fields from the people data
-  const allFields = new Set();
-  data.people.forEach(person => {
-      Object.keys(person).forEach(key => {
-          allFields.add(key);
-      });
-  });
-  
-  // Create header row
-  const fields = Array.from(allFields);
-  const csv = [fields.join(',')];
-  
-  // Add data rows
-  data.people.forEach(person => {
-      const row = fields.map(field => {
-          const value = person[field];
-          
-          if (value === undefined || value === null) {
-              return '';
-          }
-          
-          if (Array.isArray(value)) {
-              return `"${value.join(', ')}"`;
-          }
-          
-          if (typeof value === 'string' && (value.includes(',') || value.includes('"'))) {
-              return `"${value.replace(/"/g, '""')}"`;
-          }
-          
-          return value;
-      });
-      
-      csv.push(row.join(','));
-  });
-  
-  return csv.join('\n');
-}
+    /**
+     * Validates the structure of genealogy data
+     * @param {Object} data - The genealogy data to validate
+     * @returns {Object} - Validation result with valid flag and any errors
+     */
+    function validateGenealogyData(data) {
+        const errors = [];
+        
+        // Check that data is an object
+        if (!data || typeof data !== 'object') {
+            return { valid: false, errors: ['Data must be a valid object'] };
+        }
+        
+        // Check for essential arrays
+        if (!data.people && !data.nodes) {
+            errors.push('Missing people or nodes array');
+        } else {
+            const peopleArray = data.people || data.nodes;
+            if (!Array.isArray(peopleArray)) {
+                errors.push('People or nodes must be an array');
+            } else {
+                // Check each person
+                peopleArray.forEach((person, index) => {
+                    if (!person.id) {
+                        errors.push(`Person at index ${index} is missing an id`);
+                    }
+                    if (!person.name && !person.fullName) {
+                        errors.push(`Person at index ${index} (id: ${person.id || 'unknown'}) is missing a name`);
+                    }
+                });
+            }
+        }
+        
+        if (!data.relationships && !data.links) {
+            errors.push('Missing relationships or links array');
+        } else {
+            const relationshipsArray = data.relationships || data.links;
+            if (!Array.isArray(relationshipsArray)) {
+                errors.push('Relationships or links must be an array');
+            } else {
+                // Check each relationship
+                relationshipsArray.forEach((rel, index) => {
+                    if (!rel.from && !rel.source) {
+                        errors.push(`Relationship at index ${index} is missing from/source`);
+                    }
+                    if (!rel.to && !rel.target) {
+                        errors.push(`Relationship at index ${index} is missing to/target`);
+                    }
+                    if (!rel.type) {
+                        errors.push(`Relationship at index ${index} is missing type`);
+                    }
+                });
+            }
+        }
+        
+        return { valid: errors.length === 0, errors };
+    }
 
-/**
-* Exports genealogy data to JSON format
-* @param {Object} data - The genealogy data
-* @param {Object} config - Export configuration
-* @returns {string} - JSON formatted string
-*/
-function exportToJson(data, config) {
-  if (!config.includeMedia) {
-      // Filter out media fields to reduce size
-      const filteredData = JSON.parse(JSON.stringify(data));
-      
-      if (filteredData.people) {
-          filteredData.people.forEach(person => {
-              delete person.media;
-              delete person.photos;
-              delete person.images;
-          });
-      }
-      
-      return JSON.stringify(filteredData, null, 2);
-  }
-  
-  return JSON.stringify(data, null, 2);
-}
+    /**
+     * Enriches a genealogy dataset with computed fields
+     * @param {Object} data - The genealogy data to enrich
+     * @returns {Object} - The enriched data
+     */
+    function enrichDataset(data) {
+        if (!data || !data.people) {
+            console.error("Invalid data provided to enrichDataset");
+            return data;
+        }
+        
+        // Clone data to avoid modifying original
+        const enriched = JSON.parse(JSON.stringify(data));
+        
+        // Add computed fields to people
+        enriched.people.forEach(person => {
+            // Calculate age if birth and death years are available
+            if (person.birthYear && person.deathYear) {
+                person.age = parseInt(person.deathYear) - parseInt(person.birthYear);
+            }
+            
+            // Set era based on birth year
+            if (!person.era && person.birthYear) {
+                person.era = determineEra(person.birthYear);
+            }
+            
+            // Set generation based on birth year
+            if (!person.generation && person.birthYear) {
+                person.generation = calculateGeneration(person.birthYear);
+            }
+            
+            // Flag key figures
+            if (!person.isKeyFigure) {
+                person.isKeyFigure = isKeyBiblicalFigure(person.id);
+            }
+        });
+        
+        return enriched;
+    }
 
-/**
-* Helper function to format dates for GEDCOM
-* @param {string} date - The date string
-* @param {string} format - The current format of the date
-* @returns {string} - GEDCOM formatted date
-*/
-function formatGedcomDate(date, format) {
-  // If the date is already in GEDCOM format, return it
-  if (/^\d{1,2} (JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC) \d{4}$/.test(date)) {
-      return date;
-  }
-  
-  // Handle ISO format (YYYY-MM-DD)
-  if (/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-      const [year, month, day] = date.split('-');
-      const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-      return `${parseInt(day, 10)} ${months[parseInt(month, 10) - 1]} ${year}`;
-  }
-  
-  // Handle just year
-  if (/^\d{4}$/.test(date)) {
-      return date;
-  }
-  
-  // Handle other formats
-  try {
-      const dateObj = new Date(date);
-      if (!isNaN(dateObj.getTime())) {
-          const day = dateObj.getDate();
-          const month = dateObj.getMonth();
-          const year = dateObj.getFullYear();
-          const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-          return `${day} ${months[month]} ${year}`;
-      }
-  } catch (e) {
-      // Failed to parse date
-  }
-  
-  // If we can't parse it, return as is
-  return date;
-}
+    /**
+     * Finds a relationship path between two people
+     * @param {Object} data - Genealogy data
+     * @param {string} fromId - Starting person ID
+     * @param {string} toId - Target person ID
+     * @param {Object} options - Search options
+     * @returns {Object|null} Path object or null if no path exists
+     */
+    function findRelationshipPath(data, fromId, toId, options = {}) {
+        const defaultOptions = {
+            maxDepth: 10,
+            excludeTypes: []
+        };
+        
+        const opts = { ...defaultOptions, ...options };
+        
+        if (!data || !data.links || !Array.isArray(data.links)) {
+            return null;
+        }
+        
+        // Check if IDs exist
+        const nodes = data.nodes || data.people || [];
+        const nodeMap = {};
+        
+        nodes.forEach(node => {
+            nodeMap[node.id] = node;
+        });
+        
+        if (!nodeMap[fromId] || !nodeMap[toId]) {
+            return null;
+        }
+        
+        // Breadth-first search for shortest path
+        const queue = [{ id: fromId, path: [], visited: new Set([fromId]) }];
+        
+        while (queue.length > 0) {
+            const { id, path, visited } = queue.shift();
+            
+            // Don't exceed max depth
+            if (path.length >= opts.maxDepth) {
+                continue;
+            }
+            
+            // Find all direct connections
+            const connections = data.links.filter(link => {
+                const sourceId = link.source.id || link.source;
+                const targetId = link.target.id || link.target;
+                
+                return (
+                    (sourceId === id || targetId === id) && 
+                    !opts.excludeTypes.includes(link.type)
+                );
+            });
+            
+            for (const connection of connections) {
+                const sourceId = connection.source.id || connection.source;
+                const targetId = connection.target.id || connection.target;
+                const nextId = sourceId === id ? targetId : sourceId;
+                
+                if (visited.has(nextId)) {
+                    continue;
+                }
+                
+                const newPath = [...path, {
+                    from: sourceId,
+                    to: targetId,
+                    type: connection.type,
+                    relationship: connection
+                }];
+                
+                if (nextId === toId) {
+                    // Found path
+                    return {
+                        path: newPath,
+                        length: newPath.length,
+                        fromPerson: nodeMap[fromId],
+                        toPerson: nodeMap[toId],
+                        description: describeRelationship(newPath, nodeMap)
+                    };
+                }
+                
+                const newVisited = new Set(visited);
+                newVisited.add(nextId);
+                
+                queue.push({
+                    id: nextId,
+                    path: newPath,
+                    visited: newVisited
+                });
+            }
+        }
+        
+        return null;
+    }
 
-// Replace the final export statement with this:
+    /**
+     * Generates a human-readable description of a relationship path
+     * @param {Array} path - Relationship path
+     * @param {Object} nodeMap - Map of nodes by ID
+     * @returns {string} Relationship description
+     */
+    function describeRelationship(path, nodeMap) {
+        if (!path || path.length === 0) {
+            return "No relationship found";
+        }
+        
+        if (path.length === 1) {
+            const rel = path[0];
+            const fromPerson = nodeMap[rel.from];
+            const toPerson = nodeMap[rel.to];
+            
+            switch (rel.type) {
+                case RELATIONSHIP_TYPES.PARENT:
+                    return `${fromPerson.name} is the parent of ${toPerson.name}`;
+                case RELATIONSHIP_TYPES.CHILD:
+                    return `${fromPerson.name} is the child of ${toPerson.name}`;
+                case RELATIONSHIP_TYPES.SPOUSE:
+                    return `${fromPerson.name} is the spouse of ${toPerson.name}`;
+                case RELATIONSHIP_TYPES.SIBLING:
+                    return `${fromPerson.name} is the sibling of ${toPerson.name}`;
+                case RELATIONSHIP_TYPES.ANCESTOR:
+                    return `${fromPerson.name} is an ancestor of ${toPerson.name}`;
+                case RELATIONSHIP_TYPES.DESCENDANT:
+                    return `${fromPerson.name} is a descendant of ${toPerson.name}`;
+                case RELATIONSHIP_TYPES.MENTOR:
+                    return `${fromPerson.name} is a mentor of ${toPerson.name}`;
+                case RELATIONSHIP_TYPES.DISCIPLE:
+                    return `${fromPerson.name} is a disciple of ${toPerson.name}`;
+                default:
+                    return `${fromPerson.name} is ${rel.type} to ${toPerson.name}`;
+            }
+        }
+        
+        // Complex relationship
+        const fromPerson = nodeMap[path[0].from];
+        const toPerson = nodeMap[path[path.length - 1].to];
+        
+        let description = `${fromPerson.name} is connected to ${toPerson.name} through ${path.length} relationships: `;
+        
+        path.forEach((rel, index) => {
+            const fromName = nodeMap[rel.from].name;
+            const toName = nodeMap[rel.to].name;
+            
+            description += `${fromName} (${rel.type}) ${toName}`;
+            
+            if (index < path.length - 1) {
+                description += " → ";
+            }
+        });
+        
+        return description;
+    }
+
+    /**
+     * Generates color scheme for data categories
+     * @param {Array} categories - Array of category names
+     * @param {Object} options - Color options
+     * @returns {Object} Map of categories to colors
+     */
+    function generateCategoryColors(categories, options = {}) {
+        const colorSchemes = {
+            standard: [
+                '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
+                '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf'
+            ],
+            pastel: [
+                '#c6dbef', '#fdd0a2', '#c7e9c0', '#fcbba1', '#dadaeb',
+                '#e6d8c9', '#fde0ef', '#d9d9d9', '#ffffcc', '#ccffff'
+            ],
+            biblical: [
+                '#CD853F', '#8B4513', '#BC8F8F', '#F4A460', '#DAA520',
+                '#B8860B', '#D2B48C', '#BDB76B', '#6B8E23', '#556B2F'
+            ]
+        };
+        
+        const opts = {
+            scheme: 'biblical',
+            shuffle: false,
+            ...options
+        };
+        
+        const colors = colorSchemes[opts.scheme] || colorSchemes.standard;
+        
+        // Shuffle colors if requested
+        if (opts.shuffle) {
+            for (let i = colors.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [colors[i], colors[j]] = 
+                [colors[i], colors[j]] = [colors[j], colors[i]];
+            }
+        }
+        
+        // Create color mapping
+        const colorMap = {};
+        categories.forEach((category, index) => {
+            colorMap[category] = colors[index % colors.length];
+        });
+        
+        return colorMap;
+    }
+
+    /**
+     * Creates a subgraph from the main genealogy data
+     * @param {Object} data - Original genealogy data
+     * @param {Array} centerIds - IDs of central people for the subgraph
+     * @param {Object} options - Filtering options
+     * @returns {Object} Filtered subgraph
+     */
+    function createSubgraph(data, centerIds, options = {}) {
+        const defaultOptions = {
+            depth: 2,
+            includeTypes: Object.values(RELATIONSHIP_TYPES),
+            exclusions: [],
+            includePropertiesFilter: null
+        };
+        
+        const opts = { ...defaultOptions, ...options };
+        
+        // Validate inputs
+        if (!data || !data.nodes || !data.links || !Array.isArray(centerIds) || centerIds.length === 0) {
+            return null;
+        }
+        
+        // Find nodes within desired depth
+        const includedNodeIds = new Set(centerIds);
+        const nodeMap = {};
+        
+        data.nodes.forEach(node => {
+            nodeMap[node.id] = node;
+        });
+        
+        // BFS to find all nodes within depth
+        let frontier = [...centerIds];
+        
+        for (let currentDepth = 1; currentDepth <= opts.depth; currentDepth++) {
+            const nextFrontier = [];
+            
+            for (const nodeId of frontier) {
+                const connections = data.links.filter(link => {
+                    const sourceId = link.source.id || link.source;
+                    const targetId = link.target.id || link.target;
+                    
+                    return (
+                        (sourceId === nodeId || targetId === nodeId) &&
+                        opts.includeTypes.includes(link.type) &&
+                        !opts.exclusions.includes(sourceId) &&
+                        !opts.exclusions.includes(targetId)
+                    );
+                });
+                
+                for (const connection of connections) {
+                    const sourceId = connection.source.id || connection.source;
+                    const targetId = connection.target.id || connection.target;
+                    const connectedId = sourceId === nodeId ? targetId : sourceId;
+                    
+                    if (!includedNodeIds.has(connectedId) && !opts.exclusions.includes(connectedId)) {
+                        includedNodeIds.add(connectedId);
+                        nextFrontier.push(connectedId);
+                    }
+                }
+            }
+            
+            frontier = nextFrontier;
+        }
+        
+        // Filter nodes and links
+        const filteredNodes = data.nodes.filter(node => {
+            if (!includedNodeIds.has(node.id)) {
+                return false;
+            }
+            
+            if (opts.includePropertiesFilter && typeof opts.includePropertiesFilter === 'function') {
+                return opts.includePropertiesFilter(node);
+            }
+            
+            return true;
+        });
+        
+        const filteredLinks = data.links.filter(link => {
+            const sourceId = link.source.id || link.source;
+            const targetId = link.target.id || link.target;
+            
+            return (
+                includedNodeIds.has(sourceId) &&
+                includedNodeIds.has(targetId) &&
+                opts.includeTypes.includes(link.type)
+            );
+        });
+        
+        return {
+            nodes: filteredNodes,
+            links: filteredLinks,
+            centerIds: centerIds,
+            metadata: {
+                filteredFrom: data.metadata || {},
+                filterOptions: opts,
+                nodeCount: filteredNodes.length,
+                linkCount: filteredLinks.length
+            }
+        };
+    }
+
+    /**
+     * Determines the era based on a year
+     * @param {number} year - Year to check
+     * @returns {string} Era ID
+     */
+    function determineEra(year) {
+        const numYear = parseInt(year);
+        
+        if (isNaN(numYear)) {
+            return config.defaultEra;
+        }
+        
+        for (const era of config.eras) {
+            if (numYear >= era.startYear && numYear <= era.endYear) {
+                return era.id;
+            }
+        }
+        
+        return config.defaultEra;
+    }
+
+    /**
+     * Calculate generation based on birth year
+     * @param {number} birthYear - Year of birth
+     * @returns {number} Generation number
+     */
+    function calculateGeneration(birthYear) {
+        const numYear = parseInt(birthYear);
+        
+        if (isNaN(numYear)) {
+            return 0;
+        }
+        
+        const yearsSinceStart = numYear - config.generations.startYear;
+        return Math.floor(yearsSinceStart / config.generations.yearSpan);
+    }
+
+    /**
+     * Checks if a person is a key biblical figure
+     * @param {string} id - Person ID
+     * @returns {boolean} True if key figure
+     */
+    function isKeyBiblicalFigure(id) {
+        return config.keyFigures.includes(id.toLowerCase());
+    }
+
+    /**
+     * Computes statistics about a genealogy dataset
+     * @param {Object} data - The genealogy data
+     * @returns {Object} Statistics about the dataset
+     */
+    function computeStatistics(data) {
+        if (!data || !data.nodes || !data.links) {
+            console.error("Invalid data provided to computeStatistics");
+            return {};
+        }
+        
+        const stats = {
+            nodeCount: data.nodes.length,
+            linkCount: data.links.length,
+            generations: new Set(),
+            eras: new Set(),
+            types: new Set(),
+            relationshipTypes: new Set(),
+            avgConnections: 0,
+            keyFigures: 0,
+            connectivityDensity: 0,
+            longestLife: { age: 0, person: null },
+            mostConnected: { connections: 0, person: null }
+        };
+        
+        // Node-based statistics
+        const connectionCounts = {};
+        
+        data.nodes.forEach(node => {
+            if (node.generation) {
+                stats.generations.add(node.generation);
+            }
+            
+            if (node.era) {
+                stats.eras.add(node.era);
+            }
+            
+            if (node.type) {
+                stats.types.add(node.type);
+            }
+            
+            if (isKeyBiblicalFigure(node.id)) {
+                stats.keyFigures++;
+            }
+            
+            if (node.birthYear && node.deathYear) {
+                const age = parseInt(node.deathYear) - parseInt(node.birthYear);
+                if (age > stats.longestLife.age) {
+                    stats.longestLife = { age, person: node };
+                }
+            }
+            
+            connectionCounts[node.id] = 0;
+        });
+        
+        // Link-based statistics
+        data.links.forEach(link => {
+            if (link.type) {
+                stats.relationshipTypes.add(link.type);
+            }
+            
+            const sourceId = link.source.id || link.source;
+            const targetId = link.target.id || link.target;
+            
+            connectionCounts[sourceId] = (connectionCounts[sourceId] || 0) + 1;
+            connectionCounts[targetId] = (connectionCounts[targetId] || 0) + 1;
+        });
+        
+        // Compute derived statistics
+        let totalConnections = 0;
+        
+        Object.keys(connectionCounts).forEach(id => {
+            const count = connectionCounts[id];
+            totalConnections += count;
+            
+            if (count > stats.mostConnected.connections) {
+                stats.mostConnected = {
+                    connections: count,
+                    person: data.nodes.find(node => node.id === id)
+                };
+            }
+        });
+        
+        stats.avgConnections = totalConnections / data.nodes.length;
+        stats.connectivityDensity = data.links.length / (data.nodes.length * (data.nodes.length - 1) / 2);
+        
+        // Convert sets to arrays for easier use
+        stats.generations = Array.from(stats.generations).sort((a, b) => a - b);
+        stats.eras = Array.from(stats.eras);
+        stats.types = Array.from(stats.types);
+        stats.relationshipTypes = Array.from(stats.relationshipTypes);
+        
+        return stats;
+    }
+
+    /**
+     * Transforms data between different genealogy formats
+     * @param {Object} data - Source data
+     * @param {string} targetFormat - Target format ('d3', 'gedcom', 'gramps', 'custom')
+     * @returns {Object} Transformed data
+     */
+    function transformGenealogyData(data, targetFormat = 'd3') {
+        if (!data) {
+            return null;
+        }
+        
+        switch (targetFormat.toLowerCase()) {
+            case 'd3':
+                return transformToD3Format(data);
+            case 'gedcom':
+                return transformToGedcomFormat(data);
+            case 'gramps':
+                return transformToGrampsFormat(data);
+            case 'custom':
+                return transformToCustomFormat(data);
+            default:
+                return data;
+        }
+    }
+
+    /**
+     * Transform data to D3.js format
+     * @param {Object} data - Source data
+     * @returns {Object} D3 formatted data
+     */
+    function transformToD3Format(data) {
+        if (!data) return null;
+        
+        // If already in D3 format (nodes/links)
+        if (data.nodes && data.links) {
+            return JSON.parse(JSON.stringify(data));
+        }
+        
+        // Convert from people/relationships format
+        if (data.people && data.relationships) {
+            return {
+                nodes: data.people.map(person => ({
+                    id: person.id,
+                    name: person.name || person.fullName,
+                    group: person.type || person.group || 1,
+                    ...person
+                })),
+                links: data.relationships.map(rel => ({
+                    source: rel.from || rel.source,
+                    target: rel.to || rel.target,
+                    type: rel.type,
+                    value: rel.strength || 1,
+                    ...rel
+                }))
+            };
+        }
+        
+        return null;
+    }
+
+    /**
+     * Transform to GEDCOM format (simplified)
+     * @param {Object} data - Source data
+     * @returns {string} GEDCOM formatted data
+     */
+    function transformToGedcomFormat(data) {
+        if (!data || (!data.nodes && !data.people)) {
+            return '';
+        }
+        
+        const people = data.people || data.nodes;
+        const relationships = data.relationships || data.links;
+        
+        let gedcom = "0 HEAD\n1 GEDC\n2 VERS 5.5.1\n1 CHAR UTF-8\n0 @SUBM@ SUBM\n1 NAME Biblical Genealogy Exporter\n";
+        
+        // Add people
+        people.forEach(person => {
+            gedcom += `0 @${person.id}@ INDI\n`;
+            gedcom += `1 NAME ${person.name || person.fullName || 'Unknown'}\n`;
+            
+            if (person.birthYear) {
+                gedcom += "1 BIRT\n2 DATE " + person.birthYear + "\n";
+            }
+            
+            if (person.deathYear) {
+                gedcom += "1 DEAT\n2 DATE " + person.deathYear + "\n";
+            }
+            
+            if (person.gender) {
+                gedcom += `1 SEX ${person.gender.charAt(0)}\n`;
+            }
+            
+            if (person.description) {
+                gedcom += `1 NOTE ${person.description}\n`;
+            }
+        });
+        
+        // Add families
+        let familyCount = 1;
+        const familyMap = {};
+        
+        relationships.forEach(rel => {
+            if (rel.type === 'spouse') {
+                const sourceId = rel.source || rel.from;
+                const targetId = rel.target || rel.to;
+                
+                const famId = `F${familyCount++}`;
+                familyMap[famId] = { husb: null, wife: null, children: [] };
+                
+                const sourcePerson = people.find(p => p.id === sourceId);
+                const targetPerson = people.find(p => p.id === targetId);
+                
+                if (sourcePerson && targetPerson) {
+                    const sourceGender = sourcePerson.gender || '';
+                    const targetGender = targetPerson.gender || '';
+                    
+                    if (sourceGender.toLowerCase().startsWith('m')) {
+                        familyMap[famId].husb = sourceId;
+                        familyMap[famId].wife = targetId;
+                    } else {
+                        familyMap[famId].husb = targetId;
+                        familyMap[famId].wife = sourceId;
+                    }
+                    
+                    gedcom += `0 @${famId}@ FAM\n`;
+                    gedcom += `1 HUSB @${familyMap[famId].husb}@\n`;
+                    gedcom += `1 WIFE @${familyMap[famId].wife}@\n`;
+                }
+            }
+        });
+        
+        // Add parent-child relationships
+        relationships.forEach(rel => {
+            if (rel.type === 'parent' || rel.type === 'child') {
+                const parentId = rel.type === 'parent' ? rel.source || rel.from : rel.target || rel.to;
+                const childId = rel.type === 'parent' ? rel.target || rel.to : rel.source || rel.from;
+                
+                // Find family for this parent
+                let familyId = null;
+                
+                Object.keys(familyMap).forEach(famId => {
+                    if (familyMap[famId].husb === parentId || familyMap[famId].wife === parentId) {
+                        familyId = famId;
+                        if (!familyMap[famId].children.includes(childId)) {
+                            familyMap[famId].children.push(childId);
+                        }
+                    }
+                });
+                
+                // Create new family if none exists
+                if (!familyId) {
+                    familyId = `F${familyCount++}`;
+                    
+                    const parentPerson = people.find(p => p.id === parentId);
+                    
+                    if (parentPerson) {
+                        const parentGender = (parentPerson.gender || '').toLowerCase().startsWith('m');
+                        
+                        familyMap[familyId] = {
+                            husb: parentGender ? parentId : null,
+                            wife: parentGender ? null : parentId,
+                            children: [childId]
+                        };
+                        
+                        gedcom += `0 @${familyId}@ FAM\n`;
+                        
+                        if (parentGender) {
+                            gedcom += `1 HUSB @${parentId}@\n`;
+                        } else {
+                            gedcom += `1 WIFE @${parentId}@\n`;
+                        }
+                    }
+                }
+                
+                // Add reference to individual record
+                const personIndex = people.findIndex(p => p.id === childId);
+                if (personIndex >= 0) {
+                    gedcom += `1 CHIL @${childId}@\n`;
+                }
+            }
+        });
+        
+        gedcom += "0 TRLR\n";
+        return gedcom;
+    }
+
+    /**
+     * Export genealogy data to various formats
+     * @param {Object} data - Data to export
+     * @param {string} format - Export format ('json', 'csv', 'gedcom')
+     * @returns {string} Exported data
+     */
+    function exportGenealogyData(data, format = 'json') {
+        if (!data) {
+            return '';
+        }
+        
+        switch (format.toLowerCase()) {
+            case 'json':
+                return JSON.stringify(data, null, 2);
+            
+            case 'csv':
+                return exportToCSV(data);
+            
+            case 'gedcom':
+                return transformToGedcomFormat(data);
+            
+            default:
+                return JSON.stringify(data);
+        }
+    }
+
+    /**
+     * Export data to CSV format
+     * @param {Object} data - Data to export
+     * @returns {string} CSV string
+     */
+    function exportToCSV(data) {
+        if (!data || (!data.nodes && !data.people)) {
+            return '';
+        }
+        
+        const people = data.people || data.nodes;
+        const relationships = data.relationships || data.links;
+        
+        // People CSV
+        let peopleCSV = 'id,name,birth_year,death_year,gender,type,era,generation\n';
+        
+        people.forEach(person => {
+            peopleCSV += [
+                person.id,
+                `"${(person.name || person.fullName || '').replace(/"/g, '""')}"`,
+                person.birthYear || '',
+                person.deathYear || '',
+                person.gender || '',
+                person.type || '',
+                person.era || '',
+                person.generation || ''
+            ].join(',') + '\n';
+        });
+        
+        // Relationships CSV
+        let relCSV = 'source,target,type,description\n';
+        
+        relationships.forEach(rel => {
+            relCSV += [
+                rel.source || rel.from,
+                rel.target || rel.to,
+                rel.type || '',
+                `"${(rel.description || '').replace(/"/g, '""')}"`
+            ].join(',') + '\n';
+        });
+        
+        return {
+            people: peopleCSV,
+            relationships: relCSV
+        };
+    }
+
+    /**
+     * Perform initial analysis on the dataset to gather statistics
+     * @param {Object} data - The data to analyze
+     */
+    function analyzeDataset(data) {
+        if (!data || !data.nodes || !data.links) {
+            console.warn('Invalid data structure provided for analysis');
+            return;
+        }
+        
+        const stats = computeStatistics(data);
+        
+        console.log('Dataset Analysis:');
+        console.log(`Nodes: ${stats.nodeCount}, Links: ${stats.linkCount}`);
+        console.log(`Generations: ${stats.generations.length}, Eras: ${stats.eras.length}`);
+        console.log(`Relationship Types: ${Array.from(stats.relationshipTypes).join(', ')}`);
+        console.log(`Key Biblical Figures: ${stats.keyFigures}`);
+        
+        if (stats.longestLife.person) {
+            console.log(`Longest life: ${stats.longestLife.person.name} (${stats.longestLife.age} years)`);
+        }
+        
+        if (stats.mostConnected.person) {
+            console.log(`Most connected: ${stats.mostConnected.person.name} (${stats.mostConnected.connections} connections)`);
+        }
+        
+        return stats;
+    }
+
+    /**
+     * Gets a fallback dataset for cases where data loading fails
+     * @returns {Object} - A minimal fallback dataset
+     */
+    function getFallbackData() {
+        console.log('Providing minimal fallback dataset');
+        
+        return {
+            nodes: [
+                { id: 'adam', name: 'Adam', gender: 'male', birthYear: -4000, deathYear: -3070, type: 'patriarch', era: 'antediluvian', generation: 1 },
+                { id: 'eve', name: 'Eve', gender: 'female', birthYear: -4000, deathYear: -3070, type: 'matriarch', era: 'antediluvian', generation: 1 },
+                { id: 'cain', name: 'Cain', gender: 'male', birthYear: -3970, deathYear: -3000, type: 'firstborn', era: 'antediluvian', generation: 2 },
+                { id: 'abel', name: 'Abel', gender: 'male', birthYear: -3968, deathYear: -3950, type: 'victim', era: 'antediluvian', generation: 2 },
+                { id: 'seth', name: 'Seth', gender: 'male', birthYear: -3870, deathYear: -2958, type: 'patriarch', era: 'antediluvian', generation: 2 }
+            ],
+            links: [
+                { source: 'adam', target: 'eve', type: 'spouse' },
+                { source: 'adam', target: 'cain', type: 'parent' },
+                { source: 'eve', target: 'cain', type: 'parent' },
+                { source: 'adam', target: 'abel', type: 'parent' },
+                { source: 'eve', target: 'abel', type: 'parent' },
+                { source: 'adam', target: 'seth', type: 'parent' },
+                { source: 'eve', target: 'seth', type: 'parent' },
+                { source: 'cain', target: 'abel', type: 'sibling' },
+                { source: 'cain', target: 'seth', type: 'sibling' },
+                { source: 'abel', target: 'seth', type: 'sibling' }
+            ],
+            metadata: {
+                title: 'Minimal Biblical Genealogy',
+                description: 'A minimal dataset of the first biblical family',
+                source: 'Genesis 4-5',
+                createdAt: new Date().toISOString(),
+                isFallback: true
+            }
+        };
+    }
+
+    /**
+     * Check if data structure is valid for genealogy operations
+     * @param {Object} data - Data to validate
+     * @returns {boolean} Whether data is valid
+     */
+    function isValidDataStructure(data) {
+        // Must have nodes/people and links/relationships
+        if (!data) return false;
+        
+        // Check for nodes array (d3 format)
+        if (data.nodes && Array.isArray(data.nodes) && data.links && Array.isArray(data.links)) {
+            return true;
+        }
+        
+        // Check for people array (custom format)
+        if (data.people && Array.isArray(data.people) && data.relationships && Array.isArray(data.relationships)) {
+            return true;
+        }
+        
+        return false;
+    }
+
+    // Initialize module
+    function init() {
+        console.log('Biblical Genealogy Data Utilities initialized');
+        
+        // Expose public methods
+        return {
+            RELATIONSHIP_TYPES,
+            loadGenealogyData,
+            loadGenealogyDataFromFileInput,
+            validateGenealogyData,
+            processGenealogyData,
+            enrichDataset,
+            findRelationshipPath,
+            describeRelationship,
+            generateCategoryColors,
+            createSubgraph,
+            computeStatistics,
+            transformGenealogyData,
+            exportGenealogyData,
+            analyzeDataset,
+            getFallbackData
+        };
+    }
+
+    // Return public API
+    return init();
+})();
+
+// Export for different environments
 if (typeof module !== 'undefined' && module.exports) {
-  // Node.js/CommonJS environment
-  module.exports = {
-      RELATIONSHIP_TYPES,
-      loadGenealogyData,
-      loadGenealogyDataFromFileInput,
-      validateGenealogyData,
-      enrichDataset,
-      findRelationshipPath,
-      describeRelationship,
-      generateCategoryColors,
-      createSubgraph,
-      computeStatistics,
-      exportGenealogyData
-  };
+    // Node.js environment
+    module.exports = GenealogyDataUtils;
+} else if (typeof define === 'function' && define.amd) {
+    // AMD environment
+    define([], function() {
+        return GenealogyDataUtils;
+    });
 } else if (typeof window !== 'undefined') {
-  // Browser environment
-  window.GenealogyDataUtils = {
-      RELATIONSHIP_TYPES,
-      loadGenealogyData,
-      loadGenealogyDataFromFileInput,
-      validateGenealogyData,
-      enrichDataset,
-      findRelationshipPath,
-      describeRelationship,
-      generateCategoryColors,
-      createSubgraph,
-      computeStatistics,
-      exportGenealogyData
-  };
+    // Browser environment
+    window.GenealogyDataUtils = GenealogyDataUtils;
 }
