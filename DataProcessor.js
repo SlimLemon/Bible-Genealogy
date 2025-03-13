@@ -22,7 +22,6 @@ try {
 }
 
 const DataProcessor = (function() {
-  // Constants for error types
   const ERROR_TYPES = {
     DATA_LOADING: 'data-loading-error',
     DATA_PROCESSING: 'data-processing-error',
