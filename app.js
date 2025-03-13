@@ -5,15 +5,8 @@
  * loads data, and sets up user interactions.
  * 
  * @version 2.0.0
- * @requires genealogy-data-utils.js
- * @requires visualization.js
- * @requires d3-renderer.js
- * @requires debug-utils.js
- * @requires DataProcessor.js
  */
-
-// Main application IIFE
-const App = (function() {
+window.BiblicalGenealogyApp = window.BiblicalGenealogyApp || (function() {
   'use strict';
 
   // Application state
