@@ -1,8 +1,9 @@
 /**
  * D3Renderer - A specialized D3.js-based visualization renderer for biblical genealogies
  * Handles the actual SVG rendering and D3 force simulation
+ * @version 2.0.0
  */
-const D3Renderer = (function() {
+window.D3Renderer = window.D3Renderer || (function() {
     // Private module state
     let svg = null;
     let simulation = null;
@@ -18,11 +19,24 @@ const D3Renderer = (function() {
     let tooltipDiv = null;
     let dataCache = { nodes: [], links: [] };
     
-    // Add a container for rendered elements
+    // Container for rendered elements
     let renderedElements = {
         nodes: new Set(),
         links: new Set(),
         labels: new Set()
+    };
+    
+    // Default configuration
+    const defaultConfig = {
+        nodeSize: 10,
+        linkWidth: 1.5,
+        showLabels: true,
+        labelSize: 12,
+        theme: 'light',
+        layout: 'force',
+        animations: true,
+        forceStrength: 0.1,
+        linkDistance: 100
     };
     
     // Performance tracking variables
@@ -3954,14 +3968,4 @@ return {
     exportImage,
     destroy
 };
-
 })();
-
-// Export module
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = D3Renderer;
-} else if (typeof define === 'function' && define.amd) {
-    define([], function() { return D3Renderer; });
-} else {
-    window.D3Renderer = D3Renderer;
-}

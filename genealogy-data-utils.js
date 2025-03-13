@@ -2,7 +2,7 @@
  * Biblical Genealogy Data Utilities
  * Processes, validates, and enriches genealogical data for visualization
  */
-const GenealogyDataUtils = (function() {
+window.GenealogyDataUtils = window.GenealogyDataUtils || (function() {
     // Core relationship types used throughout the application
     const RELATIONSHIP_TYPES = {
         PARENT: 'parent',

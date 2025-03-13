@@ -7,28 +7,33 @@
  * @version 2.0.0
  */
 
-class GenealogyVisualization {
-    /**
-     * Constructor for Genealogy Visualization
-     * @param {Object} options - Configuration options
-     */
-    constructor(options = {}) {
-      // Initialize with default settings, overridden by provided options
-      this.settings = this._mergeSettings(options);
-      
-      // Setup core properties
-      this.data = {
-        originalNodes: [],
-        originalLinks: [],
-        nodes: [],
-        links: [],
-        filteredNodes: [],
-        filteredLinks: [],
-        visibleNodes: [],
-        visibleLinks: [],
-        nodeMap: new Map(),
-        layoutCache: new Map()
-      };
+// Prevent redeclaration by checking if the class already exists
+if (!window.GenealogyVisualization) {
+  // Define the class if it doesn't exist yet
+  window.GenealogyVisualization = class GenealogyVisualization {
+      /**
+       * Constructor for Genealogy Visualization
+       * @param {Object} options - Configuration options
+       */
+      constructor(options = {}) {
+          // Initialize with default settings, overridden by provided options
+          this.settings = this._mergeSettings(options);
+          
+          // Setup core properties
+          this.data = {
+              originalNodes: [],
+              originalLinks: [],
+              nodes: [],
+              links: [],
+              filteredNodes: [],
+              filteredLinks: [],
+              visibleNodes: [],
+              visibleLinks: [],
+              nodeMap: new Map(),
+              layoutCache: new Map()
+          };
+         
+
       
       // Track view state
       this.viewState = {
@@ -2447,13 +2452,13 @@ _debounce(func, wait) {
       window.DebugUtils.info('Visualization destroyed');
     }
   }
-}
+}} // End of GenealogyVisualization class
 
-// Export the Visualization class
+// Export the GenealogyVisualization class
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = Visualization;
+  module.exports = GenealogyVisualization;
 } else if (typeof define === 'function' && define.amd) {
-  define([], function() { return Visualization; });
+  define([], function() { return GenealogyVisualization; });
 } else {
-  window.Visualization = Visualization;
+  window.GenealogyVisualization = GenealogyVisualization;
 }
