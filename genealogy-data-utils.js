@@ -826,7 +826,6 @@ const GenealogyDataUtils = (function() {
         if (opts.shuffle) {
             for (let i = colors.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [colors[i], colors[j]] = 
                 [colors[i], colors[j]] = [colors[j], colors[i]];
             }
         }
@@ -1470,3 +1469,4 @@ if (typeof module !== 'undefined' && module.exports) {
     // Browser environment
     window.GenealogyDataUtils = GenealogyDataUtils;
 }
+ 
