@@ -1,429 +1,254 @@
 {
-    "version": "2.0.0",
-    "application": {
-      "name": "Biblical Genealogy Visualization",
-      "description": "Interactive visualization of biblical genealogical data",
-      "defaultLanguage": "en",
-      "supportedLanguages": ["en", "es", "fr", "de", "he"],
-      "themeMode": "auto",
-      "availableThemes": ["light", "dark", "sepia", "contrast"]
+  "version": "2.1.0",
+  "application": {
+    "name": "Biblical Genealogy Visualization",
+    "description": "Interactive visualization of biblical genealogical data",
+    "defaultLanguage": "en",
+    "supportedLanguages": ["en", "es", "fr", "de", "he"],
+    "themeMode": "auto",
+    "availableThemes": ["light", "dark", "sepia", "contrast", "highContrast"],
+    "fallbackLanguage": "en",
+    "accessibility": {
+      "highContrastMode": true,
+      "keyboardShortcutsEnabled": true,
+      "textToSpeech": false
+    }
+  },
+  "data": {
+    "sources": {
+      "primary": "data/genealogy-dataset.json",
+      "fallback": "data/fallback-dataset.json",
+      "additional": [
+        "data/supplementary-data.json",
+        "data/historical-context.json"
+      ]
     },
-    "data": {
-      "sources": {
-        "primary": "data/genealogy-dataset.json",
-        "fallback": "data/fallback-dataset.json",
-        "additional": [
-          "data/supplementary-data.json",
-          "data/historical-context.json"
-        ]
-      },
-      "processing": {
-        "enableCaching": true,
-        "cacheTTL": 3600000,
-        "maxCacheEntries": 100,
-        "normalization": {
-          "enabled": true,
-          "nameStandardization": true,
-          "dateFormatting": true,
-          "locationNormalization": true
-        },
-        "enrichment": {
-          "enabled": true,
-          "biblicalReferences": true,
-          "historicalContext": true,
-          "geographicData": true
-        },
-        "validation": {
-          "enabled": true,
-          "strictMode": false,
-          "requiredFields": ["id", "name"],
-          "warnOnMissingDates": true,
-          "allowEstimatedDates": true
-        },
-        "transformation": {
-          "dateRangeExpansion": true,
-          "relationshipInference": true,
-          "generationCalculation": true
-        },
-        "performance": {
-          "enableWorkers": true,
-          "chunkSize": 500,
-          "lazyLoading": true,
-          "priorityProcessing": true
-        }
-      }
-    },
-    "visualization": {
-      "layout": {
-        "type": "hierarchical",
-        "alternativeLayouts": ["force-directed", "radial", "timeline"],
-        "orientation": "horizontal",
-        "nodeSeparation": 150,
-        "levelSeparation": 200,
-        "alignmentQuality": "optimized"
-      },
-      "nodes": {
-        "defaultSize": 12,
-        "sizeRange": [6, 24],
-        "sizeAttribute": "significance",
-        "defaultColor": "#3498db",
-        "colorScheme": "biblical-era",
-        "colorAttribute": "tribe",
-        "outline": {
-          "width": 2,
-          "color": "#ffffff",
-          "highlightColor": "#f39c12"
-        },
-        "labels": {
-          "show": true,
-          "fontSize": 12,
-          "fontFamily": "Roboto, sans-serif",
-          "maxLength": 20,
-          "showOnHover": false
-        },
-        "icons": {
-          "show": true,
-          "size": 16,
-          "attribute": "gender"
-        },
-        "tooltip": {
-          "enabled": true,
-          "showDelay": 300,
-          "hideDelay": 500,
-          "template": "default"
-        }
-      },
-      "links": {
-        "defaultWidth": 1.5,
-        "widthRange": [0.5, 4],
-        "widthAttribute": "certainty",
-        "defaultColor": "#95a5a6",
-        "colorScheme": "relationship-type",
-        "colorAttribute": "type",
-        "style": "curved",
-        "alternativeStyles": ["straight", "stepped", "bezier"],
-        "arrows": {
-          "show": true,
-          "size": 8,
-          "position": "end"
-        },
-        "labels": {
-          "show": false,
-          "fontSize": 10,
-          "fontFamily": "Roboto, sans-serif",
-          "background": true,
-          "showOnHover": true
-        }
-      },
-      "interaction": {
-        "zoom": {
-          "enabled": true,
-          "wheelSensitivity": 0.8,
-          "minScale": 0.2,
-          "maxScale": 5,
-          "initialScale": 1
-        },
-        "pan": {
-          "enabled": true,
-          "dragSensitivity": 1
-        },
-        "selection": {
-          "enabled": true,
-          "multiSelect": true,
-          "highlightRelated": true,
-          "highlightDepth": 2
-        },
-        "hover": {
-          "highlightNode": true,
-          "highlightLinks": true,
-          "highlightConnections": true
-        },
-        "search": {
-          "enabled": true,
-          "fuzzyMatch": true,
-          "maxResults": 20,
-          "searchFields": ["name", "description", "tribe", "location"]
-        },
-        "contextMenu": {
-          "enabled": true,
-          "customActions": true
-        }
-      },
-      "filters": {
-        "tribes": {
-          "enabled": true,
-          "multiSelect": true,
-          "defaultValue": []
-        },
-        "timeperiod": {
-          "enabled": true,
-          "type": "range",
-          "defaultValue": [-2000, 100]
-        },
-        "gender": {
-          "enabled": true,
-          "multiSelect": true,
-          "defaultValue": ["male", "female", "unknown"]
-        },
-        "significance": {
-          "enabled": true,
-          "type": "range",
-          "defaultValue": [0, 10]
-        },
-        "relationship": {
-          "enabled": true,
-          "multiSelect": true,
-          "defaultValue": []
-        },
-        "custom": {
-          "enabled": true,
-          "savedFilters": []
-        }
-      },
-      "animation": {
+    "processing": {
+      "enableCaching": true,
+      "cacheTTL": 3600000,
+      "maxCacheEntries": 100,
+      "normalization": {
         "enabled": true,
-        "duration": 500,
-        "easingFunction": "easeInOutCubic",
-        "staggered": true,
-        "staggerDelay": 20
+        "nameStandardization": true,
+        "dateFormatting": true,
+        "locationNormalization": true
+      },
+      "enrichment": {
+        "enabled": true,
+        "biblicalReferences": true,
+        "historicalContext": true,
+        "geographicData": true
+      },
+      "validation": {
+        "enabled": true,
+        "strictMode": false,
+        "requiredFields": ["id", "name"],
+        "warnOnMissingDates": true,
+        "allowEstimatedDates": true
+      },
+      "transformation": {
+        "dateRangeExpansion": true,
+        "relationshipInference": true,
+        "generationCalculation": true
       },
       "performance": {
-        "renderThrottling": true,
-        "throttleInterval": 16,
-        "dynamicNodeDetail": true,
-        "nodeThreshold": 500,
-        "enableWebGL": true,
-        "adaptiveRendering": true
-      },
-      "accessibility": {
-        "highContrastMode": false,
-        "textToSpeech": false,
-        "keyboardNavigation": true,
-        "tabIndexing": true,
-        "ariaLabels": true
-      }
-    },
-    "interface": {
-      "layout": {
-        "showSidebar": true,
-        "sidebarPosition": "left",
-        "sidebarWidth": 320,
-        "showToolbar": true,
-        "toolbarPosition": "top",
-        "showStatusBar": true,
-        "showMinimap": true,
-        "minimapSize": 200
-      },
-      "panels": {
-        "info": {
-          "enabled": true,
-          "defaultState": "collapsed",
-          "position": "right"
-        },
-        "search": {
-          "enabled": true,
-          "defaultState": "collapsed",
-          "position": "top",
-          "showRecent": true,
-          "recentSearchCount": 10
-        },
-        "filters": {
-          "enabled": true,
-          "defaultState": "collapsed",
-          "position": "left",
-          "saveFilters": true,
-          "savedFiltersCount": 5
-        },
-        "legend": {
-          "enabled": true,
-          "defaultState": "visible",
-          "position": "bottom"
-        },
-        "timeline": {
-          "enabled": true,
-          "defaultState": "visible",
-          "position": "bottom",
-          "height": 100
-        }
-      },
-      "components": {
-        "nodeDetails": {
-          "template": "standard",
-          "expandReferences": true,
-          "showImages": true,
-          "showRelationships": true
-        },
-        "tooltips": {
-          "template": "standard",
-          "delay": 300,
-          "showImages": false
-        },
-        "contextMenus": {
-          "nodes": {
-            "showDetails": true,
-            "centerView": true,
-            "expandCollapse": true,
-            "highlightPath": true,
-            "hideNode": true
-          },
-          "background": {
-            "resetView": true,
-            "toggleFilters": true,
-            "saveViewState": true
-          }
-        }
-      },
-      "controls": {
-        "zoomControls": {
-          "show": true,
-          "position": "bottom-right"
-        },
-        "searchBar": {
-          "show": true,
-          "position": "top",
-          "placeholder": "Search people, tribes, locations..."
-        },
-        "filterButton": {
-          "show": true,
-          "position": "top-left"
-        },
-        "layoutSelector": {
-          "show": true,
-          "position": "top"
-        },
-        "exportButton": {
-          "show": true,
-          "position": "top",
-          "formats": ["png", "svg", "json", "csv"]
-        },
-        "fullscreenButton": {
-          "show": true,
-          "position": "top-right"
-        },
-        "helpButton": {
-          "show": true,
-          "position": "top-right"
-        }
-      },
-      "styling": {
-        "fontFamily": "Roboto, sans-serif",
-        "baseFontSize": 14,
-        "customColors": {
-          "primary": "#3498db",
-          "secondary": "#2ecc71",
-          "accent": "#e74c3c",
-          "background": "#f8f9fa",
-          "text": "#2c3e50",
-          "muted": "#95a5a6"
-        },
-        "darkMode": {
-          "background": "#121212",
-          "surface": "#1e1e1e",
-          "primary": "#90caf9",
-          "text": "#ffffff"
-        },
-        "customThemes": []
-      },
-      "responsive": {
-        "breakpoints": {
-          "small": 576,
-          "medium": 768,
-          "large": 992,
-          "extraLarge": 1200
-        },
-        "small": {
-          "sidebarVisible": false,
-          "minimapVisible": false,
-          "simplifiedControls": true
-        },
-        "medium": {
-          "sidebarVisible": true,
-          "sidebarWidth": 240,
-          "minimapVisible": true,
-          "minimapSize": 150
-        }
-      }
-    },
-    "debug": {
-      "enabled": false,
-      "verboseLogging": false,
-      "logLevel": "warn",
-      "showDebugPanel": false,
-      "trackPerformance": true,
-      "exportIncludeData": true,
-      "saveLogsToFile": false,
-      "maxLogEntries": 1000,
-      "debugPanelPosition": "bottom-right",
-      "showRenderStats": false,
-      "monitorMemory": true,
-      "breakOnError": false,
-      "mockDataEnabled": false,
-      "mockDataSize": {
-        "nodes": 100,
-        "links": 200
-      }
-    },
-    "advanced": {
-      "dataProcessor": {
-        "maxWorkers": 4,
-        "chunkProcessingTimeLimit": 16,
-        "processingStrategy": "incremental",
-        "useSharedArrayBuffer": false,
-        "enableIndexing": true,
-        "indexedProperties": ["name", "tribe", "birthYear", "deathYear", "location"]
-      },
-      "renderer": {
-        "webGLSettings": {
-          "antialias": true,
-          "preserveDrawingBuffer": false,
-          "alpha": true,
-          "powerPreference": "high-performance"
-        },
-        "svgOptimization": true,
-        "useRequestAnimationFrame": true,
-        "useWorkerForLayout": true,
-        "precomputeLayout": true,
-        "enablePixiRenderer": false
-      },
-      "caching": {
-        "localStorage": {
-          "enabled": true,
-          "ttl": 86400000,
-          "maxSize": 5242880
-        },
-        "sessionStorage": {
-          "enabled": true,
-          "maxItems": 50
-        },
-        "memoryCache": {
-          "enabled": true,
-          "maxSize": 10485760
-        }
-      },
-      "network": {
-        "retryAttempts": 3,
-        "retryDelay": 1000,
-        "timeout": 30000,
-        "useCorsProxy": false,
-        "corsProxyUrl": "https://cors-anywhere.herokuapp.com/",
-        "fetchWithCredentials": false
-      }
-    },
-    "experimental": {
-      "features": {
-        "aiSuggestions": false,
-        "virtualReality": false,
-        "speechRecognition": false,
-        "geographicProjection": false,
-        "timelineAnimation": true,
-        "relationshipPrediction": false,
-        "themeCustomizer": true
-      },
-      "optimizations": {
-        "useGPUComputation": false,
-        "progressiveRendering": true,
-        "asyncDataLoading": true,
-        "virtualizedRendering": true
+        "enableWorkers": true,
+        "maxWorkers": "auto", 
+        "chunkSize": 500,
+        "lazyLoading": true,
+        "priorityProcessing": true
       }
     }
+  },
+  "visualization": {
+    "layout": {
+      "type": "hierarchical",
+      "alternativeLayouts": ["force-directed", "radial", "timeline"],
+      "orientation": "horizontal",
+      "nodeSeparation": 150,
+      "levelSeparation": 200,
+      "alignmentQuality": "optimized",
+      "restoreSavedLayouts": true
+    },
+    "nodes": {
+      "defaultSize": 12,
+      "sizeRange": [6, 24],
+      "sizeAttribute": "significance",
+      "defaultColor": "#3498db",
+      "colorScheme": "biblical-era",
+      "colorAttribute": "tribe",
+      "outline": {
+        "width": 2,
+        "color": "#ffffff",
+        "highlightColor": "#f39c12"
+      },
+      "labels": {
+        "show": true,
+        "fontSize": 12,
+        "fontFamily": "Roboto, sans-serif",
+        "maxLength": 20,
+        "showOnHover": false
+      },
+      "icons": {
+        "show": true,
+        "size": 16,
+        "attribute": "gender",
+        "allowCustomIcons": true
+      },
+      "tooltip": {
+        "enabled": true,
+        "showDelay": 200,
+        "hideDelay": 500,
+        "template": "customizable"
+      }
+    },
+    "links": {
+      "defaultWidth": 1.5,
+      "widthRange": [0.5, 4],
+      "widthAttribute": "certainty",
+      "defaultColor": "#95a5a6",
+      "colorScheme": "relationship-type",
+      "colorAttribute": "type",
+      "style": "curved",
+      "alternativeStyles": ["straight", "stepped", "bezier"],
+      "arrows": {
+        "show": true,
+        "size": 8,
+        "position": "end"
+      },
+      "labels": {
+        "show": false,
+        "fontSize": 10,
+        "fontFamily": "Roboto, sans-serif",
+        "background": true,
+        "showOnHover": true
+      }
+    },
+    "interaction": {
+      "zoom": {
+        "enabled": true,
+        "wheelSensitivity": 0.8,
+        "minScale": 0.2,
+        "maxScale": 5,
+        "initialScale": 1
+      },
+      "selection": {
+        "enabled": true,
+        "nodeThreshold": 10000
+      },
+      "exportButton": {
+        "show": true,
+        "position": "top",
+        "formats": ["png", "svg", "json", "csv"]
+      },
+      "fullscreenButton": {
+        "show": true,
+        "position": "top-right"
+      },
+      "helpButton": {
+        "show": true,
+        "position": "top-right"
+      }
+    },
+    "styling": {
+      "fontFamily": "Roboto, sans-serif",
+      "baseFontSize": 14,
+      "customColors": {
+        "primary": "#3498db",
+        "secondary": "#2ecc71",
+        "accent": "#e74c3c",
+        "background": "#f8f9fa",
+        "text": "#2c3e50",
+        "muted": "#95a5a6"
+      },
+      "darkMode": {
+        "background": "#121212",
+        "surface": "#1e1e1e",
+        "primary": "#90caf9",
+        "text": "#ffffff"
+      },
+      "customThemes": []
+    }
+  },
+  "debug": {
+    "enabled": true,
+    "verboseLogging": false,
+    "logLevel": "warn",
+    "showDebugPanel": true,
+    "trackPerformance": true,
+    "exportIncludeData": true,
+    "saveLogsToFile": true,
+    "maxLogEntries": 500,
+    "debugPanelPosition": "bottom-right",
+    "monitorMemory": true,
+    "breakOnError": true,
+    "mockDataEnabled": false,
+    "mockDataSize": {
+      "nodes": 100,
+      "links": 200
+    }
+  },
+  "advanced": {
+    "dataProcessor": {
+      "maxWorkers": 4,
+      "chunkProcessingTimeLimit": 16,
+      "processingStrategy": "incremental",
+      "useSharedArrayBuffer": false,
+      "enableIndexing": true,
+      "indexedProperties": ["name", "tribe", "birthYear", "deathYear", "location"]
+    },
+    "renderer": {
+      "webGLSettings": {
+        "antialias": true,
+        "preserveDrawingBuffer": false,
+        "alpha": true,
+        "powerPreference": "high-performance"
+      },
+      "svgOptimization": true,
+      "useRequestAnimationFrame": true,
+      "useWorkerForLayout": true,
+      "precomputeLayout": true,
+      "enablePixiRenderer": true
+    },
+    "caching": {
+      "localStorage": {
+        "enabled": true,
+        "ttl": 86400000,
+        "maxSize": 5242880
+      },
+      "sessionStorage": {
+        "enabled": true,
+        "maxItems": 50
+      },
+      "memoryCache": {
+        "enabled": true,
+        "maxSize": 10485760
+      }
+    },
+    "network": {
+      "retryAttempts": 3,
+      "retryDelay": 1000,
+      "timeout": 30000,
+      "useCorsProxy": false,
+      "corsProxyUrl": "https://your-secured-server-proxy.com/",
+      "fetchWithCredentials": false
+    }
+  },
+  "experimental": {
+    "features": {
+      "aiSuggestions": false,
+      "virtualReality": false,
+      "speechRecognition": false,
+      "geographicProjection": true,
+      "timelineAnimation": true,
+      "relationshipPrediction": true,
+      "themeCustomizer": true
+    },
+    "optimizations": {
+      "useGPUComputation": true,
+      "progressiveRendering": true,
+      "asyncDataLoading": true,
+      "virtualizedRendering": true
+    }
   }
+}
