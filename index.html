@@ -4,371 +4,800 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblical Genealogy Visualization</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <link rel="icon" href="favicon.png" type="image/png">
     <style>
+        /* Base Styles */
         :root {
-            --bg-primary: #f8f9fa;
-            --bg-secondary: #ffffff;
-            --text-primary: #333333;
-            --text-secondary: #6c757d;
-            --accent-primary: #5c6bc0;
-            --accent-secondary: #3949ab;
-            --border-color: #dee2e6;
-            --node-fill: #5c6bc0;
-            --node-stroke: #3949ab;
-            --link-stroke: #9fa8da;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --primary-color: #4682b4;
+            --secondary-color: #5f9dd6;
+            --text-color: #333;
+            --bg-color: #f9f9f9;
+            --panel-bg: #ffffff;
+            --border-color: #ddd;
+            --hover-color: #3a6d96;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --error-color: #d9534f;
+            --success-color: #5cb85c;
+            --warning-color: #f0ad4e;
         }
 
-        [data-theme="dark"] {
-            --bg-primary: #1a1a2e;
-            --bg-secondary: #16213e;
-            --text-primary: #e6e6e6;
-            --text-secondary: #a0a0a0;
-            --accent-primary: #7579e7;
-            --accent-secondary: #5c62c7;
-            --border-color: #374151;
-            --node-fill: #7579e7;
-            --node-stroke: #5c62c7;
-            --link-stroke: #9499e9;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        [data-theme="sepia"] {
-            --bg-primary: #f8f0e3;
-            --bg-secondary: #f1e5d2;
-            --text-primary: #5f4b32;
-            --text-secondary: #79654e;
-            --accent-primary: #b56b45;
-            --accent-secondary: #8f5539;
-            --border-color: #d3c6b0;
-            --node-fill: #b56b45;
-            --node-stroke: #8f5539;
-            --link-stroke: #d3a285;
-            --shadow: 0 4px 6px rgba(95, 75, 50, 0.1);
-        }
-
-        [data-theme="contrast"] {
-            --bg-primary: #000000;
-            --bg-secondary: #121212;
-            --text-primary: #ffffff;
-            --text-secondary: #f0f0f0;
-            --accent-primary: #ffff00;
-            --accent-secondary: #ffd700;
-            --border-color: #ffffff;
-            --node-fill: #ffff00;
-            --node-stroke: #ffd700;
-            --link-stroke: #ffffe0;
-            --shadow: 0 4px 6px rgba(255, 255, 255, 0.2);
+        /* Dark Theme Variables */
+        body.dark-theme {
+            --primary-color: #5f9dd6;
+            --secondary-color: #4682b4;
+            --text-color: #f0f0f0;
+            --bg-color: #222;
+            --panel-bg: #333;
+            --border-color: #444;
+            --hover-color: #6fa8d6;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
             margin: 0;
-            padding: 20px;
-            transition: all 0.3s ease;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: background-color 0.3s, color 0.3s;
+            line-height: 1.6;
         }
 
-        #controls {
+        /* Loader Styles */
+        .loader {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: var(--bg-secondary);
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-            z-index: 1000;
-        }
-
-        button {
-            background-color: var(--accent-primary);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: var(--accent-secondary);
-        }
-
-        #tree-container {
+            top: 0;
+            left: 0;
             width: 100%;
-            height: calc(100vh - 40px);
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            flex-direction: column;
+            transition: background-color 0.3s;
+        }
+
+        body.dark-theme .loader {
+            background-color: rgba(34, 34, 34, 0.9);
+        }
+
+        .progress-container {
+            width: 80%;
+            max-width: 500px;
+            height: 10px;
+            background-color: #ddd;
+            border-radius: 5px;
+            margin: 15px 0;
             overflow: hidden;
         }
 
-        .node circle {
-            fill: var(--node-fill);
-            stroke: var(--node-stroke);
-            stroke-width: 2px;
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
         }
 
-        .node text {
-            font: 12px sans-serif;
-            fill: var(--text-primary);
+        .loader-status {
+            font-size: 16px;
+            color: var(--text-color);
+            margin-top: 10px;
+            text-align: center;
         }
 
-        .link {
-            fill: none;
-            stroke: var(--link-stroke);
-            stroke-width: 2px;
+        .error-container {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: rgba(217, 83, 79, 0.1);
+            border: 1px solid var(--error-color);
         }
 
-        .tooltip {
-            position: absolute;
-            padding: 10px;
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            pointer-events: none;
-            font-size: 14px;
+        .error-message {
+            color: var(--error-color);
+            margin-bottom: 15px;
+        }
+
+        .recovery-options {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(70, 130, 180, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Header and Navigation */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
             box-shadow: var(--shadow);
-            max-width: 300px;
+            transition: background-color 0.3s;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a, .nav-links button {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover, .nav-links button:hover {
+            opacity: 0.8;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Main Content */
+        main {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            min-height: calc(100vh - 60px);
+        }
+
+        .controls-panel {
+            background-color: var(--panel-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .view-modes {
+            display: flex;
+            gap: 10px;
+        }
+
+        .view-mode-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .view-mode-btn:hover {
+            background-color: var(--hover-color);
+        }
+
+        .view-mode-btn.active {
+            background-color: var(--hover-color);
+            font-weight: bold;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-group label {
+            font-weight: bold;
+        }
+
+        select, button {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            background-color: var(--panel-bg);
+            color: var(--text-color);
+            transition: all 0.2s;
+        }
+
+        select:focus, button:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(70, 130, 180, 0.2);
+        }
+
+        button {
+            cursor: pointer;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+        }
+
+        button:hover {
+            background-color: var(--hover-color);
+        }
+
+        /* Visualization Container */
+        .visualization-container {
+            flex: 1;
+            background-color: var(--panel-bg);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        #visualization {
+            width: 100%;
+            height: 100%;
+            min-height: 500px;
+        }
+
+        /* Timeline Component */
+        .timeline-container {
+            margin-top: 1rem;
+            background-color: var(--panel-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        #timeline {
+            width: 100%;
+            height: 100px;
+            overflow-x: auto;
+        }
+
+        /* Node Details */
+        .node-details {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            background-color: var(--panel-bg);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            display: none;
+            z-index: 100;
+            max-height: 80%;
+            overflow-y: auto;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .node-details h2 {
+            margin-top: 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .close-details {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        /* Export Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--panel-bg);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .export-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .controls-panel {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .view-modes, .filter-group {
+                width: 100%;
+            }
+
+            .node-details {
+                width: 80%;
+                left: 10%;
+                right: 10%;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+
+        /* Button styles */
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--error-color);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Theme Toggle */
+        #theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        #theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script src="genealogy-data-utils.js"></script>
+    <script src="d3-renderer.js"></script>
+    <script src="visualization.js"></script>
+    <script src="app.js"></script>
 </head>
 <body>
-    <div id="controls">
-        <button onclick="changeTheme('light')">Light</button>
-        <button onclick="changeTheme('dark')">Dark</button>
-        <button onclick="changeTheme('sepia')">Sepia</button>
-        <button onclick="changeTheme('contrast')">High Contrast</button>
-        <button onclick="resetZoom()">Reset Zoom</button>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <div class="progress-container">
+            <div class="progress-bar" id="loading-progress"></div>
+        </div>
+        <p class="loader-status" id="loading-status">Initializing application...</p>
+        <div class="error-container" id="error-container">
+            <p class="error-message" id="error-message"></p>
+            <div class="recovery-options">
+                <button class="btn btn-primary" id="retry-button">Retry Loading</button>
+                <button class="btn btn-warning" id="load-backup">Use Backup Data</button>
+            </div>
+        </div>
     </div>
-    <div id="tree-container"></div>
+
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <div class="logo">Biblical Genealogy Visualization</div>
+            <div class="nav-links">
+                <a href="#" id="about-link">About</a>
+                <a href="#" id="export-link">Export</a>
+                <a href="#" id="help-link">Help</a>
+                <button id="theme-toggle">🌙</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Controls Panel -->
+        <div class="controls-panel">
+            <div class="view-modes">
+                <button class="view-mode-btn active" data-mode="tree">Tree View</button>
+                <button class="view-mode-btn" data-mode="network">Network View</button>
+                <button class="view-mode-btn" data-mode="timeline">Timeline View</button>
+            </div>
+            
+            <div class="filter-group">
+                <label for="lineage-filter">Lineage:</label>
+                <select id="lineage-filter">
+                    <option value="all">All Lineages</option>
+                    <option value="seth">Seth's Line</option>
+                    <option value="abraham">Abraham's Line</option>
+                    <option value="david">David's Line</option>
+                    <option value="messianic">Messianic Line</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="generation-filter">Generation:</label>
+                <select id="generation-filter">
+                    <option value="all">All Generations</option>
+                    <option value="1-5">1-5</option>
+                    <option value="6-10">6-10</option>
+                    <option value="11-20">11-20</option>
+                    <option value="21+">21+</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="time-filter">Time Period:</label>
+                <select id="time-filter">
+                    <option value="all">All Time</option>
+                    <option value="pre-flood">Pre-Flood</option>
+                    <option value="post-flood">Post-Flood</option>
+                    <option value="patriarchs">Patriarchal Era</option>
+                    <option value="exodus">Exodus to Kingdom</option>
+                    <option value="kingdom">Kingdom Period</option>
+                    <option value="exile">Exile to Jesus</option>
+                </select>
+            </div>
+            
+            <button id="reset-filters">Reset Filters</button>
+        </div>
+
+        <!-- Visualization Area -->
+        <div class="visualization-container">
+            <div id="visualization"></div>
+            
+            <!-- Node Details Panel -->
+            <div class="node-details" id="node-details">
+                <button class="close-details" id="close-details">×</button>
+                <h2 id="node-name">Person Name</h2>
+                <div id="node-info"></div>
+            </div>
+        </div>
+
+        <!-- Timeline Component -->
+        <div class="timeline-container">
+            <div id="timeline"></div>
+        </div>
+    </main>
+
+    <!-- Export Modal -->
+    <div class="modal" id="export-modal">
+        <div class="modal-content">
+            <button class="close-modal" id="close-export-modal">×</button>
+            <h2>Export Visualization</h2>
+            <div class="export-options">
+                <button class="btn btn-primary" id="export-png">Export as PNG</button>
+                <button class="btn btn-primary" id="export-svg">Export as SVG</button>
+                <button class="btn btn-primary" id="export-data">Export Data (JSON)</button>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // Theme switching functionality
-        function changeTheme(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-        }
-
-        // Initialize D3 visualization
-        const margin = {top: 20, right: 90, bottom: 20, left: 90};
-        const width = window.innerWidth - margin.left - margin.right;
-        const height = window.innerHeight - margin.top - margin.bottom;
-
-        // Create SVG container
-        const svg = d3.select("#tree-container")
-            .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", `translate(${margin.left},${margin.top})`);
-
-        // Add zoom behavior
-        const zoom = d3.zoom()
-            .scaleExtent([0.1, 3])
-            .on("zoom", (event) => {
-                svg.attr("transform", event.transform);
-            });
-
-        d3.select("#tree-container svg")
-            .call(zoom);
-
-        function resetZoom() {
-            d3.select("#tree-container svg")
-                .transition()
-                .duration(750)
-                .call(zoom.transform, d3.zoomIdentity);
-        }
-
-        // Create tooltip
-        const tooltip = d3.select("body")
-            .append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0);
-        // Sample Biblical genealogy data
-        const genealogyData = {
-            id: "adam",
-            name: "Adam",
-            birth: "Creation",
-            death: "930 years after creation",
-            description: "First man created by God",
-            references: ["Genesis 1:26-27", "Genesis 2:7", "Genesis 5:5"],
-            children: [
-                {
-                    id: "seth",
-                    name: "Seth",
-                    birth: "130 years after creation",
-                    death: "1042 years after creation",
-                    description: "Third son of Adam and Eve, born after Abel's death",
-                    references: ["Genesis 4:25", "Genesis 5:3-8"],
-                    children: [
-                        {
-                            id: "enosh",
-                            name: "Enosh",
-                            birth: "235 years after creation",
-                            death: "1140 years after creation",
-                            description: "Son of Seth",
-                            references: ["Genesis 5:6-11"],
-                            children: [
-                                {
-                                    id: "kenan",
-                                    name: "Kenan",
-                                    birth: "325 years after creation",
-                                    death: "1235 years after creation",
-                                    description: "Son of Enosh",
-                                    references: ["Genesis 5:9-14"],
-                                    children: [
-                                        {
-                                            id: "mahalalel",
-                                            name: "Mahalalel",
-                                            birth: "395 years after creation",
-                                            death: "1290 years after creation",
-                                            description: "Son of Kenan",
-                                            references: ["Genesis 5:12-17"],
-                                            children: [
-                                                {
-                                                    id: "jared",
-                                                    name: "Jared",
-                                                    birth: "460 years after creation",
-                                                    death: "1422 years after creation",
-                                                    description: "Son of Mahalalel",
-                                                    references: ["Genesis 5:15-20"],
-                                                    children: [
-                                                        {
-                                                            id: "enoch",
-                                                            name: "Enoch",
-                                                            birth: "622 years after creation",
-                                                            death: "987 years after creation",
-                                                            description: "Son of Jared, walked with God",
-                                                            references: ["Genesis 5:18-24"],
-                                                            children: [
-                                                                {
-                                                                    id: "methuselah",
-                                                                    name: "Methuselah",
-                                                                    birth: "687 years after creation",
-                                                                    death: "1656 years after creation",
-                                                                    description: "Son of Enoch, lived longest of all recorded in Bible",
-                                                                    references: ["Genesis 5:21-27"],
-                                                                    children: [
-                                                                        {
-                                                                            id: "lamech",
-                                                                            name: "Lamech",
-                                                                            birth: "874 years after creation",
-                                                                            death: "1651 years after creation",
-                                                                            description: "Son of Methuselah, father of Noah",
-                                                                            references: ["Genesis 5:25-31"],
-                                                                            children: [
-                                                                                {
-                                                                                    id: "noah",
-                                                                                    name: "Noah",
-                                                                                    birth: "1056 years after creation",
-                                                                                    death: "2006 years after creation",
-                                                                                    description: "Built the ark, survived the flood",
-                                                                                    references: ["Genesis 5:29", "Genesis 9:29"],
-                                                                                    children: [
-                                                                                        {
-                                                                                            id: "shem",
-                                                                                            name: "Shem",
-                                                                                            birth: "1558 years after creation",
-                                                                                            death: "2158 years after creation",
-                                                                                            description: "Firstborn son of Noah",
-                                                                                            references: ["Genesis 5:32", "Genesis 11:10-11"],
-                                                                                            children: []
-                                                                                        }
-                                                                                    ]
-                                                                                }
-                                                                            ]
-                                                                        }
-                                                                    ]
-                                                                }
-                                                            ]
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        };
-
-        // Create tree layout
-        const treeLayout = d3.tree().size([height, width]);
-
-        // Configure the tree data
-        const root = d3.hierarchy(genealogyData);
-        treeLayout(root);
-
-        // Create links
-        const links = svg.selectAll(".link")
-            .data(root.links())
-            .enter()
-            .append("path")
-            .attr("class", "link")
-            .attr("d", d3.linkHorizontal()
-                .x(d => d.y)
-                .y(d => d.x));
-
-        // Create nodes
-        const nodes = svg.selectAll(".node")
-            .data(root.descendants())
-            .enter()
-            .append("g")
-            .attr("class", "node")
-            .attr("transform", d => `translate(${d.y},${d.x})`)
-            .on("mouseover", function(event, d) {
-                tooltip.transition()
-                    .duration(200)
-                    .style("opacity", .9);
-                
-                // Create tooltip content
-                let tooltipContent = `
-                    <strong>${d.data.name}</strong><br>
-                    ${d.data.birth ? "Birth: " + d.data.birth + "<br>" : ""}
-                    ${d.data.death ? "Death: " + d.data.death + "<br>" : ""}
-                    ${d.data.description ? "Description: " + d.data.description + "<br>" : ""}
-                    ${d.data.references ? "References: " + d.data.references.join(", ") : ""}
-                `;
-                
-                tooltip.html(tooltipContent)
-                    .style("left", (event.pageX + 10) + "px")
-                    .style("top", (event.pageY - 28) + "px");
-            })
-            .on("mouseout", function() {
-                tooltip.transition()
-                    .duration(500)
-                    .style("opacity", 0);
-            });
-
-        // Add circles to nodes
-        nodes.append("circle")
-            .attr("r", 6);
-
-        // Add text labels to nodes
-        nodes.append("text")
-            .attr("dy", ".35em")
-            .attr("x", d => d.children ? -12 : 12)
-            .style("text-anchor", d => d.children ? "end" : "start")
-            .text(d => d.data.name);
-
-        // Function to toggle node expansion
-        function toggleNode(d) {
-            if (d.children) {
-                d._children = d.children;
-                d.children = null;
+        // Initialize loading progress
+        let loadingProgress = 0;
+        
+        // Update loading progress bar
+        function updateLoadingProgress(progress) {
+            loadingProgress = progress;
+            const progressBar = document.getElementById('loading-progress');
+            progressBar.style.width = `${progress}%`;
+            
+            // Update status message based on progress
+            const statusElement = document.getElementById('loading-status');
+            if (progress < 25) {
+                statusElement.textContent = 'Loading core modules...';
+            } else if (progress < 50) {
+                statusElement.textContent = 'Loading data utilities...';
+            } else if (progress < 75) {
+                statusElement.textContent = 'Loading visualization engine...';
+            } else if (progress < 100) {
+                statusElement.textContent = 'Finalizing setup...';
             } else {
-                d.children = d._children;
-                d._children = null;
+                statusElement.textContent = 'Ready!';
+                // Hide loader after a short delay to show "Ready!" message
+                setTimeout(() => {
+                    document.getElementById('loader').style.display = 'none';
+                }, 500);
             }
-            update(d);
         }
-
-        // Initialize with the light theme
-        changeTheme("light");
+        
+        // Show loading error
+        function showLoadingError(message) {
+            document.getElementById('error-container').style.display = 'block';
+            document.getElementById('error-message').textContent = message;
+            document.getElementById('loading-status').textContent = 'Error loading application';
+        }
+        
+        // Utility function to load scripts with error handling
+        function loadScript(url, callback) {
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = url;
+            
+            script.onload = function() {
+                callback(null);
+            };
+            
+            script.onerror = function() {
+                callback(new Error(`Failed to load script: ${url}`));
+            };
+            
+            document.head.appendChild(script);
+        }
+        
+        // Load scripts in sequence to ensure dependencies are met
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start by updating progress to show initial loading
+            updateLoadingProgress(10);
+            
+            // First load genealogy data utilities
+            loadScript('genealogy-data-utils.js', function(err) {
+                if (err) {
+                    showLoadingError('Failed to load data utilities. This might be due to a file missing or a server issue.');
+                    return;
+                }
+                
+                updateLoadingProgress(40);
+                
+                // Then load renderer
+                loadScript('d3-renderer.js', function(err) {
+                    if (err) {
+                        showLoadingError('Failed to load visualization renderer.');
+                        return;
+                    }
+                    
+                    updateLoadingProgress(70);
+                    
+                    // Then load visualization
+                    loadScript('visualization.js', function(err) {
+                        if (err) {
+                            showLoadingError('Failed to load visualization module.');
+                            return;
+                        }
+                        
+                        updateLoadingProgress(90);
+                        
+                        // Finally load the application
+                        loadScript('app.js', function(err) {
+                            if (err) {
+                                showLoadingError('Failed to initialize application.');
+                                return;
+                            }
+                            
+                            updateLoadingProgress(100);
+                            
+                            // Initialize visualization features after loading
+                            initializeVisualizationFeatures();
+                        });
+                    });
+                });
+            });
+        });
+        
+        // Add event listeners for error recovery
+        document.getElementById('retry-button').addEventListener('click', function() {
+            location.reload();
+        });
+        
+        document.getElementById('load-backup').addEventListener('click', function() {
+            // Set a flag to use backup data on next load
+            localStorage.setItem('useBackupData', 'true');
+            location.reload();
+        });
+        
+        // Theme toggle functionality
+        document.getElementById('theme-toggle').addEventListener('click', function() {
+            const body = document.body;
+            const themeButton = document.getElementById('theme-toggle');
+            
+            if (body.classList.contains('dark-theme')) {
+                body.classList.remove('dark-theme');
+                themeButton.textContent = '🌙'; // moon emoji for switching to dark mode
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark-theme');
+                themeButton.textContent = '☀️'; // sun emoji for switching to light mode
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        
+        // Apply saved theme on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                document.getElementById('theme-toggle').textContent = '☀️';
+            }
+        });
+        
+        // Initialize visualization features
+        function initializeVisualizationFeatures() {
+            // Setup view mode switching
+            const viewModeButtons = document.querySelectorAll('.view-mode-btn');
+            viewModeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    viewModeButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get the selected mode
+                    const mode = this.getAttribute('data-mode');
+                    
+                    // Store the selected mode in localStorage
+                    localStorage.setItem('viewMode', mode);
+                    
+                    // Trigger mode change in visualization
+                    if (window.BiblicalVisualization && typeof window.BiblicalVisualization.setViewMode === 'function') {
+                        window.BiblicalVisualization.setViewMode(mode);
+                    } else {
+                        console.warn('Visualization module not fully loaded or setViewMode function not available');
+                    }
+                });
+            });
+            
+            // Initialize with previously selected view mode if available
+            const savedViewMode = localStorage.getItem('viewMode');
+            if (savedViewMode) {
+                const modeButton = document.querySelector(`.view-mode-btn[data-mode="${savedViewMode}"]`);
+                if (modeButton) {
+                    modeButton.click();
+                }
+            }
+            
+            // Setup filter handling
+            document.getElementById('reset-filters').addEventListener('click', function() {
+                document.getElementById('lineage-filter').value = 'all';
+                document.getElementById('generation-filter').value = 'all';
+                document.getElementById('time-filter').value = 'all';
+                
+                // Trigger filter reset in visualization
+                if (window.BiblicalVisualization && typeof window.BiblicalVisualization.resetFilters === 'function') {
+                    window.BiblicalVisualization.resetFilters();
+                }
+            });
+            
+            // Handle filter changes
+            const filters = document.querySelectorAll('select[id$="-filter"]');
+            filters.forEach(filter => {
+                filter.addEventListener('change', function() {
+                    // Collect all filter values
+                    const filterValues = {
+                        lineage: document.getElementById('lineage-filter').value,
+                        generation: document.getElementById('generation-filter').value,
+                        timePeriod: document.getElementById('time-filter').value
+                    };
+                    
+                    // Apply filters to visualization
+                    if (window.BiblicalVisualization && typeof window.BiblicalVisualization.applyFilters === 'function') {
+                        window.BiblicalVisualization.applyFilters(filterValues);
+                    }
+                });
+            });
+            
+            // Setup export functionality
+            document.getElementById('export-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('export-modal').style.display = 'flex';
+            });
+            
+            document.getElementById('close-export-modal').addEventListener('click', function() {
+                document.getElementById('export-modal').style.display = 'none';
+            });
+            
+            // Close modal when clicking outside content
+            document.getElementById('export-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                }
+            });
+            
+            // Export buttons functionality
+            document.getElementById('export-png').addEventListener('click', function() {
+                if (window.BiblicalVisualization && typeof window.BiblicalVisualization.exportToPNG === 'function') {
+                    window.BiblicalVisualization.exportToPNG();
+                } else {
+                    alert('Export functionality not available yet.');
+                }
+            });
+            
+            document.getElementById('export-svg').addEventListener('click', function() {
+                if (window.BiblicalVisualization && typeof window.BiblicalVisualization.exportToSVG === 'function') {
+                    window.BiblicalVisualization.exportToSVG();
+                } else {
+                    alert('Export functionality not available yet.');
+                }
+            });
+            
+            document.getElementById('export-data').addEventListener('click', function() {
+                if (window.BiblicalVisualization && typeof window.BiblicalVisualization.exportData === 'function') {
+                    window.BiblicalVisualization.exportData();
+                } else {
+                    alert('Export functionality not available yet.');
+                }
+            });
+            
+            // Node details handling
+            document.getElementById('close-details').addEventListener('click', function() {
+                document.getElementById('node-details').style.display = 'none';
+            });
+        }
     </script>
 </body>
 </html>
